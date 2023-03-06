@@ -1,5 +1,0 @@
-export const ACTION_STATES = {
-  REQUEST: "_REQUEST",
-  SUCCESS: "_SUCCESS",
-  FAILURE: "_FAILURE",
-};
