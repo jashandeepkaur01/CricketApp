@@ -1,0 +1,5 @@
+- Create different environment files for local, development, staging and production.
+- Always put these environment files in git ignore.
+- Always create a .env.sample and put it to version control.
+- Setup environment files for development, staging and production and use .env.local.
+- See package.json for start and build commands. 
