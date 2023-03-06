@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "baseUrl": "src",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src"],
+  "exclude": ["dist", "node_modules"]
+}
