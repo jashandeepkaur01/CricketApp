@@ -7,6 +7,7 @@ import React, { useState } from "react";
       {props.label && <label htmlFor="input-field">{props.label}</label>}
       <input
         type={props.type}
+        name={props.name}
         value={props.value}
         className="form-control w-75"
         placeholder={props.placeholder}

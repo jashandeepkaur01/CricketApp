@@ -9,22 +9,18 @@ export function AddPlayer() {
   const content = "Add content";
   const [data, setData] = useState({
     playerNo: "",
-    country: "",
+    country: ""
   });
 
   const handleClick = () => {
     setShowModal(!showModal);
   };
   const handleChange = (e) => {
-    setData({
+    setData({...data,
       [e.target.name]: e.target.value,
     });
-    console.log(data)
   };
 
-  function temp() {
-    console.log(data);
-  }
   return (
     <div>
       <button
@@ -53,13 +49,6 @@ export function AddPlayer() {
             onChange={handleChange}
           />
           <br />
-          <InputField
-            name="country"
-            type="text"
-            placeholder="Enter the country name"
-            value={data.country}
-            onChange={handleChange}
-          />
         </form>
       </Modal>
     </div>
