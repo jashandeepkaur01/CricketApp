@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 
+
 import { useNetworkStatus } from "Hooks/NetworkStatus";
 
 const AppLayout = ({ isAuthenticated, children }) => {
@@ -8,9 +9,9 @@ const AppLayout = ({ isAuthenticated, children }) => {
 
   return (
     <>
-      error Msg: {errorMsg}
-      network status: {networkStatus ? "online" : "offline"}
-      {children}
+     error Msg:{errorMsg}
+     networkStatus:{networkStatus? "online ":"offline"}
+    {children}
     </>
   );
 };

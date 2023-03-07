@@ -10,3 +10,4 @@ export const STATUS_CODES = {
   UNAUTHORIZED: 401,
   BAD_REQUEST: 400,
 };
+
