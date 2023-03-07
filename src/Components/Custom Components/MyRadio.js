@@ -3,7 +3,7 @@ import CustomRadio from './CustomRadio'
 
 function MyRadio() {
     const name="gender";
-    const arr = ["male","female","other","fsgjshfg","fghsudf"]
+    const arr = ["male","female","other"]
   return (
     <div>
         <h2>Radio Button</h2>
