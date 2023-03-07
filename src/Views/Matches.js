@@ -1,16 +1,42 @@
 import axios from 'axios'
+import { Modal } from 'Components/Modal';
 import React, { useEffect } from 'react'
 import { applyMiddleware } from 'redux'
+import { useState } from "react";
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import { InputField } from 'Components/InputField';
 
 function Matches() {
-    
-  useEffect(()=>{
-    axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/matches.json")
-    .then((result)=>{console.log(result.data['-NPucxbsq7qJVP_1jgsf'])})
-  },[])
+    const [showModal, setShowModal] = useState(false);
+    const title = "Add record";
+    const content = "Add content";
+    const [value, setValue] = useState("");
+    const handleClick = () => {
+      setShowModal(!showModal);
+    };
+    const handleChange = (e) => {
+        setValue(e.target.value)
+    };
+
+    useEffect(()=>{
+        axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/matches.json")
+        .then((result)=>{console.log(result.data['-NPucxbsq7qJVP_1jgsf'])})
+    },[])
 
     return (
-    <div>Matches</div>
+    <div>Matches
+        <i class="bi bi-x-circle"></i>
+
+        <button className="btn1" onClick={handleClick}>
+            Open Modal
+        </button>
+        <Modal
+            visible={showModal}
+            title={title}
+            toggleModal={handleClick}
+        ><InputField  label="hello" type="" value="" onChange={handleChange} placeholder="hello"/>
+        </Modal>
+    </div>
   )
 }
 

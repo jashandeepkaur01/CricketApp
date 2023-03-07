@@ -1,0 +1,41 @@
+.container {
+  height: 500px;
+  width: 600px;
+  background: lightgrey;
+}
+
+header {
+  margin-left: -12px;
+  height: 50px;
+  width: 550px;
+  background-color: rgb(10, 7, 8);
+  /* text-align: center; */
+  color: aliceblue;
+  padding-top: 10px;
+  padding-left: 20px;
+  font-size: 20px;
+}
+
+.header {
+  display: flex;
+  background-color: black;
+  color: white;
+  width: 600px;
+  justify-content: space-evenly;
+  margin-left: -12px;
+}
+
+.content {
+  padding-top: 20px;
+  padding-left: 10px;
+  height: 400px;
+  width: 600px;
+}
+
+#icon {
+  padding-top: 12px;
+}
+
+#btn{
+  
+}
