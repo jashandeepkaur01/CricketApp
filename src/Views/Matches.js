@@ -34,7 +34,7 @@ function Matches() {
             visible={showModal}
             title={title}
             toggleModal={handleClick}
-        ><InputField  label="hello" type="" value="" onChange={handleChange} placeholder="hello"/>
+        ><InputField  label="hello" type="" value={value} onChange={handleChange} placeholder="hello"/>
         </Modal>
     </div>
   )
