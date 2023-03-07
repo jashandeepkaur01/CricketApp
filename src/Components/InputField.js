@@ -1,20 +1,16 @@
 import React, { useState } from "react";
 
- export const InputField = ({ value, label, placeholder, type, onChange }) => {
-  const handleChange = (e) => {
-    const { value } = e.target.value;
-    onChange(value);
-  };
-
+ export const InputField = (props) => {
+  
   return (
     <div className="form-group">
-      {label && <label htmlFor="input-field">{label}</label>}
+      {props.label && <label htmlFor="input-field">{props.label}</label>}
       <input
-        type={type}
-        value={value}
+        type={props.type}
+        value={props.value}
         className="form-control w-75"
-        placeholder={placeholder}
-        onChange={handleChange}
+        placeholder={props.placeholder}
+        onChange={props.onChange}
       />
     </div>
   );

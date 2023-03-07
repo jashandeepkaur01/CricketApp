@@ -2,26 +2,26 @@ import React from 'react'
 import './Modal.css'
 
 
-export function Modal({visible,title,children,toggleModal}) {
+export function Modal(props) {
 
     const handleSubmit =()=>{
 
-      toggleModal();
+      props.toggleModal();
     }
-    if(!visible){
+    if(!props.visible){
       return null;
     }
 
     const handleClick=()=>{
-      toggleModal();
+      props.toggleModal();
     }
   return (
     <div className='container'>
     <div className='header'>
-    <header>{title}</header>
+    <header>{props.title}</header>
     <i id="icon" onClick={handleClick} className="bi bi-x-circle"></i>
     </div>
-    <div className='content'>{children}</div>
+    <div className='content'>{props.children}</div>
     <button type="button" id="btn" class="btn btn-secondary" onClick={handleSubmit}>Submit</button>
     </div>
   )
