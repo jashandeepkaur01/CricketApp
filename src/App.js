@@ -9,6 +9,7 @@ function App() {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <RootRouter />
+        IN APP
       </PersistGate>
     </Provider>
   );
