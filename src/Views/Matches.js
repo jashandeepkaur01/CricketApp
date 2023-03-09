@@ -3,8 +3,8 @@ import { Modal } from 'Components/Modal';
 import React, { useEffect } from 'react'
 import { useState } from "react";
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import Team from 'Components/Custom Components/Table/Table';
 import { API_URLS } from 'Services/Api/Constants';
+import CustomTable from 'Components/Custom Components/Table/Table';
 
 function Matches() {
     const [showModal, setShowModal] = useState(false);
@@ -56,7 +56,7 @@ function Matches() {
             title={title}
             toggleModal={handleClick}
         />
-        <Team tableContent={tableContent} headingDetails={headingDetails}/>
+        <CustomTable tableContent={tableContent} headingDetails={headingDetails}/>
     </div>
   )
 }
