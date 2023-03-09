@@ -1,14 +1,9 @@
 import React from "react";
-// import CreateRadio from "./Custom Components/CreateRadio";
-import MyRadio from "./Custom Components/MyRadio";
 import Navbar from "./Navbar";
 
 function Home() {
   return (
     <div>
-    <MyRadio/>
-    {/* <CreateRadio/> */}
-
       <Navbar />
       <h2>Home Component</h2>
       <div className="homeOuter">
