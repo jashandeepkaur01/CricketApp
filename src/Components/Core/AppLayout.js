@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-
 import { useNetworkStatus } from "Hooks/NetworkStatus";
 import PlayerRecords from "PlayerRecords";
 import Addplayer from "Addplayer";
@@ -8,7 +7,9 @@ import Addplayer from "Addplayer";
 
 
 
+
 const AppLayout = ({ isAuthenticated, children }) => {
+
   const errorMsg = useSelector((state) => state.error.msg);
   const networkStatus = useNetworkStatus();
 
