@@ -16,7 +16,7 @@ const AppLayout = ({ isAuthenticated, children }) => {
   return (
     <>
    <Addplayer/>
-      <PlayerRecords/>
+      {/* <PlayerRecords/> */}
 {/*       
      error Msg:{errorMsg}
      networkStatus:{networkStatus? "online ":"offline"} */}

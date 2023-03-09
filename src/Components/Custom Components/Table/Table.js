@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Pagination from "./Pagination";
+import '../../../../src/App.scss'
 
-export default function CustomTable({ tableContent, headingDetails }) {
+export default function CustomTable({ tableContent, headingDetails,handle }) {
   // console.log(tableContent)
-  const [showperpage, setShowperPage] = useState(11);
+  const [showperpage, setShowperPage] = useState(5);
   const [paginate, setPaginate] = useState({
     start: 0,
     end: showperpage
@@ -20,8 +21,12 @@ export default function CustomTable({ tableContent, headingDetails }) {
     <>
 
       <div className=" justify-content-center w-100 p-5">
+      <div id="fl" className="btn-end">
+          <button className='btn btn-primary btn-end' onClick={handle}>Add Players</button>
+          </div>
 
         <table className="table  table-warning">
+    
           <thead className='table table-dark'>
             <tr>
               {headingDetails.map(val =>
@@ -31,6 +36,7 @@ export default function CustomTable({ tableContent, headingDetails }) {
                   </div >
                 </th>
               )}
+             
             </tr>
           </thead>
           {tableContent.length ?

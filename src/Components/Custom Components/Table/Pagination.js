@@ -36,7 +36,7 @@ useEffect(()=>{
     <div className='p-5 d-flex justify-content-center w-100'>
       {counter>1?<button className='btn btn-primary px-5' onClick={()=>{onButtonClick('prev')}}>Back</button>:null}
     <label className="mx-5 my-2">{counter}</label>
-    {total>4&&(Math.ceil(total/11))!==counter?<button className='btn btn-primary px-5' onClick={()=>{onButtonClick('next')}}>Next</button>:null}
+    {total>4&&(Math.ceil(total/showperPage))!==counter?<button className='btn btn-primary px-5' onClick={()=>{onButtonClick('next')}}>Next</button>:null}
     </div>
     </>
 
