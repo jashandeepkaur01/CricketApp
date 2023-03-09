@@ -1,55 +1,41 @@
-import { InputField } from "Components/InputField";
 import React from "react";
 import { Modal } from "Components/Modal";
 import { useState } from "react";
+import Form from "./Form";
+// import { InputField } from "Components/InputField";
 
 export function AddPlayer() {
-  const [showModal, setShowModal] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  
   const title = "Add record";
-  const content = "Add content";
+  // const content = "Add content";
+
   const [data, setData] = useState({
     playerNo: "",
     country: ""
   });
 
-  const handleClick = () => {
-    setShowModal(!showModal);
+  const handleShowModal = () => {
+    setIsModalVisible(true);
   };
-  const handleChange = (e) => {
-    setData({...data,
-      [e.target.name]: e.target.value,
-    });
-  };
+
+  const handleSubmitModal = () =>{
+    console.log('playerData : ', data);
+    setIsModalVisible(!isModalVisible);
+  }
 
   return (
     <div>
       <button
         type="button"
         id="btn"
-        class="btn btn-primary"
-        onClick={handleClick}
+        className="btn btn-primary"
+        onClick={handleShowModal}
       >
         Add Player
       </button>
-      <Modal visible={showModal} title={title} toggleModal={handleClick}>
-        <form>
-          <InputField
-            name="playerNo"
-            type="number"
-            placeholder="Enter the player No."
-            value={data.playerNo}
-            onChange={handleChange}
-          />
-          <br />
-          <InputField
-            name="country"
-            type="text"
-            placeholder="Enter the country name"
-            value={data.country}
-            onChange={handleChange}
-          />
-          <br />
-        </form>
+      <Modal visible={isModalVisible} title={title} setIsModalVisible={setIsModalVisible} submitModal={handleSubmitModal}>
+        <Form data={data} setData={setData}/>
       </Modal>
     </div>
   );

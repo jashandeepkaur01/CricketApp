@@ -9,6 +9,7 @@ import React from "react";
 import { useState } from "react";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { AddPlayer } from "Forms/AddPlayer";
+import AddTeam from "Forms/AddTeam";
 
 
 function App() {
@@ -16,7 +17,9 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-      <AddPlayer/>
+      {/* <AddPlayer/> */}
+        <AddTeam/>
+        {/* <Modal /> */}
       </PersistGate>
     </Provider>
   );

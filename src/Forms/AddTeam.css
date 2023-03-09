@@ -1,0 +1,16 @@
+
+.bar{
+    display: flex;
+    height: 80px;
+}
+.bar .btn{
+  float: right;
+  margin: 10px 20px;
+}
+.para{
+  color: blue;
+}
+.table{
+  padding-top: 30px;
+}
+  
