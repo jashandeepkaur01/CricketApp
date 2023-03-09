@@ -1,6 +1,7 @@
 import axios from 'axios';
+import CustomTable from 'Components/Custom Components/Table/Table';
 import React, { useEffect, useState } from 'react'
-import TableName from './TableName';
+
 
 export default function PlayerRecords() {
     // const[user,setUser]=useState({
@@ -109,7 +110,7 @@ export default function PlayerRecords() {
       <br/>
       <input type="submit" className='btn btn-primary' value="submit" />
       </form>
-      <TableName theading={arrays} main={s}/>
+      <CustomTable headingDetails ={arrays} tableContent={s}/>
     </div>
   )
 }

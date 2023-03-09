@@ -1,58 +1,72 @@
-import React, { useState } from "react";
-
-// // import React from 'react'
-
-// // export default function Input() {
-// //   return (
-// //     <div>
-// //       <form action="">
-// //         <label htmlFor="">First Name</label>
-// //         <input type="text" name="" id="" />
-// //         <label htmlFor="">Last Name</label>
-// //         <input type="text" name="" id="" />
-// //         <label htmlFor="">Email</label>
-// //         <input type="text" name="" id="" />
-// //         <label htmlFor="">name</label>
-// //         <input type="text" name="" id="" />
-// //         <label htmlFor="">name</label>
-// //         <input type="text" name="" id="" />
-// //         <label htmlFor="">name</label>
-// //         <input type="text" name="" id="" />
-// //         <label htmlFor="">name</label>
-// //         <input type="text" name="" id="" />
-// //       </form>
-// //     </div>
-// //   )
-// // }
-// // import React from 'react'
-
-// // export default function Input() {
-// //   return (
-// //     <div>
-// //        <form >
-
-// // <div>
-// //     <label className='mx-2'>FirstName</label>
-// //     <input type="text" className="form-control round rounded-4"  placeholder='Enter FirstName'  required></input>
-// // </div>
-
-
-// // <div>
-// //     <label className='mx-2'>FirstName</label>
-// //     <input type="text" className="form-control my-2 round rounded-4"  placeholder='Enter FirstName' required></input>
-// // </div>
-
-// // <div>
-// //     <label className='mx-2'>FirstName</label>
-// //     <input type="text" className="form-control my-2 round rounded-4"  placeholder='Enter FirstName' required></input>
-// // </div>
-// // <input type="submit" value="Submit here" />
-// // </form>
-// //     </div>
-// //   )
-// // }
+import React, { useState,useEffect } from "react";
 export  const InputField = (props) => {
- 
+  const[user,setUser]=useState({
+    playername:"",
+    playerage:"",
+    playerCountry:"",
+    Jerseyyno:""
+});
+const [player,setPlayer]=useState([]);
+const[s,setS]=useState([]);
+// const[condn,setCondn]=useState(true);
+// const [arr,setArr]=useState([])
+const arrays=["Player name","Player age", "Player Country","JerseyyNo"];
+useEffect(()=>{
+    axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.json").then((response)=>{
+        let body=[];
+        for (let key in response.data){
+            body.push(response.data[key]);
+        }
+        setPlayer(body);
+        setS(body);
+        console.log("aaaaaaaaaaaaa");
+    })
+        },[])
+        const handle=(e)=>{
+            e.preventDefault();
+            if(user.playername===""||user.playerAge===""||user.Jerseyyno===""||user.playerCountry===""){
+                // setUserErr({...userErr,
+                //     firstnameError:true
+    
+                // });
+                return;
+            }
+            // if(user.lastname===""){
+            //     setUserErr({...userErr,
+            //         lastnameError:true
+    
+            //     });
+            //     return;
+            // }
+            else{
+            axios.post("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.json",{
+               playername: user.playername,
+              playerage: user.playerage,
+              playerCountry: user.playerCountry,
+              Jerseyyno: user.Jerseyyno,
+              
+            }).then((response)=>{
+            
+           
+            }).catch((error=>{
+                console.log(error);
+            }))
+            
+            setS([...s,{
+              playername:user.playername,
+           playerAge:  user.playerAge,
+           playerCountry:user.playerCountry,
+           Jerseyyno:user.Jerseyyno
+           }])
+           console.log(s,"abc");
+          setUser({
+            playername:"",
+            playerage:"",
+            playerCountry:"",
+            Jerseyyno:""
+          })
+        }
+    }  
  return (
    <div className="form-group">
  <label htmlFor="input-field">{props.label}</label>
