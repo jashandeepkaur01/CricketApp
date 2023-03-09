@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import TeamDropdown from './Custom Components/TeamDropdown';
 import { InputField } from './InputField';
 import './Modal.css'
 
@@ -31,6 +32,10 @@ export function Modal({visible,title,toggleModal}) {
     {/* {children} */}
     <div className='content'>
       {/* map */}
+      <TeamDropdown/>
+      <br/><br/>
+      <TeamDropdown/>
+      <br/>
       <InputField  label="Tournament Type" type="" value={value} onChange={handleChange} placeholder="hello"/>
     </div>
     <button type="button" id="btn" className="btn btn-secondary" onClick={handleSubmit}>Submit</button>
