@@ -4,7 +4,7 @@ import { useState } from "react";
 import Pagination from "Pagination";
 export default function TableName(props){
     // console.log(props.main,"");
-    const[showperpage,setShowperPage]=useState(5);
+    const[showperpage,setShowperPage]=useState(2);
     const [paginate,setPaginate]=useState({
         start:0,
         end:showperpage
@@ -30,8 +30,10 @@ export default function TableName(props){
     {props.main.slice(paginate.start,paginate.end).map((e)=>{
       return(
 <tr>
-      <td>{e.body}</td>
-      <td>{e.title}</td>
+      <td>{e.playername}</td>
+      <td>{e.playerage}</td>
+      <td>{e.playerCountry}</td>
+      <td>{e.Jerseyyno}</td>
     </tr>
       );
     })}
