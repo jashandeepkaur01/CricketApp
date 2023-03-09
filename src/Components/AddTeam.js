@@ -1,8 +1,13 @@
 import React from 'react'
+import Navbar from './Navbar'
 
 function AddTeam() {
   return (
-    <h2>Add Your Team Here</h2>
+    <>
+    <Navbar/>
+      <h2>Add Your Team Here</h2>
+    </>
+    
   )
 }
 

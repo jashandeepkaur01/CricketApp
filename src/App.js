@@ -6,12 +6,15 @@ import Home from "Components/Home";
 import AddPlayer from "Components/AddPlayer";
 import AddTeam from "Components/AddTeam";
 import ScheduleMatch from "Components/ScheduleMatch";
+import './App.css'
 
 function App() {
   return (
     
+
     <Provider store={store}>
       <PersistGate persistor={persistor}>
+
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
