@@ -1,41 +1,62 @@
 import axios from 'axios'
 import { Modal } from 'Components/Modal';
 import React, { useEffect } from 'react'
-import { applyMiddleware } from 'redux'
 import { useState } from "react";
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import { InputField } from 'Components/InputField';
+import Team from 'Components/Custom Components/Table/Table';
+import { API_URLS } from 'Services/Api/Constants';
 
 function Matches() {
     const [showModal, setShowModal] = useState(false);
-    const title = "Add record";
-    const content = "Add content";
-    const [value, setValue] = useState("");
+    const title = "Schedule Match";
+    const content = "Add Match";
+    const [matchData,setMatchData] = useState([{}]);
+    const [tableContent, setTableContent] = useState([{}])
+    const [headingDetails, setHeadingDetails] = useState([""])
+    
+    // console.log(tableContent,headingDetails)
     const handleClick = () => {
       setShowModal(!showModal);
     };
-    const handleChange = (e) => {
-        setValue(e.target.value)
-    };
 
     useEffect(()=>{
-        axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/matches.json")
-        .then((result)=>{console.log(result.data['-NPucxbsq7qJVP_1jgsf'])})
+        axios.get(API_URLS.MATCHES)
+        .then((result)=>{
+            setMatchData(result.data);
+            console.log(result);
+        })
+
     },[])
 
-    return (
-    <div>Matches
-        <i class="bi bi-x-circle"></i>
+    useEffect(()=>{
+        setTableContent(Object.values(matchData));
+    },[matchData])
 
+    useEffect(()=>{
+        setHeadingDetails(Object.keys(tableContent[0]));
+    },[tableContent])
+
+    // console.log
+    // console.log("Result ",typeof result,Object.values(result.data),Object.keys())
+    return (
+    <div>matches
         <button className="btn1" onClick={handleClick}>
             Open Modal
         </button>
+        {/* matchType: test t20 odi (radio)
+            TournamentType: IPL, WT20, ODI World Cup (drop down)
+            Team 1: drop down
+            Team 2: drop down without 1st team
+
+            //validation
+
+         */}
         <Modal
             visible={showModal}
             title={title}
             toggleModal={handleClick}
-        ><InputField  label="hello" type="" value={value} onChange={handleChange} placeholder="hello"/>
-        </Modal>
+        />
+        <Team tableContent={tableContent} headingDetails={headingDetails}/>
     </div>
   )
 }
@@ -200,3 +221,24 @@ export default Matches
 //     </div>
 //   );
 // }
+
+// axios POST request
+        // const options = {
+        //     url: 'https://customcricketmatch-default-rtdb.firebaseio.com/matches.json',
+        //     method: 'POST',
+        //     headers: {
+        //     'Accept': 'application/json',
+        //     'Content-Type': 'application/json;charset=UTF-8'
+        //     },
+        //     // data: addedData
+        //     data:{
+        //         name:"IPL CSK Vs RCB match 5th"
+        //     }
+        // };
+        
+        // axios(options)
+        //     .then(response => {
+        //     console.log(response.status);
+        //     });
+        // axios.delete("https://customcricketmatch-default-rtdb.firebaseio.com/matches.json/-NQ3qJ7H1bRuB-4OclU9/age")
+        // .then(()=>console.log("deleted :",))
