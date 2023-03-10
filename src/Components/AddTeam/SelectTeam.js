@@ -25,7 +25,7 @@ function SelectTeam() {
        
       }
   }, [])
-
+console.log(allplayers)
 
 
 

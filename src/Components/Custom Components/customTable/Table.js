@@ -28,7 +28,7 @@ export default function CustomTable({ tableContent, headingDetails }) {
                 <th>
                   <div className='d-flex '>
                     {val}
-                  </div >
+                  </div>
                 </th>
               )}
             </tr>
