@@ -1,5 +1,5 @@
 import React from 'react'
-import './Modal.css'
+import '../customModal/Modal.css'
 export function Modal(props) {
 
     const handleSubmit =()=>{
@@ -20,7 +20,7 @@ export function Modal(props) {
     <i id="icon" onClick={handleClick} className="bi bi-x-circle"></i>
     </div>
     <div className='content'>{props.children}</div>
-    <button type="button" id="btn" class="btn btn-secondary" onClick={handleSubmit}>Submit</button>
+
     </div>
   )
 }

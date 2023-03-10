@@ -1,8 +1,8 @@
 import axios from 'axios';
-import {InputField} from './Input'
+import {InputField} from '../Custom Components/customInput/Input'
 import React, { useEffect, useState } from 'react'
 export default function Form({user,setUser,handle}) {
-  console.log(setUser,"usssss")
+  console.log(handle,"usssss")
   return (
     <div>
     <form onsubmit={handle}>
@@ -58,6 +58,7 @@ export default function Form({user,setUser,handle}) {
     })}}
 
  />
+     <button type="submit" id="btn" class="btn btn-secondary" onClick={handle}>Submit</button>
     </form>
     </div>
   )

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Pagination from "./Pagination";
 import '../../../../src/App.scss'
 
-export default function CustomTable({ tableContent, headingDetails,handle }) {
+export default function CustomTable({ tableContent, headingDetails,handleClick }) {
   // console.log(tableContent)
   const [showperpage, setShowperPage] = useState(5);
   const [paginate, setPaginate] = useState({
@@ -22,7 +22,7 @@ export default function CustomTable({ tableContent, headingDetails,handle }) {
 
       <div className=" justify-content-center w-100 p-5">
       <div id="fl" className="btn-end">
-          <button className='btn btn-primary btn-end' onClick={handle}>Add Players</button>
+          <button className='btn btn-outline-primary btn-end mb-2' onClick={handleClick}>Add Players</button>
           </div>
 
         <table className="table  table-warning">

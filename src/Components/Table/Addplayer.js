@@ -1,9 +1,9 @@
 import React from 'react'
-import {Modal} from './Modal'
+import {Modal} from '../Custom Components/customModal/Modal'
 import {useState,useEffect} from 'react'
 import axios from 'axios'
 import Form from './Form'
-import CustomTable from 'Components/Custom Components/Table/Table';
+import CustomTable from 'Components/Custom Components/customTable/Table';
 function Addplayer() {
     const[showModal,setShowModal]=useState(false);
     const[user,setUser]=useState({
@@ -30,7 +30,9 @@ axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.j
 })
   },[])
   const handle=(e)=>{
-      e.preventDefault();
+    console.log("auuuuuuuuuuuuuuu");
+      e.preventDefault(); setShowModal(!showModal);
+
       if(user.playername===""||user.playerAge===""||user.Jerseyyno===""||user.playerCountry===""){
           // setUserErr({...userErr,
           //     firstnameError:true
@@ -72,11 +74,13 @@ axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.j
       playerCountry:"",
       Jerseyyno:""
     })
+   
   }
 }
     const arr=["Player name","Player age", "Player Country","JerseyyNo"];
     console.log(showModal);
     const handleClick=()=>{
+      console.log("bikeeeee");
         setShowModal(!showModal);
     }
   return (
@@ -85,7 +89,7 @@ axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.j
   <Modal title="Modals" visible={showModal} toggleModal={handleClick}>
    <Form user={user} setUser={setUser} handle={handle}/>
     </Modal>
-    <CustomTable headingDetails ={arr} tableContent={s} handle={handleClick}/>
+    <CustomTable headingDetails ={arr} tableContent={s} handleClick={handleClick}/>
     </div>
   )
 }
