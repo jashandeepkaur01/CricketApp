@@ -28,7 +28,7 @@ export default function CustomTable({ tableContent, headingDetails }) {
                 <th>
                   <div className='d-flex '>
                     {val}
-                  </div >
+                  </div>
                 </th>
               )}
             </tr>
@@ -40,7 +40,13 @@ export default function CustomTable({ tableContent, headingDetails }) {
               
            
                   <tr>
-                  {Object.values(val).map(val=><td>{val}</td>)}
+                  {Object.entries(val).map(val=>{
+                    if(val[0]!="key"){
+
+                    return (<td>{val[1]}</td>)
+                    }
+                    })}
+
                   </tr>
                   
               )}
