@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import '../App.css';
-import cricketLogo from '../Assets/Images/cricketLogo.png';
+import './style.css'
+import cricketLogo from '../../../Assets/Images/cricketLogo.png'
 
 function Navbar() {
   return (

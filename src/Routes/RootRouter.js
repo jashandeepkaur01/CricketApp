@@ -12,7 +12,7 @@ import PublicLayout from "Components/Core/PublicLayout";
 import PrivateLayout from "Components/Core/PrivateLayout";
 import RenderRoutes from "./RenderRoutes";
 
-const DEFAULT_AUTHENTICATED_ROUTE = "/dashboard";
+const DEFAULT_AUTHENTICATED_ROUTE = "/";
 const DEFAULT_GUEST_ROUTE = "/";
 
 const GuestRoutes = () => {
