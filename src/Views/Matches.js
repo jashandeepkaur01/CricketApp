@@ -51,10 +51,12 @@ function Matches() {
             //validation
 
          */}
+
         <Modal
             visible={showModal}
             title={title}
             toggleModal={handleClick}
+            SubmitText = {content}
         />
         <CustomTable tableContent={tableContent} headingDetails={headingDetails}/>
     </div>

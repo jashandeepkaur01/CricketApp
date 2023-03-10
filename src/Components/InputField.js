@@ -12,7 +12,7 @@ import React, { useState } from "react";
       <input
         type={type}
         value={value}
-        className="form-control w-75"
+        className="form-control w-75 mb-3"
         placeholder={placeholder}
         onChange={onChange}
       />

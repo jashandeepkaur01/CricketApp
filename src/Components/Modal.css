@@ -39,3 +39,7 @@ header {
 #btn{
   
 }
+
+.react-datepicker-wrapper{
+  margin-bottom: 2px;
+}
