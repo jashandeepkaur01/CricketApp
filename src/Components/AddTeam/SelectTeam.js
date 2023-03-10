@@ -8,19 +8,21 @@ function SelectTeam() {
     const [showModal, setShowModal] = useState(false);
     const [allplayers, setAllPlayers] = useState([]);
     const [players,setPlayers] = useState([]);
+    const [captain,setCaptain]=useState([])
     useEffect(() => {
       let s = [];
       axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.json").then(val => {
 
           for (let key in val.data) {
-              s.push(val.data[key]);
-              console.log(s);
+              s.push({...val.data[key],key:key});
+
+            
           }
           setAllPlayers(s)
       })
       let playerHeading = [];
       for (let heading of allplayers) {
-          console.log(heading, 'heading');
+       
       }
   }, [])
 
@@ -42,8 +44,7 @@ function SelectTeam() {
       };
 
     const handleSubmitModal=(data)=>{
-        console.log("Submitted")
-        console.log("data ",data)
+     
 
     }
 
@@ -58,8 +59,9 @@ function SelectTeam() {
       >
         Select Team
       </button>
+      
       <Modal visible={showModal} title="Team Selection" toggleModal={handleClick} onSubmitModal = {handleSubmitModal}>
-          <TeamForm teamData={teamData} setTeamData={setTeamData} players={players} setPlayers={setPlayers}/>
+          <TeamForm allPlayers={allplayers} teamData={teamData} setTeamData={setTeamData} players={players} setPlayers={setPlayers} captain ={captain} setCaptain={setCaptain}/>
       </Modal>
       <CustomTable headingDetails={['JerseyNo', 'PlayerCountry', 'playerage', 'playername']} tableContent={allplayers} />
     </div>
