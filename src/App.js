@@ -1,5 +1,6 @@
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 import RootRouter from "./Routes/RootRouter";
 import { store, persistor } from "./Redux/Store";

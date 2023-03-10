@@ -1,8 +1,7 @@
 import { useSelector } from "react-redux";
 import { useNetworkStatus } from "Hooks/NetworkStatus";
 
-import Addplayer from "Addplayer";
-import AddTeam from "Forms/AddTeam";
+import SelectTeam from "Components/AddTeam/SelectTeam";
 
 
 
@@ -16,8 +15,8 @@ const AppLayout = ({ isAuthenticated, children }) => {
 
   return (
     <>
-   {/* <Addplayer/> */}
-      <AddTeam/>
+
+      <SelectTeam/>
       error Msg:{errorMsg}
       networkStatus:{networkStatus ? "online " : "offline"}
       {children}

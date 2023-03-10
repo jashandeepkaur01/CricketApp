@@ -1,10 +1,13 @@
 import React from 'react'
 import './Modal.css'
+
+
 export function Modal(props) {
 
     const handleSubmit =()=>{
-
+      props.onSubmitModal();
       props.toggleModal();
+      
     }
     if(!props.visible){
       return null;
@@ -14,7 +17,7 @@ export function Modal(props) {
       props.toggleModal();
     }
   return (
-    <div className='container'>
+    <div className='modalContainer'>
     <div className='header'>
     <header>{props.title}</header>
     <i id="icon" onClick={handleClick} className="bi bi-x-circle"></i>
@@ -24,3 +27,4 @@ export function Modal(props) {
     </div>
   )
 }
+
