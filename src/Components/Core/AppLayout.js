@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useNetworkStatus } from "Hooks/NetworkStatus";
 // import PlayerRecords from "PlayerRecords";
-import Addplayer from "../Table/Addplayer";
+import Addplayer from "./Table/Addplayer";
 
 
 

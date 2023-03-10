@@ -1,5 +1,5 @@
 import React from 'react'
-import {Modal} from '../Custom Components/customModal/Modal'
+import {Modal} from '../../Custom Components/customModal/Modal'
 import {useState,useEffect} from 'react'
 import axios from 'axios'
 import Form from './Form'
@@ -12,10 +12,17 @@ function Addplayer() {
       playerCountry:"",
       Jerseyyno:""
   });
+  const[userErr,setUserErr]=useState({
+    playernameErr:false,
+    playerageErr:false,
+    playerCountryErr:false,
+    JerseyynoErr:false
+});
   const [player,setPlayer]=useState([]);
   const[s,setS]=useState([]);
   // const[condn,setCondn]=useState(true);
   // const [arr,setArr]=useState([])
+  const letterregex=/^[A-Za-z]{1,}$/;
   
   
   useEffect(()=>{
@@ -31,23 +38,33 @@ axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.j
   },[])
   const handle=(e)=>{
     console.log("auuuuuuuuuuuuuuu");
-      e.preventDefault(); setShowModal(!showModal);
+      e.preventDefault(); 
 
-      if(user.playername===""||user.playerAge===""||user.Jerseyyno===""||user.playerCountry===""){
-          // setUserErr({...userErr,
-          //     firstnameError:true
-
-          // });
+      if(user.playername==""){
+          setUserErr({...userErr,
+            playernameErr:false
+             
+          });
+          setShowModal(true);
           return;
       }
-      // if(user.lastname===""){
-      //     setUserErr({...userErr,
-      //         lastnameError:true
-
-      //     });
-      //     return;
-      // }
+      else if(user.playerCountry==""){
+        setUserErr({...userErr,
+          playerCountryErr:false
+           
+        });
+        setShowModal(true);
+        return;
+    }
+     
+      if(userErr.playernameErr){
+        return;
+      }
+      else if(userErr.playerCountryErr){
+        return;
+      }
       else{
+        setShowModal(!showModal);
       axios.post("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.json",{
          playername: user.playername,
         playerage: user.playerage,
@@ -87,7 +104,7 @@ axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.j
     <div>
     {/* <button onClick={handleClick}>AddPlayer</button> */}
   <Modal title="Modals" visible={showModal} toggleModal={handleClick}>
-   <Form user={user} setUser={setUser} handle={handle}/>
+   <Form user={user} setUser={setUser} handle={handle} userErr={userErr} setUserErr={setUserErr}/>
     </Modal>
     <CustomTable headingDetails ={arr} tableContent={s} handleClick={handleClick}/>
     </div>
