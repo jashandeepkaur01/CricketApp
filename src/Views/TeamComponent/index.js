@@ -1,10 +1,11 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import TeamForm from './TeamForm';
-import CustomTable from 'Components/Core/customTable';
+
+import CustomTable from 'Components/Cells/customTable';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
-import CustomModal from '../Core/customModal'
+
+import CallingTeamModal from 'Components/Cells/callingTeamModal';
 
 
 function SelectTeam() {
@@ -48,9 +49,7 @@ function SelectTeam() {
       <Button variant="primary" onClick={handleShow}>
         Add Team
       </Button>
-      <CustomModal visible={showModal} showModal={showModal} setShowModal={setShowModal} title="Team Selection">
-         <TeamForm allPlayers={allplayers} teamData={teamData} setTeamData={setTeamData} players={players} setPlayers={setPlayers} captain ={captain} setCaptain={setCaptain}/>    
-      </CustomModal>
+      <CallingTeamModal visible={showModal} showModal={showModal} setShowModal={setShowModal} title="Team Selection" allPlayers={allplayers} teamData={teamData} setTeamData={setTeamData} players={players} setPlayers={setPlayers} captain ={captain} setCaptain={setCaptain}/>
       <CustomTable headingDetails={['JerseyNo', 'PlayerCountry', 'playerage', 'playername']} tableContent={allplayers} />
     </div>
   )

@@ -1,5 +1,5 @@
-import CreateRadio from "Components/Core/customRadio";
-import { InputField } from "Components/Core/customInput";
+import CreateRadio from "Components/Atoms/customRadio";
+import { InputField } from "Components/Atoms/customInput";
 import React, { useState } from "react";
 import Select from "react-select";
 

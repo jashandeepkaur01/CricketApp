@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useNetworkStatus } from "Hooks/NetworkStatus";
 
-import SelectTeam from "Components/AddTeam/SelectTeam";
+import SelectTeam from "Views/TeamComponent";
 
 
 

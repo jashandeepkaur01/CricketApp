@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Pagination from "./Pagination";
+import Pagination from "../../Atoms/Pagination";
 
 export default function CustomTable({ tableContent, headingDetails }) {
   // console.log(tableContent)
