@@ -27,3 +27,8 @@
     width: 100px;
     background-color: rgb(255, 149, 0);
   }
+  .nav-login{
+    position: absolute;
+    right: 10px;
+    top:10px
+  }

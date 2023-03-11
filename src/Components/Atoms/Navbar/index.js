@@ -17,13 +17,18 @@ function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link " to="/addPlayer">
-                  Add Player
+                <Link className="nav-link " to="/showPlayer">
+                  Show Player
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link " to="/addTeam">
-                  Add Team
+                <Link className="nav-link " to="/showTeam">
+                  Show Team
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link " to="/selectTeam">
+                  Select Team
                 </Link>
               </li>
               <li className="nav-item">
@@ -31,6 +36,12 @@ function Navbar() {
                   Schedule Match
                 </Link>
               </li>
+              <li className="nav-item nav-login">
+                <Link className="nav-link " to="/login">
+                  Login
+                </Link>
+              </li>
+              
               
             </ul>
           </div>
