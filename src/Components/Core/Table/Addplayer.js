@@ -105,17 +105,17 @@ axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.j
       
       setS([...s,{
         playername: user.playername,
-        playerCountry: user.playerCountry,
-        Jerseyyno: user.Jerseyyno,
-        playerAge:user.playerage,
-        sixes:user.sixes,
         playerPhoneno:user.playerPhoneNo,
+        playerAge:user.playerage,
+        Jerseyyno: user.Jerseyyno,
+        playerCountry: user.playerCountry,
+        sixes:user.sixes,
         fours:user.fours,
-        iningsplayed:user.iningsplayed,
         Fiftys:user.Fiftys,
         Hundreds:user.Hundreds,
         score:user.score,
-        averagescore:user.avgscore
+        averagescore:user.avgscore,
+        iningsplayed:user.iningsplayed
 
      }])
      console.log(s,"abc");
@@ -123,20 +123,20 @@ axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.j
       playername:"",
       playerPhoneNo:"",
       playerage:"",
-      playerCountry:"",
       Jerseyyno:"",
+      playerCountry:"",
       sixes:0,
       fours:0,
       Fiftys:0,
       Hundreds:0,
-      avgscore:0,
       score:0,
+      avgscore:0,
       iningsplayed:0
     })
    
   }
 }
-    const arr=["Player name","Player age", "Player Country","JerseyyNo"];
+    const arr=["Player name","Player PhoneNo", "Player Age","JerseyyNo","PlayerCountry","sixes","fours","fiftys","Hundreds","Score","Avg score","inings played"];
     console.log(showModal);
     const handleClick=()=>{
       console.log("bikeeeee");

@@ -4,6 +4,7 @@ import '../../../../src/App.scss'
 
 export default function CustomTable({ tableContent, headingDetails,handleClick }) {
   // console.log(tableContent)
+  console.log(tableContent);
   const [showperpage, setShowperPage] = useState(5);
   const [paginate, setPaginate] = useState({
     start: 0,
@@ -42,12 +43,28 @@ export default function CustomTable({ tableContent, headingDetails,handleClick }
           {tableContent.length ?
             <tbody>
           
-              {tableContent.slice(paginate.start, paginate.end).map(val =>
+              {tableContent.slice(paginate.start, paginate.end).map((val) =>{
+                return(
+                <tr>
+                <td>{val.playername}</td>
+                <td>{val.playerCountry}</td>
+                <td>{val.playerAge}</td>
+                <td>{val.Jerseyyno}</td>
+                <td>{val.playerCountry}</td>
+                <td>{val.sixes}</td>
+                <td>{val.fours}</td>
+                <td>{val.Fiftys}</td>
+                <td>{val.Hundreds}</td>
+                <td>{val.score}</td>
+                <td>{val.averagescore}</td>
+                <td>{val.iningsplayed}</td>
+                </tr>
+                
+               )
+              }
               
            
-                  <tr>
-                  {Object.values(val).map(val=><td>{val}</td>)}
-                  </tr>
+                
                   
               )}
             </tbody>
