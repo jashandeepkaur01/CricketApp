@@ -1,14 +1,15 @@
-import Dashbord from "Views/Dashboard";
+import SelectTeam from "Views/SelectTeam";
+import ScheduleMatch from "../Views/ScheduleMatch";
 
 export const PRIVATE_ROUTES = [
   {
-    path: "/dashboard",
-    component: Dashbord,
-    title: "Dashboard",
+    path: "/selectTeam",
+    component: SelectTeam,
+    title: "Select Team",
   },
   {
-    path: "/wishlist",
-    component: () => "Your wishlist here",
-    title: "Dashboard",
+    path: "/scheduleMatch",
+    component: ScheduleMatch,
+    title: "Schedule Match",
   },
 ];
