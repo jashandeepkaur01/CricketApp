@@ -1,4 +1,4 @@
-import Login from "Views/Login/Login";
+import Login from "Views/Login";
 import SignUp from "Views/SignUp";
 import ForgotPassword from "Views/ForgotPassword";
 

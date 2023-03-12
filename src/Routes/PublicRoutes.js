@@ -2,7 +2,7 @@ import ShowPlayer from "../Views/ShowPlayer";
 import ShowTeam from "../Views/ShowTeam";
 import SelectTeam from "Views/SelectTeam";
 import Home from "../Views/Home";
-import Login from "../Views/Login/Login"
+import Login from "../Views/Login"
 import ScheduleMatch from "../Views/ScheduleMatch";
 
 
