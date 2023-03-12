@@ -53,7 +53,7 @@ const RootRouter = () => {
   return (
     <BrowserRouter basename={baseName}>
       <DocumentTitle isAuthenticated={isAuthenticated} />
-      <AppLayout isAuthenticated={isAuthenticated}>{token ? <AuthenticatedRoutes /> : <GuestRoutes />}</AppLayout>
+      <AppLayout isAuthenticated={isAuthenticated}>{false ? <AuthenticatedRoutes /> : <GuestRoutes />}</AppLayout>
     </BrowserRouter>
   );
 };
