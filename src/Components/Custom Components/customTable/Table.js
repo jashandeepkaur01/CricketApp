@@ -47,7 +47,7 @@ export default function CustomTable({ tableContent, headingDetails,handleClick }
                 return(
                 <tr>
                 <td>{val.playername}</td>
-                <td>{val.playerCountry}</td>
+                <td>{val.playerPhoneno}</td>
                 <td>{val.playerAge}</td>
                 <td>{val.Jerseyyno}</td>
                 <td>{val.playerCountry}</td>
