@@ -8,20 +8,27 @@ function Addplayer() {
     const[showModal,setShowModal]=useState(false);
     const[user,setUser]=useState({
       playername:"",
+      playerPhoneNo:"",
       playerage:"",
       playerCountry:"",
-      Jerseyyno:""
+      Jerseyyno:"",
+      sixes:0,
+      fours:0,
+      Fiftys:0,
+      Hundreds:0,
+      avgscore:0,
+      iningsplayed:0,
+      score:0
   });
   const[userErr,setUserErr]=useState({
     playernameErr:false,
+    playerPhonenoErr:false,
     playerageErr:false,
     playerCountryErr:false,
-    JerseyynoErr:false
+    JerseyynoErr:false,
 });
   const [player,setPlayer]=useState([]);
   const[s,setS]=useState([]);
-  // const[condn,setCondn]=useState(true);
-  // const [arr,setArr]=useState([])
   const letterregex=/^[A-Za-z]{1,}$/;
   
   
@@ -39,7 +46,10 @@ axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.j
   const handle=(e)=>{
     console.log("auuuuuuuuuuuuuuu");
       e.preventDefault(); 
-
+      if(user.playerPhoneNo==null){
+        setUserErr({...userErr,playerPhonenoErr:true});
+        setShowModal(true);
+      }
       if(user.playername==""){
           setUserErr({...userErr,
             playernameErr:false
@@ -48,7 +58,7 @@ axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.j
           setShowModal(true);
           return;
       }
-      else if(user.playerCountry==""){
+       if(user.playerCountry==""){
         setUserErr({...userErr,
           playerCountryErr:false
            
@@ -60,16 +70,31 @@ axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.j
       if(userErr.playernameErr){
         return;
       }
+      else if(userErr.playerPhonenoErr){
+        return;
+      }
+      else if(userErr.playerageErr){
+        return;
+      }
       else if(userErr.playerCountryErr){
         return;
       }
       else{
         setShowModal(!showModal);
+        console.log()
       axios.post("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.json",{
          playername: user.playername,
-        playerage: user.playerage,
         playerCountry: user.playerCountry,
         Jerseyyno: user.Jerseyyno,
+        playerAge:user.playerage,
+        sixes:user.sixes,
+        playerPhoneno:user.playerPhoneNo,
+        fours:user.fours,
+        iningsplayed:user.iningsplayed,
+        Fiftys:user.Fiftys,
+        Hundreds:user.Hundreds,
+        score:user.score,
+        averagescore:user.avgscore
         
       }).then((response)=>{
       
@@ -79,17 +104,34 @@ axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.j
       }))
       
       setS([...s,{
-        playername:user.playername,
-     playerAge:  user.playerAge,
-     playerCountry:user.playerCountry,
-     Jerseyyno:user.Jerseyyno
+        playername: user.playername,
+        playerCountry: user.playerCountry,
+        Jerseyyno: user.Jerseyyno,
+        playerAge:user.playerage,
+        sixes:user.sixes,
+        playerPhoneno:user.playerPhoneNo,
+        fours:user.fours,
+        iningsplayed:user.iningsplayed,
+        Fiftys:user.Fiftys,
+        Hundreds:user.Hundreds,
+        score:user.score,
+        averagescore:user.avgscore
+
      }])
      console.log(s,"abc");
     setUser({
       playername:"",
+      playerPhoneNo:"",
       playerage:"",
       playerCountry:"",
-      Jerseyyno:""
+      Jerseyyno:"",
+      sixes:0,
+      fours:0,
+      Fiftys:0,
+      Hundreds:0,
+      avgscore:0,
+      score:0,
+      iningsplayed:0
     })
    
   }

@@ -59,9 +59,35 @@ const validateCountryname=(e)=>{
 }
 
 }
+const validatePhoneno=(e)=>{
+    setUser({
+        ...user,playerPhoneNo:e.target.value
+    })
+    if(e.target.value==""){
+        setUserErr({...userErr,
+          playerPhonenoErr:false
+           
+        });
+        console.log(userErr,"bike");
+    }
+    else{
+   
+    let name=e.target.value;
+      
+    if(!name.match(letterregex)){
+       
+        setUserErr({...userErr,playernameErr:true});
+    }
+   
+    else{
+        setUserErr({...userErr,playernameErr:false});
+    }
+}
+
+}
 const validateAge=(e)=>{
     setUser({
-        ...user,playerAge:e.target.value
+        ...user,playerage:e.target.value
     })
 //     if(e.target.value==""){
 //         setUserErr({...userErr,
@@ -101,6 +127,18 @@ const validateAge=(e)=>{
     {userErr.playernameErr?<span style={{color:'red'}}>Enter letters only</span>:<span></span>}
    </InputField >
     {/* {...userErr.playernameErr} */}
+    <InputField
+        
+        label="playerPhoneno"
+        type='number'
+        name=' PlayerPhoneno'
+        value={user.playerP}
+        className="form-control w-75"
+        placeholder="enter your name"
+        onChange={(e)=>{validatePhoneno(e)}}>
+        
+        {userErr.playernameErr?<span style={{color:'red'}}>Enter letters only</span>:<span></span>}
+       </InputField >
      <InputField
          label="PlayerAge"
  type='number'
