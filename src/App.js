@@ -3,12 +3,13 @@ import { PersistGate } from "redux-persist/lib/integration/react";
 import { store, persistor } from "./Redux/Store";
 import './App.css'
 import RootRouter from "Routes/RootRouter";
+import loginStore from "Redux/loginStore";
 
 function App() {
   return (
     
 
-    <Provider store={store}>
+    <Provider store={loginStore} >
       <PersistGate persistor={persistor}>
       <RootRouter />
       </PersistGate>

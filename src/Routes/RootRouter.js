@@ -1,6 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Switch, Route, Redirect, Link } from "react-router-dom";
 
 import { updateAuthToken } from "Shared/Axios";
 import AppLayout from "Components/Core/AppLayout";
@@ -11,6 +11,8 @@ import DocumentTitle from "./DocumentTitle";
 import PublicLayout from "Components/Core/PublicLayout";
 import PrivateLayout from "Components/Core/PrivateLayout";
 import RenderRoutes from "./RenderRoutes";
+import loginStore from "Redux/loginStore";
+import { getData } from "Redux/Actions/loginActions";
 
 const DEFAULT_AUTHENTICATED_ROUTE = "/";
 const DEFAULT_GUEST_ROUTE = "/";
@@ -33,6 +35,7 @@ const GuestRoutes = () => {
 
 const AuthenticatedRoutes = () => {
   const routes = PUBLIC_ROUTES.concat(PRIVATE_ROUTES);
+  
   return (
     <PrivateLayout>
       <Switch>
@@ -46,15 +49,23 @@ const AuthenticatedRoutes = () => {
 };
 
 const RootRouter = () => {
-  const token = useSelector((state) => state.auth.token);
-  updateAuthToken(token);
+ const dispatch=useDispatch()
+  useEffect(() => {
+    dispatch(getData());
+  }, [])
+
+  const token = useSelector((state) => state.user.token);
+console.log(token);
   const baseName = process.env.REACT_APP_BASE_NAME;
   const isAuthenticated = !!token;
   return (
+
+
     <BrowserRouter basename={baseName}>
       <DocumentTitle isAuthenticated={isAuthenticated} />
       <AppLayout isAuthenticated={isAuthenticated}>{token ? <AuthenticatedRoutes /> : <GuestRoutes />}</AppLayout>
     </BrowserRouter>
+
   );
 };
 

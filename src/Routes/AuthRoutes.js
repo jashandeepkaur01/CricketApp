@@ -10,14 +10,5 @@ export const AUTH_ROUTES = [
     component: Login,
     title: "Login",
   },
-  // {
-  //   path: "/signup",
-  //   component: SignUp,
-  //   title: "Signup",
-  // },
-  // {
-  //   path: "/forgot-password",
-  //   component: ForgotPassword,
-  //   title: "Forgot Password",
-  // },
+
 ];
