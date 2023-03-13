@@ -2,7 +2,8 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { store, persistor } from "./Redux/Store";
 import './App.css'
-import RootRouter from "Routes/RootRouter";
+// import RootRouter from "Routes/RootRouter";
+import ScoreCard from "Views/ScoreCard";
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
 
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-      <RootRouter />
+      <ScoreCard/>
+      {/* <RootRouter /> */}
       </PersistGate>
     </Provider>
   );

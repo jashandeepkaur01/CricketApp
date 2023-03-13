@@ -13,7 +13,7 @@ import PrivateLayout from "Components/Core/PrivateLayout";
 import RenderRoutes from "./RenderRoutes";
 
 const DEFAULT_AUTHENTICATED_ROUTE = "/";
-const DEFAULT_GUEST_ROUTE = "/";
+const DEFAULT_GUEST_ROUTE = "/Login";
 
 const GuestRoutes = () => {
   return (
@@ -53,7 +53,7 @@ const RootRouter = () => {
   return (
     <BrowserRouter basename={baseName}>
       <DocumentTitle isAuthenticated={isAuthenticated} />
-      <AppLayout isAuthenticated={isAuthenticated}>{false ? <AuthenticatedRoutes /> : <GuestRoutes />}</AppLayout>
+      <AppLayout isAuthenticated={isAuthenticated}>{token? <AuthenticatedRoutes /> : <GuestRoutes />}</AppLayout>
     </BrowserRouter>
   );
 };

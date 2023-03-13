@@ -1,9 +1,12 @@
 import { useState } from "react";
-
+// import {useNavigate} from "react-router-dom"
 const Login = () => {
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
-  function handleSubmit() { }
+  // const navigate = useNavigate();
+  function handleSubmit() {
+    // navigate('/')
+   }
   return (
 
     <div className="d-flex  justify-content-center w-100  pt-5 mt-5 ">
@@ -22,7 +25,8 @@ const Login = () => {
                   <input type='text' placeholder='contact no.' className="form-control my-2" value={contact} onChange={(e) => setContact(e.target.value)} ></input>
                 </div>
                 <div className='d-sm-grid gap-2 d-flex'>
-                  <input type='submit' value="login" className='btn btn-dark my-2' ></input>
+                  {/* <input type='submit' value="login" className='btn btn-dark my-2' ></input> */}
+                  <button className='btn btn-dark my-2' onClick={()=>{handleSubmit()}}>Login</button>
                 </div>
               </form>
             </div>
