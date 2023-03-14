@@ -3,3 +3,7 @@ export const ACTION_STATES = {
   SUCCESS: "_SUCCESS",
   FAILURE: "_FAILURE",
 };
+
+export const MATCHES = {
+  STADIUMS: "STADIUMS"
+}

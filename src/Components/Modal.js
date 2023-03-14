@@ -3,19 +3,20 @@ import { InputField } from './InputField';
 import './Modal.css'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import CustomDatePicker from './Custom Components/CustomDatePicker';
-import CustomDropdown from './Custom Components/CustomDropdown';
+// import CustomDatePicker from './CustomComponents/CustomDatePicker';
 import TimePicker from 'react-time-picker';
-import TimeSlider from './Custom Components/TimeSlider';
-import LocationInput from './Custom Components/LocationInput';
-import CustomInputDateTime from './Custom Components/CustomInputDateTime';
+import TimeSlider from './CustomComponents/TimeSlider';
+import LocationInput from './CustomComponents/LocationInput';
+import CustomDropdown from './CustomComponents/CustomDropdown';
+
+// import CustomInputDateTime from './Custom Components/CustomInputDateTime';
+
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
   
   export function Modal({visible,title,toggleModal,SubmitText}) {
     const [value, setValue] = useState("");
-    const [startDate, setStartDate] = useState(new Date());
-    const [time, onChange] = useState('10:00');
+
     const timeStr = "HH:MM";
 
     const handleChange = (e) => {
@@ -55,7 +56,9 @@ import CustomInputDateTime from './Custom Components/CustomInputDateTime';
       {/* <CustomDatePicker DateLabel="Select Match Day"/>
       <TimeSlider/> */}
       <LocationInput label={"Select Match Date and Time"}/>
-      <CustomInputDateTime label={"Select Date and Time for the match"}/>
+      {/* <CustomInputDateTime label={"Select Date and Time for the match"}/> */}
+      
+
     </div>
 
     <button type="button" id="btn" className="btn btn-secondary" onClick={handleSubmit}>{SubmitText}</button>

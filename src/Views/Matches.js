@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import { useState } from "react";
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import { API_URLS } from 'Services/Api/Constants';
-import CustomTable from 'Components/Custom Components/Table/Table';
+import CustomTable from 'Components/CustomComponents/Table/Table';
 
 function Matches() {
     const [showModal, setShowModal] = useState(false);
@@ -13,20 +13,10 @@ function Matches() {
     const [matchData,setMatchData] = useState([{}]);
     const [tableContent, setTableContent] = useState([{}])
     const [headingDetails, setHeadingDetails] = useState([""])
-    
     // console.log(tableContent,headingDetails)
     const handleClick = () => {
       setShowModal(!showModal);
     };
-
-    useEffect(()=>{
-        axios.get(API_URLS.MATCHES)
-        .then((result)=>{
-            setMatchData(result.data);
-            console.log(result);
-        })
-
-    },[])
 
     useEffect(()=>{
         setTableContent(Object.values(matchData));
