@@ -5,8 +5,7 @@ import { useSelector } from 'react-redux';
 function CustomDropdown({labelForDropdown, dropdownOptions}) {
   const stadiumList = useSelector((state)=>state.matchReducer)
   console.log(stadiumList)
-  const dispatch = useDisp
-  atch();
+  const dispatch = useDispatch();
   return (
     <div className='mb-4'>
         <label>{labelForDropdown}</label>
