@@ -4,7 +4,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import './App.css'
 
 import RootRouter from "./Routes/RootRouter";
-import { store, persistor } from "./Redux/Store";
+import {  persistor } from "./Redux/Store";
 
 import loginStore from "Redux/loginStore";
 

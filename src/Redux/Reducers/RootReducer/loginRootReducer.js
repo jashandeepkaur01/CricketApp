@@ -1,7 +1,7 @@
-import user from "../loginReducer";
+import data from "../loginReducer";
 
 import {combineReducers} from "redux";
 const rootreducer=combineReducers({
-    user
+    data
 });
 export default rootreducer;

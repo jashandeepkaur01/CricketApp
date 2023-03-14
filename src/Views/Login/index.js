@@ -7,7 +7,7 @@ const Login = () => {
   const [contact, setContact] = useState("");
   const [errorMessage,setErrorMessage]=useState("You Have To Login As Player")
   const dispatch = useDispatch();
-  const data = useSelector(((state) => state.user.users))
+  const data = useSelector(((state) => state.data.players))
 
 
   // 6127963022

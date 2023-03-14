@@ -1,20 +1,13 @@
-import { SETDATA,SETDATAS, Token} from "./actionStates"
-export const getData=()=>{
+import { SETDATA,GETDATAS, Token} from "./actionStates"
+export const getData=(data)=>{
 
     return {
-        type :SETDATA,
-        data:"apple"
-       
-    }
-}
-export const setData=(data)=>{
-  
-    return {
-        type :SETDATAS,
+        type :GETDATAS,
         data
        
     }
 }
+
 export const setToken=(token)=>{
    return {
        type:Token,

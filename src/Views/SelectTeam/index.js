@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import React from 'react'
 import { useState, useEffect } from 'react';
 
@@ -10,27 +11,11 @@ import CallingTeamModal from 'Components/Cells/callingTeamModal';
 
 function SelectTeam() {
   const [showModal, setShowModal] = useState(false);
-  const [allplayers, setAllPlayers] = useState([]);
+
   const [players, setPlayers] = useState([]);
   const [captain,setCaptain]=useState([]);
 
-  useEffect(() => {
-    let s = [];
-    axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.json").then(val => {
-
-      for (let key in val.data) {
-        s.push(val.data[key]);
-        console.log(s);
-      }
-      setAllPlayers(s)
-    })
-
-    let playerHeading = [];
-    for (let heading of allplayers) {
-      console.log(heading, 'heading');
-    }
-  }, [])
-
+   const data=useSelector((state)=>state.data.players)
 
 
 
@@ -49,8 +34,8 @@ function SelectTeam() {
       <Button variant="primary" onClick={handleShow}>
         Add Team
       </Button>
-      <CallingTeamModal visible={showModal} showModal={showModal} setShowModal={setShowModal} title="Team Selection" allPlayers={allplayers} teamData={teamData} setTeamData={setTeamData} players={players} setPlayers={setPlayers} captain ={captain} setCaptain={setCaptain}/>
-      <CustomTable headingDetails={['JerseyNo', 'PlayerCountry', 'playerage', 'playername']} tableContent={allplayers} />
+      <CallingTeamModal visible={showModal} showModal={showModal} setShowModal={setShowModal} title="Team Selection" allPlayers={data} teamData={teamData} setTeamData={setTeamData} players={players} setPlayers={setPlayers} captain ={captain} setCaptain={setCaptain}/>
+      <CustomTable headingDetails={['JerseyNo', 'PlayerCountry', 'playerage', 'playername']} tableContent={data} />
     </div>
   )
 }
@@ -67,69 +52,3 @@ export default SelectTeam
 
 
 
-
-// import React from 'react'
-// import { useState ,useEffect} from 'react';
-// import TeamForm from './TeamForm';
-// import { Button } from 'react-bootstrap';
-// import CustomModal from '../Core/customModal'
-// import CustomTable from 'Components/Custom Components/customTable/Table';
-// import axios from 'axios';
-// function SelectTeam() {
-//     const [showModal, setShowModal] = useState(false);
-//     const [allplayers, setAllPlayers] = useState([]);
-//     const [players,setPlayers] = useState([]);
-//     const [captain,setCaptain]=useState([])
-
-    
-//     useEffect(() => {
-//       let s = [];
-//       axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.json").then(val => {
-
-//           for (let key in val.data) {
-//               s.push({...val.data[key],key:key});
-
-            
-//           }
-//           setAllPlayers(s)
-//       })
-//       let playerHeading = [];
-//       for (let heading of allplayers) {
-       
-//       }
-//   }, [])
-
-
-
-
-//     const [teamData,setTeamData] = useState({
-//         teamName:"",
-//         teamType:"",
-//         teamPlayers:[],
-//         teamCaptain:"",
-        
-//     })
-
-
-
-//     const handleClick = () => {
-//         setShowModal(!showModal);
-//       };
-
-//     const handleSubmitModal=(data)=>{
-     
-
-//     }
-
-
-//   return (
-//     <div>
-//           <Button variant="primary" onClick={handleShow}>
-//         Add Team
-//       </Button>
-//       
-//     </div>
-//   )
-// }
-
-// export default SelectTeam
