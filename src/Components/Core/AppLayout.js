@@ -1,24 +1,21 @@
 import { useSelector } from "react-redux";
+
+import Navbar from "Components/Atoms/Navbar";
+
 import { useNetworkStatus } from "Hooks/NetworkStatus";
-
-import SelectTeam from "Views/TeamComponent";
-
-
-
-
 
 
 const AppLayout = ({ isAuthenticated, children }) => {
-
-  const errorMsg = useSelector((state) => state.error.msg);
+  // const errorMsg = useSelector((state) => state.error.msg);
   const networkStatus = useNetworkStatus();
 
   return (
     <>
-
-      <SelectTeam/>
-      error Msg:{errorMsg}
-      networkStatus:{networkStatus ? "online " : "offline"}
+      <Navbar/>
+      {/* error Msg: {errorMsg} */}
+      <div className="d-flex justify-content-end w-100">
+     {networkStatus ? <label className=" m-2 px-4 py-2 text-success">Online</label> : <label className=" m-2 px-4 py-2  text-danger">Offline</label>}
+      </div>
       {children}
     </>
   );
@@ -27,7 +24,3 @@ const AppLayout = ({ isAuthenticated, children }) => {
 export default AppLayout;
 
 
-{/* error Msg: {errorMsg}
-network status: {networkStatus ? "online" : "offline"} */}
-
-{/* {children} */}
