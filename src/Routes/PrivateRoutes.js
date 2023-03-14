@@ -1,6 +1,6 @@
 import SelectTeam from "Views/SelectTeam";
 import ScheduleMatch from "../Views/ScheduleMatch";
-
+import Logout from "Views/Logout";
 export const PRIVATE_ROUTES = [
   {
     path: "/selectTeam",
@@ -11,5 +11,10 @@ export const PRIVATE_ROUTES = [
     path: "/scheduleMatch",
     component: ScheduleMatch,
     title: "Schedule Match",
+  },
+  {
+    path: "/logout",
+    component: Logout,
+    title: "logout",
   },
 ];

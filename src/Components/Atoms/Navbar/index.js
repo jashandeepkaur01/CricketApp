@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import './style.css'
 import cricketLogo from '../../../Assets/Images/cricketLogo.png'
-
+import { useSelector } from "react-redux";
 function Navbar() {
+  const token = useSelector((state) => state.user.token);
   return (
     <div className="navouter">
       <nav className="navbar navbar-expand-lg bg-body-tertiary bg-dark fs-5 ">
@@ -36,11 +37,11 @@ function Navbar() {
                   Schedule Match
                 </Link>
               </li>
-              <li className="nav-item nav-login">
-                <Link className="nav-link " to="/login">
-                  Login
+              {token?<li className="nav-item nav-login">
+                <Link className="nav-link " to="/logout">
+                  Logout
                 </Link>
-              </li>
+              </li>:null}
               
               
             </ul>
