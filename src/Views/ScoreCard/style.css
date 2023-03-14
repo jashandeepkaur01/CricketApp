@@ -1,0 +1,81 @@
+body{
+    background-color:bisque;
+}
+
+.view-container{
+    display: flex;
+    justify-content: space-between;
+    background-color: darkslategray;
+    color: aliceblue;
+}
+.view-leftbox{
+    background-color: darkslategray;
+}
+.Bating-team{
+   
+    width: 300px;
+    height: 150px;
+    color: aliceblue;
+    background-color: darkslategray;
+    text-align: center;
+    padding: 10px;
+}
+
+.Bowling-team{
+    margin-top: 20px;
+    width: 300px;
+    height: 150px;
+    color: aliceblue;
+    background-color: darkslategray;
+    text-align: center;
+    padding: 10px;
+}
+
+.btn-box button{
+    margin: 10px;
+    color: aliceblue;
+    background-color: darkslategray;
+    font-size: 40px;
+
+}
+.btn-box{
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+}
+.teams-and-btn{
+    display: flex;
+    justify-content: space-around;
+}
+.view-container p{
+    margin-bottom:5px;
+}
+
+.players{
+    font-size: 25px;
+}
+
+.score-over{
+    font-size: 25px;
+}
+
+.my-run{
+    margin-top: 30px;
+    font-size: 70px;
+}
+.view-rightbox{
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.view-leftbox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.bat-ball{
+    font-size: 20px;
+}

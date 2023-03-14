@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Provider, useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Switch, Route, Redirect, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Switch, Route, Redirect,} from "react-router-dom";
 import AppLayout from "Components/Core/AppLayout";
 import { AUTH_ROUTES } from "./AuthRoutes";
 import { PUBLIC_ROUTES } from "./PublicRoutes";
