@@ -1,3 +1,3 @@
 export const SETDATA="SETDATA";
-export const SETDATAS="SETDATAS";
+export const GETDATAS="GETDATAS";
 export const Token="TOKEN"
