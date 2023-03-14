@@ -1,5 +1,9 @@
 export const PublicLayout = ({ children }) => {
-  return <>{children}</>;
+  return(
+    <div>
+      {children}
+    </div>
+  ) 
 };
 
 export default PublicLayout;

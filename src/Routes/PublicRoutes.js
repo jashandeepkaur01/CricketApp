@@ -1,32 +1,25 @@
-import AboutUs from "Views/AboutUs";
-import { Link } from "react-router-dom";
+import ShowPlayer from "../Views/ShowPlayer";
+import ShowTeam from "../Views/ShowTeam";
+import Home from "../Views/Home";
+// import Login from "../Views/Login/Login"
+// import ScheduleMatch from "../Views/ScheduleMatch";
+
 
 export const PUBLIC_ROUTES = [
   {
     path: "/",
-    component: () => (
-      <>
-        <Link to="/wishlist">see wishlist</Link>
-        <p>"WElcome"</p>
-      </>
-    ),
+    component: Home,
     title: "Homepage",
     exact: true,
   },
   {
-    path: "/about-us/divyan",
-    component: () => <p>"divyan"</p>,
-    title: "About Divyan",
+    path: "/showPlayer",
+    component: ShowPlayer,
+    title: "Show Player",
   },
   {
-    path: "/about-us",
-    component: AboutUs,
-    title: "About Us",
-    exact: true,
-  },
-  {
-    path: "/about-us/:name",
-    component: () => <p>"random guy"</p>,
-    title: "About random guy",
+    path: "/showTeam",
+    component: ShowTeam,
+    title: "Show Team",
   },
 ];
