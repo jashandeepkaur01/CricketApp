@@ -5,7 +5,7 @@ const errorReducer = (state = { msg: "" }, action) => {
   // not a *_REQUEST / *_FAILURE actions, so we ignore them
   if (!matches) return state;
 
-  const [, requestName, requestState] = matches;
+  const [  requestState] = matches;
   return {
     ...state,
     // Store errorMessage

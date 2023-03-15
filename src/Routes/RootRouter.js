@@ -1,8 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-
-import { updateAuthToken } from "Shared/Axios";
+import React, { useEffect } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Switch, Route, Redirect, Link } from "react-router-dom";
 import AppLayout from "Components/Core/AppLayout";
 import { AUTH_ROUTES } from "./AuthRoutes";
 import { PUBLIC_ROUTES } from "./PublicRoutes";
@@ -11,16 +9,18 @@ import DocumentTitle from "./DocumentTitle";
 import PublicLayout from "Components/Core/PublicLayout";
 import PrivateLayout from "Components/Core/PrivateLayout";
 import RenderRoutes from "./RenderRoutes";
+import { getData } from "Redux/Actions/loginActions";
 
-const DEFAULT_AUTHENTICATED_ROUTE = "/dashboard";
-const DEFAULT_GUEST_ROUTE = "/";
+const DEFAULT_AUTHENTICATED_ROUTE = "/selectTeam";
+const DEFAULT_GUEST_ROUTE = "/authmessage";
 
-const GuestRoutes = () => {
+const GuestRoutes = ({token}) => {
   return (
     <Switch>
       <Route exact path={AUTH_ROUTES.map((route) => route.path)}>
         <RenderRoutes routes={AUTH_ROUTES} />
       </Route>
+     
       <Route exact path={PUBLIC_ROUTES.map((route) => route.path)}>
         <PublicLayout>
           <RenderRoutes routes={PUBLIC_ROUTES} />
@@ -31,30 +31,46 @@ const GuestRoutes = () => {
   );
 };
 
-const AuthenticatedRoutes = () => {
-  const routes = PUBLIC_ROUTES.concat(PRIVATE_ROUTES);
+const AuthenticatedRoutes = () => {  
   return (
-    <PrivateLayout>
-      <Switch>
-        <Route path={routes.map((route) => route.path)}>
-          <RenderRoutes routes={routes} />
+    <Switch>
+        <Route exact path={PUBLIC_ROUTES.map((route) => route.path)}>
+        <PublicLayout>
+          <RenderRoutes routes={PUBLIC_ROUTES} />
+        </PublicLayout>
+      </Route>
+
+        <Route path={PRIVATE_ROUTES.map((route) => route.path)}>
+        <PrivateLayout>
+          <RenderRoutes routes={PRIVATE_ROUTES} />
+       </PrivateLayout>
         </Route>
-        <Redirect from="*" to={DEFAULT_AUTHENTICATED_ROUTE} />
+     
+     <Redirect from="*" to={DEFAULT_AUTHENTICATED_ROUTE} />
+    
       </Switch>
-    </PrivateLayout>
   );
 };
 
 const RootRouter = () => {
-  const token = useSelector((state) => state.auth.token);
-  updateAuthToken(token);
+
+ const dispatch=useDispatch()
+  useEffect(() => {
+    dispatch(getData([]));
+  }, [])
+
+  const token = useSelector((state) => state.data.token);
+
   const baseName = process.env.REACT_APP_BASE_NAME;
   const isAuthenticated = !!token;
   return (
+
+
     <BrowserRouter basename={baseName}>
       <DocumentTitle isAuthenticated={isAuthenticated} />
-      <AppLayout isAuthenticated={isAuthenticated}>{token ? <AuthenticatedRoutes /> : <GuestRoutes />}</AppLayout>
+      <AppLayout isAuthenticated={isAuthenticated}>{token? <AuthenticatedRoutes /> : <GuestRoutes token={token}/>}</AppLayout>
     </BrowserRouter>
+
   );
 };
 
