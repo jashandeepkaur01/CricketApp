@@ -17,7 +17,7 @@ function SelectTeam() {
   const [players, setPlayers] = useState([]);
   const [captain,setCaptain]=useState([]);
 
-   const data=useSelector((state)=>state.data.players)
+   const data=useSelector((state)=>state.loginReducer.players)
 
 
 

@@ -4,7 +4,8 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import './App.css'
 
 import RootRouter from "./Routes/RootRouter";
-import {  persistor } from "./Redux/Store";
+
+import { persistorlogin } from "Redux/loginStore";
 
 import loginStore from "Redux/loginStore";
 
@@ -13,7 +14,7 @@ function App() {
   return (
 
     <Provider store={loginStore} >
-      <PersistGate persistor={persistor}>
+      <PersistGate persistor={persistorlogin}>
       <RootRouter />
       </PersistGate>
     </Provider>

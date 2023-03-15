@@ -55,7 +55,7 @@ const arr=[
               }
 ]
 function Main() {
-const data = useSelector((state) => state.data.players);
+const data = useSelector((state) => state.loginReducer.players);
 
 return (
     <div>
