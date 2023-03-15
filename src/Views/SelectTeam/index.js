@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import React from 'react'
 import { useState, useEffect } from 'react';
-
 import CustomTable from 'Components/Cells/customTable';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';

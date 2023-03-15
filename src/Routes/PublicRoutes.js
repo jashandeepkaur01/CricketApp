@@ -1,6 +1,7 @@
 import ShowPlayer from "../Views/ShowPlayer";
 import ShowTeam from "../Views/ShowTeam";
 import Home from "../Views/Home";
+import SelectTeam from "Views/SelectTeam";
 // import Login from "../Views/Login/Login"
 // import ScheduleMatch from "../Views/ScheduleMatch";
 
@@ -21,5 +22,10 @@ export const PUBLIC_ROUTES = [
     path: "/showTeam",
     component: ShowTeam,
     title: "Show Team",
+  },
+  {
+    path: "/selectTeam",
+    component: SelectTeam,
+    title: "Select Team",
   },
 ];

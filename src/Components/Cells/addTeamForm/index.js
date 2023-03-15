@@ -9,6 +9,7 @@ function TeamForm({teamData,setTeamData,players,setPlayers,captain,setCaptain,al
 
  
   const [countryData,setCountryDate] = useState([]);
+  const [playersName,setPlayersName] = useState([]);
 
    const handleInput = (data)=>{
       setTeamData({...teamData,
@@ -17,25 +18,39 @@ function TeamForm({teamData,setTeamData,players,setPlayers,captain,setCaptain,al
    }
 
     const handleChange = (e) => {
-      console.log(e)
+      console.log(e.value)
           setCaptain(e)
+          setTeamData({...teamData,
+            teamCaptain: e.value
+          })
       };
 
     
     const handlePlayers=(players)=>{
-     
+     console.log(players,'players')
+    //  setPlayerName([...playerName,])
      if(players.length<11){
-
        setPlayers(players||[]);
-       setTeamData({...teamData,
-        teamPlayers:players
-      })
+      //  setTeamData({...teamData,
+      //   teamPlayers:players
+      // })
     }
     else if(players.length>10) {
         return;
     }
-      
+    // setPlayersName((players)=>{
+    //   players.map(singlePlayer=>{
+
+    //   })
+    // })
+    // console.log('players lengtth ',players.length)
+      // setPlayerName([...playerName,players[]])
+      // handlePlayersName(players);
     }
+    // const handlePlayersName = (players) =>{
+    //   console.log('new function called...')
+    //   console.log(players[0].value)
+    // }
     const handleRadio=(event)=>{
        console.log("event" ,event)
         setTeamData({...teamData,

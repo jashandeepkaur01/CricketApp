@@ -5,7 +5,6 @@ import { SETDATA, GETDATA} from "Redux/Actions/loginActions/actionStates";
 const initalData = {
   players: [],
   token: 0
-  
 }
 const data = (data = initalData, action) => {
   switch (action.type) {
