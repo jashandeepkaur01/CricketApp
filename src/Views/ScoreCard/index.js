@@ -1,10 +1,39 @@
 import React from 'react'
+import { deadBall, noBall, out, remove, scoreFour, scoreOne, scoreSix, scoreThree, scoreTwo, scoreZero, wicket, wideBall } from 'Redux/Actions/loginActions';
 import './style.css';
-// import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useSelector } from "react-redux";
+// import { useState,useEffect } from 'react';
+// import Select from 'react-select';
 
 function ScoreCard() {
+    
+    // const [users, setUsers] = useState([])
+
+    // const fetchUserData = () => {
+    //   fetch("https://customcricketmatch-default-rtdb.firebaseio.com/players.json")
+    //     .then(response => {
+    //       return response.json()
+    //     })
+    //     .then(data => {
+    //       setUsers(Object.values(data))
+    //     })
+    // }
+    // useEffect(() => {
+    //     fetchUserData()
+    //   }, [])
+    
+// console.log(users[0].Name,"data")
+    const dispatch = useDispatch();
+    const myScore = useSelector((state) => state.data.score);
+    const myOver = useSelector((state) => state.data.singleOver);
+    const totalScore = useSelector((state) => state.data.totalScore);
+    // console.log("You Scored ", myScore);
+    // console.log("You Scored ",totalScore);
+
+
   return (
-    <div>
+    <div className='score-main'>
         <div className='view-container d-flex justify-content-evenly m-5'>
         <div className='view-leftbox '>
             <div className='players'>
@@ -12,13 +41,13 @@ function ScoreCard() {
             <p className='non-striker'>Player B (Sc) Bl</p>
             </div>
             <div className='score-over'>
-                <p>Total Team Score : 195</p>
+                <p>Total Team Score : {totalScore}</p>
                 <p>Overs Played: 12.4</p>
             </div>
         </div>
 
         <div className='view-centerbox'>
-        <p className='my-run'>4</p>
+        <p className='my-run'>{myScore}</p>
         </div>
         
         
@@ -27,7 +56,14 @@ function ScoreCard() {
                 <p>Bowler Name (0/W)</p>
             </div>
             <div className='my-over'>
-                <p>Over: 1 2 3 4 5 6</p>
+                <div className='over-balls'>
+                <div >Over:</div>
+                <div className='over-balls'>{
+                    myOver.map((e)=>{
+                        return <div className='balls'>{e}</div>
+                    })
+                }</div>
+                </div>
             </div>
         </div>
         </div>
@@ -37,6 +73,7 @@ function ScoreCard() {
         <div className='bat-ball'>
         <div className='Bating-team'>
         <h3>Team A</h3>
+        {/* <Select options={allPlayers.map(val => ({ label: val.Name, value: val.Name, key: val.PhoneNo }))} onChange={handlePlayers} name="teamPlayers" value={players} closeMenuOnSelect={false} isMulti /> */}
         <p>Batsman 1</p>
         <p>Batsman 2</p>
         </div>
@@ -50,23 +87,47 @@ function ScoreCard() {
         <div className='btn-box'>
             <div>
             <div>
-            <button type="button" className="btn btn-outline-success"> 0 </button>
-            <button type="button" className="btn btn-outline-success"> 1 </button>
-            <button type="button" className="btn btn-outline-success"> 2 </button>
+            <button type="button" className="btn btn-outline-success"
+            onClick={()=>dispatch(scoreZero(0))}
+            > 0 </button>
+            <button type="button" className="btn btn-outline-success"
+            onClick={()=>dispatch(scoreOne(1))}
+            > 1 </button>
+            <button type="button" className="btn btn-outline-success"
+            onClick={()=>dispatch(scoreTwo(2))}
+            > 2 </button>
             </div>
             <div>
-            <button type="button" className="btn btn-outline-success"> 3 </button>
-            <button type="button" className="btn btn-outline-success"> 4 </button>
-            <button type="button" className="btn btn-outline-success"> 6 </button>
+            <button type="button" className="btn btn-outline-success"
+            onClick={()=>dispatch(scoreThree(3))}
+            >3 </button>
+            <button type="button" className="btn btn-outline-success"
+            onClick={()=>dispatch(scoreFour(4))}
+            > 4 </button>
+            <button type="button" className="btn btn-outline-success"
+            onClick={()=>dispatch(scoreSix(6))}
+            >6 </button>
                             
             </div>
-            <button type="button" className="btn btn-outline-success"> WB </button>
-            <button type="button" className="btn btn-outline-success"> Wc </button>
-            <button type="button" className="btn btn-outline-success"> Dead Ball </button>
+            <button type="button" className="btn btn-outline-success"
+            onClick={()=>dispatch(wideBall("WB"))}
+            > WB </button>
+            <button type="button" className="btn btn-outline-success"
+            onClick={()=>dispatch(wicket("Wc"))}
+            > Wc </button>
+            <button type="button" className="btn btn-outline-success"
+            onClick={()=>dispatch(deadBall("DB"))}
+            > DB </button>
             <div>
-            <button type="button" className="btn btn-outline-success"> Out </button>
-            <button type="button" className="btn btn-outline-success"> No Ball </button>
-            <button type="button" className="btn btn-outline-success"> Remove </button>
+            <button type="button" className="btn btn-outline-success"
+            onClick={()=>dispatch(out("OUT"))}
+            > Out </button>
+            <button type="button" className="btn btn-outline-success"
+            onClick={()=>dispatch(noBall("NB"))}
+            > NB </button>
+            <button type="button" className="btn btn-outline-success"
+            onClick={()=>dispatch(remove(""))}
+            > Remove </button>
             </div>
             </div>
         </div>

@@ -37,6 +37,11 @@ function Navbar() {
                   Schedule Match
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link " to="/scoreCard">
+                  Score Card
+                </Link>
+              </li>
               {!token?<li className="nav-item nav-login">
                 <Link className="nav-link " to="/login">
                   Login

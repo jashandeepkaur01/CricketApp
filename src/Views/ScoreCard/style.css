@@ -1,7 +1,6 @@
-body{
-    background-color:bisque;
+.score-main{
+    margin-top: -20px;
 }
-
 .view-container{
     display: flex;
     justify-content: space-between;
@@ -78,4 +77,14 @@ body{
 
 .bat-ball{
     font-size: 20px;
+}
+.over-balls{
+    display: flex;
+}
+.balls{
+    border: 2px solid aliceblue;
+    padding-right: 2px;
+    padding-left: 2px;
+    margin-right:3px;
+    margin-left:3px
 }

@@ -1,3 +1,15 @@
 export const GETDATA="GETDATA";
 export const SETDATA="SETDATA";
-export const Token="TOKEN"
+export const Token="TOKEN";
+export const SCOREZERO="SCOREZERO"
+export const SCOREONE="SCOREONE"
+export const SCORETWO="SCORETWO"
+export const SCORETHREE="SCORETHREE"
+export const SCOREFOUR="SCOREFOUR"
+export const SCORESIX="SCORESIX"
+export const WIDEBALL="WIDEBALL"
+export const WICKET="WICKET"
+export const DEADBALL="DEADBALL"
+export const OUT="OUT"
+export const NOBALL="NOBALL"
+export const REMOVE="REMOVE"
