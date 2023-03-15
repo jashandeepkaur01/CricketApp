@@ -21,18 +21,18 @@ function CustomModal(props) {
           backdrop="static"
           keyboard={false}
         >
-          <Modal.Header closeButton>
+          {props.header?<Modal.Header closeButton>
             <Modal.Title>{props.title}</Modal.Title>
-          </Modal.Header>
+          </Modal.Header>:null}
           <Modal.Body>
             {props.children}
           </Modal.Body>
-          <Modal.Footer>
+         {props.footer? <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
             <Button variant="primary" onClick={handleSubmit}>Submit</Button>
-          </Modal.Footer>
+          </Modal.Footer>:null}
         </Modal>
       </>
     );

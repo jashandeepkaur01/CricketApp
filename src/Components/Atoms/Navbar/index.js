@@ -37,6 +37,11 @@ function Navbar() {
                   Schedule Match
                 </Link>
               </li>
+              {!token?<li className="nav-item nav-login">
+                <Link className="nav-link " to="/login">
+                  Login
+                </Link>
+              </li>:null}
               {token?<li className="nav-item nav-login">
                 <Link className="nav-link " to="/logout">
                   Logout

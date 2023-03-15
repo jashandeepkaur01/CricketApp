@@ -1,6 +1,6 @@
 import { Token } from "Redux/Actions/loginActions/actionStates";
 
-import { GETDATAS } from "Redux/Actions/loginActions/actionStates";
+import { SETDATA, GETDATA} from "Redux/Actions/loginActions/actionStates";
 
 const initalData = {
   players: [],
@@ -9,8 +9,9 @@ const initalData = {
 }
 const data = (data = initalData, action) => {
   switch (action.type) {
-
-    case GETDATAS:
+     case GETDATA:
+        return data
+    case SETDATA:
       return { ...data, players: action.data.map((data) => ({ ...data })) };
 
     case Token:

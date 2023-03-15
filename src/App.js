@@ -12,7 +12,6 @@ import loginStore from "Redux/loginStore";
 function App() {
  
   return (
-    
 
     <Provider store={loginStore} >
       <PersistGate persistor={persistor}>
