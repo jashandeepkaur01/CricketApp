@@ -50,23 +50,23 @@ function ScoreCard() {
         <div className='btn-box'>
             <div>
             <div>
-            <button type="button" class="btn btn-outline-success"> 0 </button>
-            <button type="button" class="btn btn-outline-success"> 1 </button>
-            <button type="button" class="btn btn-outline-success"> 2 </button>
+            <button type="button" className="btn btn-outline-success"> 0 </button>
+            <button type="button" className="btn btn-outline-success"> 1 </button>
+            <button type="button" className="btn btn-outline-success"> 2 </button>
             </div>
             <div>
-            <button type="button" class="btn btn-outline-success"> 3 </button>
-            <button type="button" class="btn btn-outline-success"> 4 </button>
-            <button type="button" class="btn btn-outline-success"> 6 </button>
+            <button type="button" className="btn btn-outline-success"> 3 </button>
+            <button type="button" className="btn btn-outline-success"> 4 </button>
+            <button type="button" className="btn btn-outline-success"> 6 </button>
                             
             </div>
-            <button type="button" class="btn btn-outline-success"> WB </button>
-            <button type="button" class="btn btn-outline-success"> Wc </button>
-            <button type="button" class="btn btn-outline-success"> Dead Ball </button>
+            <button type="button" className="btn btn-outline-success"> WB </button>
+            <button type="button" className="btn btn-outline-success"> Wc </button>
+            <button type="button" className="btn btn-outline-success"> Dead Ball </button>
             <div>
-            <button type="button" class="btn btn-outline-success"> Out </button>
-            <button type="button" class="btn btn-outline-success"> No Ball </button>
-            <button type="button" class="btn btn-outline-success"> Remove </button>
+            <button type="button" className="btn btn-outline-success"> Out </button>
+            <button type="button" className="btn btn-outline-success"> No Ball </button>
+            <button type="button" className="btn btn-outline-success"> Remove </button>
             </div>
             </div>
         </div>

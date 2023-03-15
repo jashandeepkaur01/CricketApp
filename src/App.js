@@ -3,11 +3,11 @@ import { PersistGate } from "redux-persist/lib/integration/react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import './App.css'
 
-// import RootRouter from "./Routes/RootRouter";
+import RootRouter from "./Routes/RootRouter";
 import {  persistor } from "./Redux/Store";
 
 import loginStore from "Redux/loginStore";
-import ScoreCard from "Views/ScoreCard";
+// import ScoreCard from "Views/ScoreCard";
 
 function App() {
  
@@ -16,8 +16,8 @@ function App() {
 
     <Provider store={loginStore} >
       <PersistGate persistor={persistor}>
-      {/* <RootRouter /> */}
-      <ScoreCard/>
+      <RootRouter />
+      {/* <ScoreCard/> */}
       </PersistGate>
     </Provider>
   );

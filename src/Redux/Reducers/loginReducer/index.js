@@ -1,6 +1,6 @@
 import { Token } from "Redux/Actions/loginActions/actionStates";
 
-import { SETDATA, GETDATAS } from "Redux/Actions/loginActions/actionStates";
+import { GETDATAS } from "Redux/Actions/loginActions/actionStates";
 
 const initalData = {
   players: [],

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { takeLatest,put, call} from 'redux-saga/effects'
+import { takeLatest,put} from 'redux-saga/effects'
 import { getData } from 'Redux/Actions/loginActions'
 import { GETDATAS } from 'Redux/Actions/loginActions/actionStates';
 

@@ -1,4 +1,4 @@
-import { SETDATA,GETDATAS, Token} from "./actionStates"
+import { GETDATAS, Token} from "./actionStates"
 export const getData=(data)=>{
 
     return {
