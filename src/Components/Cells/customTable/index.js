@@ -27,7 +27,7 @@ export default function CustomTable({ tableContent, headingDetails }) {
               {headingDetails.map(val =>
                 <th>
                   <div className='d-flex '>
-                    {val}
+                    {val.label}
                   </div>
                 </th>
               )}
@@ -40,12 +40,9 @@ export default function CustomTable({ tableContent, headingDetails }) {
               
            
                   <tr>
-                  {Object.entries(val).map(val=>{
-                    if(val[0]!="key"){
-
-                    return (<td>{val[1]}</td>)
-                    }
-                    })}
+                 {headingDetails.map(heading=><td>
+                  {val[heading.key]}
+                 </td>)}
 
                   </tr>
                   
