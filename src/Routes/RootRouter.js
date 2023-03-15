@@ -12,9 +12,13 @@ import RenderRoutes from "./RenderRoutes";
 import { getData } from "Redux/Actions/loginActions";
 
 const DEFAULT_AUTHENTICATED_ROUTE = "/selectTeam";
+<<<<<<< HEAD
 const DEFAULT_GUEST_ROUTE = "/login";
+=======
+const DEFAULT_GUEST_ROUTE = "/authmessage";
+>>>>>>> ddb40c81fb7e8104cb332ce4ab2e118c0180573c
 
-const GuestRoutes = () => {
+const GuestRoutes = ({token}) => {
   return (
     <Switch>
       <Route exact path={AUTH_ROUTES.map((route) => route.path)}>
@@ -45,6 +49,10 @@ const AuthenticatedRoutes = () => {
           <RenderRoutes routes={PRIVATE_ROUTES} />
        </PrivateLayout>
         </Route>
+<<<<<<< HEAD
+=======
+     
+>>>>>>> ddb40c81fb7e8104cb332ce4ab2e118c0180573c
      <Redirect from="*" to={DEFAULT_AUTHENTICATED_ROUTE} />
     
       </Switch>
@@ -59,6 +67,10 @@ const RootRouter = () => {
   }, [])
 
   const token = useSelector((state) => state.data.token);
+<<<<<<< HEAD
+=======
+
+>>>>>>> ddb40c81fb7e8104cb332ce4ab2e118c0180573c
   const baseName = process.env.REACT_APP_BASE_NAME;
   const isAuthenticated = !!token;
   return (
@@ -66,7 +78,11 @@ const RootRouter = () => {
 
     <BrowserRouter basename={baseName}>
       <DocumentTitle isAuthenticated={isAuthenticated} />
+<<<<<<< HEAD
       <AppLayout isAuthenticated={isAuthenticated}>{token? <AuthenticatedRoutes /> : <GuestRoutes />}</AppLayout>
+=======
+      <AppLayout isAuthenticated={isAuthenticated}>{token? <AuthenticatedRoutes /> : <GuestRoutes token={token}/>}</AppLayout>
+>>>>>>> ddb40c81fb7e8104cb332ce4ab2e118c0180573c
     </BrowserRouter>
 
   );
