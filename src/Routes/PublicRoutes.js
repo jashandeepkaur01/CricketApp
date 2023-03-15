@@ -4,7 +4,7 @@ import Home from "../Views/Home";
 import SelectTeam from "Views/SelectTeam";
 // import Login from "../Views/Login/Login"
 // import ScheduleMatch from "../Views/ScheduleMatch";
-
+import SelectTeam from "Views/SelectTeam";
 
 export const PUBLIC_ROUTES = [
   {
@@ -28,4 +28,5 @@ export const PUBLIC_ROUTES = [
     component: SelectTeam,
     title: "Select Team",
   },
+  
 ];

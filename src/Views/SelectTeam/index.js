@@ -1,11 +1,14 @@
 import { useSelector } from 'react-redux';
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+
 import CustomTable from 'Components/Cells/customTable';
-import axios from 'axios';
+
 import { Button } from 'react-bootstrap';
 
-import CallingTeamModal from 'Components/Cells/callingTeamModal';
+
+import CustomModal from 'Components/Atoms/customModal';
+import TeamForm from 'Components/Cells/addTeamForm';
 
 
 function SelectTeam() {
@@ -33,7 +36,10 @@ function SelectTeam() {
       <Button variant="primary" onClick={handleShow}>
         Add Team
       </Button>
-      <CallingTeamModal visible={showModal} showModal={showModal} setShowModal={setShowModal} title="Team Selection" allPlayers={data} teamData={teamData} setTeamData={setTeamData} players={players} setPlayers={setPlayers} captain ={captain} setCaptain={setCaptain}/>
+      <CustomModal footer={true} header={true} visible={showModal} showModal={showModal} setShowModal={setShowModal} title={"Team Selection"}>
+                <TeamForm allPlayers={data} teamData={teamData} setTeamData={setTeamData} players={players} setPlayers={setPlayers} captain={captain} setCaptain={setCaptain} />
+            </CustomModal>
+      {/* <CallingTeamModal visible={showModal} showModal={showModal} setShowModal={setShowModal} title="Team Selection" allPlayers={data} teamData={teamData} setTeamData={setTeamData} players={players} setPlayers={setPlayers} captain ={captain} setCaptain={setCaptain}/> */}
       <CustomTable headingDetails={['JerseyNo', 'PlayerCountry', 'playerage', 'playername']} tableContent={data} />
     </div>
   )

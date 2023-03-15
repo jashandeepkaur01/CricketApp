@@ -5,8 +5,8 @@ import { ADDTEAM, GETDATA } from 'Redux/Actions/loginActions/actionStates';
 
 function* players(payload) {
 
-  try {
-    const response = yield axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.json");
+    try{
+    const response =  yield axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/players.json");
     yield put(setData(Object.values(response.data)));
 
   }
