@@ -4,7 +4,7 @@ import watchAuth from "./Auth";
 import loginSaga from "./loginSaga";
 
 function* rootSaga() {
-  yield all([fork(watchAuth), fork(loginSaga)]);
+  yield all([fork(watchAuth)]);
 }
 
 export default rootSaga;

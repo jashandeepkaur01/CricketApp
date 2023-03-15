@@ -2,7 +2,6 @@ import CustomModal from 'Components/Atoms/customModal'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { postdata } from 'Redux/Actions/loginActions'
-import { POSTDATA } from 'Redux/Actions/loginActions/actionStates'
 import TeamForm from '../addTeamForm'
 
 export default function CallingTeamModal({visible,showModal,setShowModal,title,allPlayers,teamData,setTeamData,players,setPlayers,captain, setCaptain}) {

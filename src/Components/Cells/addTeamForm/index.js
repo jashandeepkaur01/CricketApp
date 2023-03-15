@@ -17,8 +17,13 @@ function TeamForm({teamData,setTeamData,players,setPlayers,captain,setCaptain,al
    }
 
     const handleChange = (e) => {
-      console.log(e)
+          console.log(e)
           setCaptain(e)
+          
+          setTeamData({...teamData,
+          teamCaptain:e.value
+        })
+
       };
 
     

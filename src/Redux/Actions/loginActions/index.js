@@ -1,4 +1,4 @@
-import { SETDATA,GETDATAS, Token, POSTDATA} from "./actionStates"
+import { SETDATA,GETDATAS, Token, POSTDATA,SETPOSTDATA} from "./actionStates"
 
 export const getData=(data)=>{
 
@@ -27,6 +27,13 @@ export const setToken=(token)=>{
 export const postdata =(data)=>{
     return{
         type:POSTDATA,
+        data
+    }
+}
+
+export const setPostData=(data)=>{
+    return{
+        type:SETPOSTDATA,
         data
     }
 }

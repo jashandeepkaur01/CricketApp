@@ -1,8 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 function ShowTeam() {
+  const data = useSelector((state)=>state.data.player)
   return (
     <>
-      <h2>Team List Will be Shown Here</h2>
+      
+      <h2>{data}</h2>
     </>
     
   )

@@ -12,7 +12,7 @@ function SelectTeam() {
   const [showModal, setShowModal] = useState(false);
   const [allplayers, setAllPlayers] = useState([]);
   const [players, setPlayers] = useState([]);
-  const [captain,setCaptain]=useState([]);
+  const [captain,setCaptain]=useState('');
 
   useEffect(() => {
     let s = [];
