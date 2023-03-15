@@ -1,17 +1,9 @@
-<<<<<<< HEAD
 import { SETDATA,GETDATAS, Token, POSTDATA,SETPOSTDATA} from "./actionStates"
 
 export const getData=(data)=>{
 
     return {
         type :GETDATAS,
-=======
-import { GETDATA,SETDATA, Token} from "./actionStates"
-export const getData=(data)=>{
-    console.log('getData action called...')
-    return {
-        type :GETDATA,
->>>>>>> ddb40c81fb7e8104cb332ce4ab2e118c0180573c
         data
        
     }
@@ -31,7 +23,6 @@ export const setToken=(token)=>{
        token
    }
 }
-<<<<<<< HEAD
 
 export const postdata =(data)=>{
     return{
@@ -46,5 +37,3 @@ export const setPostData=(data)=>{
         data
     }
 }
-=======
->>>>>>> ddb40c81fb7e8104cb332ce4ab2e118c0180573c

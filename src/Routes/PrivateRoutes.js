@@ -8,7 +8,6 @@ export const PRIVATE_ROUTES = [
   //   title: "Select Team",
   // },
   {
-<<<<<<< HEAD
     path: "/selectTeam",
     component: SelectTeam,
     title: "Select Team",
@@ -19,13 +18,6 @@ export const PRIVATE_ROUTES = [
     title: "Schedule Match",
   },
   {
-=======
-    path: "/scheduleMatch",
-    component: ScheduleMatch,
-    title: "Schedule Match",
-  },
-  {
->>>>>>> ddb40c81fb7e8104cb332ce4ab2e118c0180573c
     path: "/logout",
     component: Logout,
     title: "logout",

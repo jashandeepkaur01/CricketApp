@@ -1,14 +1,5 @@
 import { useSelector } from 'react-redux';
 import React from 'react'
-<<<<<<< HEAD
-import { useState, useEffect } from 'react';
-
-import CustomTable from 'Components/Cells/customTable';
-import axios from 'axios';
-import { Button } from 'react-bootstrap';
-
-import CallingTeamModal from 'Components/Cells/callingTeamModal';
-=======
 import { useState } from 'react';
 
 import CustomTable from 'Components/Cells/customTable';
@@ -18,7 +9,6 @@ import { Button } from 'react-bootstrap';
 
 import CustomModal from 'Components/Atoms/customModal';
 import TeamForm from 'Components/Cells/addTeamForm';
->>>>>>> ddb40c81fb7e8104cb332ce4ab2e118c0180573c
 
 
 function SelectTeam() {

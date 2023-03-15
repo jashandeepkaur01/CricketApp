@@ -28,7 +28,7 @@ function CustomModal(props) {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleSubmit}>Submit</Button>
+            <Button variant="primary" onClick={props.onSubmitModal}>Submit</Button>
           </Modal.Footer>:null}
         </Modal>
       </>
