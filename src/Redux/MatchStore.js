@@ -4,11 +4,12 @@ import rootReducer from './rootReducer';
 import productSaga from './productSaga'
 import MatchSaga from './Sagas/MatchSaga.js'
 import createSagaMiddleware from 'redux-saga';
+import { rootReducerJP } from './Reducers/rootReducerJP';
 
 // const store = createStore(rootReducer);
 // const sagaMiddleware = createSagaMiddleware();
 const MatchStore  = configureStore({
-    reducer:rootReducer
+    reducer:rootReducerJP
     // middleware:()=>[sagaMiddleware]
 });
 

@@ -5,6 +5,7 @@ import { Country, State, City }  from 'country-state-city';
 import { ICountry, IState, ICity } from 'country-state-city'
 import CustomDropdown from '../CustomDropdown';
 import { useDispatch, useSelector } from 'react-redux';
+import { stadiums } from 'Redux/Actions/Matches';
 
 // import CustomDropdown from './CustomDropdown';
 
@@ -18,7 +19,7 @@ function LocationInput() {
     const allCities = City.getAllCities().map(obj => obj["name"]);
     return (
         <div className='p-2'>
-        <button onClick={()=>dispatch(stadiums([12,23]))}>dis</button>
+        <button onClick={()=>dispatch(stadiums([22222]))}>dis</button>
             <CustomDropdown labelForDropdown={"Country"} dropdownOptions={allCountries}/>
             <CustomDropdown labelForDropdown={"State"} dropdownOptions={allStates}/>
             {/* <CustomDropdown labelForDropdown={"City"} dropdownOptions={allCities}/>*/}
