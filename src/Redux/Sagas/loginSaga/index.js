@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { takeLatest, put, call, all } from 'redux-saga/effects'
-import { setData } from 'Redux/Actions/loginActions'
+import { setData, setTeamData } from 'Redux/Actions/loginActions'
 import { ADDTEAM, GETDATA } from 'Redux/Actions/loginActions/actionStates';
 
 function* players(payload) {
@@ -16,7 +16,19 @@ function* players(payload) {
     }
   }
 }
+function* teams(payload) {
 
+  try{
+  const response =  yield axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/teams.json");
+  yield put(setTeamData(Object.values(response.data)));
+
+}
+catch (error) {
+  if (payload && payload?.fail) {
+    payload.fail(error)
+  }
+}
+}
 function* addTeam(payload){
   try {
     console.log('payload ',payload)
@@ -29,6 +41,6 @@ function* addTeam(payload){
   }
 }
 function* Sagaa() {
-  yield all([takeLatest(GETDATA, players),takeLatest(ADDTEAM, addTeam)]);
+  yield all([takeLatest(GETDATA, players),takeLatest(GETDATA, teams),takeLatest(ADDTEAM, addTeam)]);
 }
 export default Sagaa;

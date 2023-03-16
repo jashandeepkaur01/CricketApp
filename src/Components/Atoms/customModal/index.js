@@ -7,10 +7,10 @@ function CustomModal(props) {
         props.setShowModal(false);
     }
 
-    const handleSubmit =()=>{
-        console.log('Modal submitted');
-        props.setShowModal(false);
-      }
+    // const handleSubmit =()=>{
+    //     console.log('Modal submitted');
+    //     props.setShowModal(false);
+    //   }
   
     return (
       <>

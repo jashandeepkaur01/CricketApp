@@ -1,8 +1,9 @@
+import ShowTeamPlayers from "Components/Atoms/TableButton";
 import React, { useState } from "react";
 import Pagination from "../../Atoms/Pagination";
 
+
 export default function CustomTable({ tableContent, headingDetails }) {
-  // console.log(tableContent)
   const [showperpage, setShowperPage] = useState(11);
   const [paginate, setPaginate] = useState({
     start: 0,
@@ -14,6 +15,11 @@ export default function CustomTable({ tableContent, headingDetails }) {
       start: start,
       end: end
     })
+  }
+
+  const showTeamPlayers = (playerArr) => {
+    console.log(playerArr);
+
   }
 
   return (
@@ -36,13 +42,14 @@ export default function CustomTable({ tableContent, headingDetails }) {
           {tableContent.length ?
             <tbody>
           
-              {tableContent.slice(paginate.start, paginate.end).map(val =>
+              {tableContent.slice(paginate.start, paginate.end).map((val,index) =>
               
            
                   <tr>
-                 {headingDetails.map(heading=><td>
-                  {val[heading.key]}
-                 </td>)}
+                 {headingDetails.map(heading=><td>{(typeof val[heading.key] !== 'object')?
+                 val[heading.key]:
+                 <ShowTeamPlayers players={val[heading.key]}/>
+                 }</td>)}
 
                   </tr>
                   

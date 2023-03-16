@@ -1,4 +1,4 @@
-import { ADDTEAM, GETDATA,SETDATA, Token} from "./actionStates"
+import { ADDTEAM, GETDATA,SETDATA, SETTEAMDATA, Token} from "./actionStates"
 export const getData=(data)=>{
     
     return {
@@ -10,6 +10,13 @@ export const getData=(data)=>{
 export const setData=(data)=>{
     return {
         type :SETDATA,
+        data
+       
+    }
+}
+export const setTeamData=(data)=>{
+    return {
+        type :SETTEAMDATA,
         data
        
     }

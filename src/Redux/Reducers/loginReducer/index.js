@@ -1,9 +1,8 @@
-import { Token } from "Redux/Actions/loginActions/actionStates";
-
-import { SETDATA, GETDATA} from "Redux/Actions/loginActions/actionStates";
+import { SETDATA, GETDATA, Token, SETTEAMDATA} from "Redux/Actions/loginActions/actionStates";
 
 const initalData = {
   players: [],
+  teams: [],
   token: 0
 }
 const data = (data = initalData, action) => {
@@ -12,6 +11,8 @@ const data = (data = initalData, action) => {
         return data
     case SETDATA:
       return { ...data, players: action.data.map((data) => ({ ...data })) };
+    case SETTEAMDATA:
+      return { ...data, teams: action.data.map((data) => ({ ...data })) };
 
     case Token:
       return { ...data, token: action.token }

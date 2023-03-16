@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 
 // const arr = ["Player name", "Player PhoneNo", "Player Age", "JerseyyNo", "PlayerCountry", "sixes", "fours", "fiftys", "Hundreds", "Score", "Avg score", "inings played"];
-const arr=[
+const playerTableHeading=[
   {
   label:"Name",
   key:"Name"
@@ -59,7 +59,7 @@ const data = useSelector((state) => state.data.players);
 
 return (
     <div>
-      <CustomTable tableContent={data} headingDetails={arr} />
+      <CustomTable tableContent={data} headingDetails={playerTableHeading} />
     </div>
   )
 }

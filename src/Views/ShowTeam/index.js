@@ -1,11 +1,35 @@
-import React from 'react'
+import React from "react";
+import { useSelector } from "react-redux";
+import CustomTable from "Components/Cells/customTable";
+// import CustomModal from 'Components/Atoms/customModal';
+
 function ShowTeam() {
+  const  data = useSelector((state) => state.data.teams);
+  const teamHeadings = [
+    {
+      label: "TeamName",
+      key: "teamName",
+    },
+    {
+      label: "TeamCaptain",
+      key: "teamCaptain",
+    },
+    {
+      label: "TeamType",
+      key: "teamType",
+    },
+    {
+      label: "TeamPlayers",
+      key: "teamPlayers",
+    },
+  ];
+
+  console.log("hello",data);
   return (
     <>
-      <h2>Team List Will be Shown Here</h2>
+      <CustomTable tableContent={data} headingDetails={teamHeadings} />
     </>
-    
-  )
+  );
 }
 
-export default ShowTeam
+export default ShowTeam;
