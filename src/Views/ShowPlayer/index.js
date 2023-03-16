@@ -52,6 +52,10 @@ const playerTableHeading=[
               {
                 label:"Innings",
                 key:"InningsPlayed"
+              },
+              {
+                label:"Team",
+                key:"Team"
               }
 ]
 function Main() {
