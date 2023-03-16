@@ -1,4 +1,4 @@
-import { DEADBALL, GETDATA, NOBALL, OUT, REMOVE, SCOREFOUR, SCOREONE, SCORESIX, SCORETHREE, SCORETWO, SCOREZERO, SETDATA, Token, WICKET, WIDEBALL } from "./actionStates";
+import { DEADBALL, GETDATA, NOBALL, REMOVE, SCOREFOUR, SCOREONE, SCORESIX, SCORETHREE, SCORETWO, SCOREZERO, SETDATA, Token, WICKET, WIDEBALL } from "./actionStates";
 export const getData = (data) => {
   console.log("getData action called...");
   return {
@@ -71,12 +71,6 @@ export const wicket = (score) =>{
 export const deadBall = (score) =>{
     return {
         type: DEADBALL,
-        score:score,
-    };
-};
-export const out = (score) =>{
-    return {
-        type: OUT,
         score:score,
     };
 };

@@ -12,17 +12,18 @@
 }
 .Bating-team{
    
-    width: 300px;
-    height: 150px;
+    width: 400px;
+    height: 180px;
     color: aliceblue;
     background-color: darkslategray;
     text-align: center;
     padding: 10px;
+    
 }
 
 .Bowling-team{
     margin-top: 20px;
-    width: 300px;
+    width: 400px;
     height: 150px;
     color: aliceblue;
     background-color: darkslategray;
@@ -87,4 +88,10 @@
     padding-left: 2px;
     margin-right:3px;
     margin-left:3px
+}
+.seletPlayer , .seletBowler{
+    color: black;
+    font-size: 20px;
+    width: 200px;
+    margin: 4px;;
 }
