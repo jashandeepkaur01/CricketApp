@@ -20,11 +20,7 @@ export const PUBLIC_ROUTES = [
     path: "/showTeam",
     component: ShowTeam,
     title: "Show Team",
-  },
-  {
-    path: "/selectTeam",
-    component: SelectTeam,
-    title: "Select Team",
-  },
+  }
+
   
 ];
