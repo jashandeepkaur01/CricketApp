@@ -1,11 +1,10 @@
 import Select from 'react-select'
-
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import DateTimePicker from 'react-datetime-picker';
 import { useHistory } from 'react-router-dom';
-
 import { addMatch } from 'Redux/Actions/loginActions';
+import { STRING_ARRAYS } from 'Shared/Constants';
 
 
 function ScheduleMatch() {
@@ -18,10 +17,11 @@ function ScheduleMatch() {
   const [value, onChange] = useState(new Date());
   const arr = (value || "").toString().split(" ")
   // const g = { "day": arr[0], "month": arr[1], "date": arr[2], "year": arr[3], "time": arr[4] }
-  const matchData=[{venue:venue,teamA:selectedATeam,teamB:selectedBTeam,date:arr[2],month:arr[1],day:arr[0],year:arr[3],time:arr[4]}]
+  const matchData = [{ venue: venue, teamA: selectedATeam, teamB: selectedBTeam, date: arr[2], month: arr[1], day: arr[0], year: arr[3], time: arr[4] }]
 
+
+  const date = new Date();
   const teamData1 = useSelector(state => state.loginReducer.teams)
-
 
   function handleChangeTeamA(e) {
     setSelectedATeam(e)
@@ -32,9 +32,13 @@ function ScheduleMatch() {
 
   function handleStartMatch() {
     if (venue != "" && selectedATeam != [] && selectedBTeam != [] && value != null) {
-         dispatch(addMatch(matchData))
-
+     if(matchData[0].date>=date.getDate()&&matchData[0].year>=date.getUTCFullYear()){
+      dispatch(addMatch(matchData))
       navigate.push("/scoreComponent")
+    }
+    else{
+      setErrorMessage("Enter current date")
+    }
     }
     else {
       setErrorMessage("Enter all Fields")
@@ -69,7 +73,7 @@ function ScheduleMatch() {
             </td>
             <td>
               <div className="ms-5 ps-5">
-                <input className="w-75" type="text" value={venue} placeholder="Enter venue" onChange={(e) => {setVenue(e.target.value) }}></input>
+                <input className="w-75" type="text" value={venue} placeholder="Enter venue" onChange={(e) => { setVenue(e.target.value) }}></input>
               </div>
             </td>
           </tr>
