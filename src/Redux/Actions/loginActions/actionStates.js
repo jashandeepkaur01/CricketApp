@@ -1,6 +1,5 @@
+export const GETDATA="GETDATA";
 export const SETDATA="SETDATA";
-export const GETDATAS="GETDATAS";
 export const Token="TOKEN";
-export const POSTDATA = "POSTDATA"
-export const SETPOSTDATA="SETPOSTDATAs"
-
+export const ADDTEAM = "ADDTEAM";
+export const SETTEAMDATA="SETTEAMDATA";

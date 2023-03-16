@@ -4,7 +4,8 @@ import './style.css'
 import cricketLogo from '../../../Assets/Images/cricketLogo.png'
 import { useSelector } from "react-redux";
 function Navbar() {
-  const token = useSelector((state) => state.data.token);
+  const tokenData = useSelector((state) => state.loginReducer.token);
+  const token=tokenData.length
   return (
     <div className="navouter">
       <nav className="navbar navbar-expand-lg bg-body-tertiary bg-dark fs-5 ">
@@ -27,16 +28,16 @@ function Navbar() {
                   Show Team
                 </Link>
               </li>
-              <li className="nav-item">
+              {token?<li className="nav-item">
                 <Link className="nav-link " to="/selectTeam">
                   Select Team
                 </Link>
-              </li>
-              <li className="nav-item">
+              </li>:null}
+              {token? <li className="nav-item">
                 <Link className="nav-link " to="/scheduleMatch">
                   Schedule Match
                 </Link>
-              </li>
+              </li>:null}
               {!token?<li className="nav-item nav-login">
                 <Link className="nav-link " to="/login">
                   Login

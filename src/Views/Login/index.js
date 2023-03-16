@@ -3,11 +3,11 @@ import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { setToken } from "Redux/Actions/loginActions";
 const Login = () => {
-  const [name, setName] = useState("");
+  
   const [contact, setContact] = useState("");
   const [errorMessage,setErrorMessage]=useState("")
   const dispatch = useDispatch();
-  const data = useSelector(((state) => state.data.players))
+  const data = useSelector(((state) => state.loginReducer.players))
 
 
   // 6127963022
@@ -17,7 +17,7 @@ const Login = () => {
     let token = []
     token = data?.filter(val => val.PhoneNo == contact )
 
-    dispatch(setToken(token.length))
+    dispatch(setToken(token))
     if(token.length==0){
        setErrorMessage("Not Valid Player")
     }

@@ -1,10 +1,13 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { setToken } from 'Redux/Actions/loginActions'
 export default function Logout() {
     const dispatch = useDispatch()
+    const navigate=useHistory()
     function handleLogout() {
-        dispatch(setToken(0))
+        dispatch(setToken([]))
+        navigate.push("/")
     }
     return (
         <div className="d-flex  justify-content-center w-100 ">

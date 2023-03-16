@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import CustomTable from "Components/Cells/customTable";
+// import CustomModal from 'Components/Atoms/customModal';
+
 function ShowTeam() {
-  const  data = useSelector((state) => state.data.teamData);
-  
+  const  data = useSelector((state) => state.loginReducer.teams);
   const teamHeadings = [
     {
       label: "TeamName",
@@ -26,9 +27,6 @@ function ShowTeam() {
   console.log("hello",data);
   return (
     <>
-      {/* {data.map((e) => (
-        <h2>{e.teamCaptain}</h2>
-      ))} */}
       <CustomTable tableContent={data} headingDetails={teamHeadings} />
     </>
   );

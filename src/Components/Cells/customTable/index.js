@@ -25,9 +25,9 @@ export default function CustomTable({ tableContent, headingDetails }) {
   return (
     <>
 
-      <div className=" justify-content-center w-100 p-5">
+      <div className=" justify-content-center w-100 px-5 pb-4">
 
-        <table className="table  table-warning">
+        <table className="table  table-success table-bordered table-hover  table-sm ">
           <thead className='table table-dark'>
             <tr>
               {headingDetails.map(val =>
@@ -45,8 +45,8 @@ export default function CustomTable({ tableContent, headingDetails }) {
               {tableContent.slice(paginate.start, paginate.end).map((val,index) =>
               
            
-                  <tr>
-                 {headingDetails.map(heading=><td>{(typeof val[heading.key] !== 'object')?
+                  <tr >
+                 {headingDetails.map(heading=><td >{(typeof val[heading.key] !== 'object')?
                  val[heading.key]:
                  <ShowTeamPlayers players={val[heading.key]}/>
                  }</td>)}

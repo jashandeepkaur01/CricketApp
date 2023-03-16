@@ -1,52 +1,65 @@
 import axios from 'axios'
-import { takeLatest,put, call, all} from 'redux-saga/effects'
-import { setData, setPostData } from 'Redux/Actions/loginActions'
-import { GETDATAS, POSTDATA ,SETPOSTDATA} from 'Redux/Actions/loginActions/actionStates';
+import { takeLatest, put, call, all } from 'redux-saga/effects'
+import { setData, setTeamData } from 'Redux/Actions/loginActions'
+import { ADDTEAM, GETDATA } from 'Redux/Actions/loginActions/actionStates';
 
-function* players(payload){
+function* players(payload) {
 
-    try{
-    const response =  yield axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/players.json");
-    yield put(setData(Object.values(response.data)));
-       
-} 
-catch(error){
-  if(payload && payload?.fail) {
-    payload.fail(error)
+  try {
+    const response = yield axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/players.json");
+    const playersDataWithKey = []
+    for (let key in response.data) {
+      playersDataWithKey.push({ ...response.data[key], "key": key })
+    }
+
+    yield put(setData(playersDataWithKey));
+
+  }
+
+
+
+
+  catch (error) {
+    if (payload && payload?.fail) {
+      payload.fail(error)
+    }
   }
 }
+function* teams(payload) {
+
+  try {
+    const response = yield axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/teams.json");
+    console.log(response)
+    const teamsDataWithKey = []
+    for (let key in response.data) {
+      teamsDataWithKey.push({ ...response.data[key], "key": key })
+    }
+    
+    yield put(setTeamData(teamsDataWithKey));
+
   }
-
-
-function* teamsData(payload){
-
-  try{
-  const response =  yield axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/teams.json");
-  yield put(setPostData(Object.values(response.data)));
-     
-} 
-catch(error){
-if(payload && payload?.fail) {
-  payload.fail(error)
-}
-}
-}
-
-function* teamPlayer(payload){
-  try{
- 
-      yield call(axios.post,'https://customcricketmatch-default-rtdb.firebaseio.com/teams.json',payload.data);
-     
-     
-  }
-  catch(error){
-    console.log(error)
+  catch (error) {
+    if (payload && payload?.fail) {
+      payload.fail(error)
+    }
   }
 }
-
-function* Sagaa(){
-   yield all([takeLatest(GETDATAS, players), takeLatest(GETDATAS, teamsData),takeLatest(POSTDATA, teamPlayer)]);
-
+function* addTeam(payload) {
+  try {
+    console.log('payload ', payload)
+    
+    yield call(axios.post, "https://customcricketmatch-default-rtdb.firebaseio.com/teams.json", payload.data);
+  }
+  catch (error) {
+    if (payload && payload?.fail) {
+      payload.fail(error)
+    }
+  }
 }
+function* Sagaa() {
+  yield all([takeLatest(GETDATA, players), takeLatest(GETDATA, teams), takeLatest(ADDTEAM, addTeam)]);
+}
+
+
 
 export default Sagaa;
