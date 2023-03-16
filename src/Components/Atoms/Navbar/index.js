@@ -28,16 +28,16 @@ function Navbar() {
                   Show Team
                 </Link>
               </li>
-              <li className="nav-item">
+              {token?<li className="nav-item">
                 <Link className="nav-link " to="/selectTeam">
                   Select Team
                 </Link>
-              </li>
-              <li className="nav-item">
+              </li>:null}
+              {token? <li className="nav-item">
                 <Link className="nav-link " to="/scheduleMatch">
                   Schedule Match
                 </Link>
-              </li>
+              </li>:null}
               {!token?<li className="nav-item nav-login">
                 <Link className="nav-link " to="/login">
                   Login
