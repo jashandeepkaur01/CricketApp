@@ -4,7 +4,7 @@ import CustomTable from "Components/Cells/customTable";
 // import CustomModal from 'Components/Atoms/customModal';
 
 function ShowTeam() {
-  const  data = useSelector((state) => state.data.teams);
+  const  data = useSelector((state) => state.loginReducer.teams);
   const teamHeadings = [
     {
       label: "TeamName",

@@ -4,7 +4,8 @@ import './style.css'
 import cricketLogo from '../../../Assets/Images/cricketLogo.png'
 import { useSelector } from "react-redux";
 function Navbar() {
-  const token = useSelector((state) => state.data.token);
+  const tokenData = useSelector((state) => state.loginReducer.token);
+  const token=tokenData.length
   return (
     <div className="navouter">
       <nav className="navbar navbar-expand-lg bg-body-tertiary bg-dark fs-5 ">

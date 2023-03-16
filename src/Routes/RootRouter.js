@@ -59,8 +59,10 @@ const RootRouter = () => {
     dispatch(getData([]));
   }, [])
 
-  const token = useSelector((state) => state.data.token);
-
+  const tokenData = useSelector((state) => state.loginReducer.token);
+  const token=tokenData.length
+  const tokenData1 = useSelector((state) => state.loginReducer.token);
+  console.log(tokenData1)
   const baseName = process.env.REACT_APP_BASE_NAME;
   const isAuthenticated = !!token;
   return (

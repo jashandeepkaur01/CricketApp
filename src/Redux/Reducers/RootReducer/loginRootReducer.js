@@ -1,7 +1,13 @@
-import data from "../loginReducer";
-
+import loginReducer from "../loginReducer";
 import {combineReducers} from "redux";
-const rootreducer=combineReducers({
-    data
-});
+
+
+const appReducer = combineReducers({
+    loginReducer
+
+  });
+const rootreducer=(state,action)=>{
+  
+    return appReducer(state, action);
+};
 export default rootreducer;

@@ -15,7 +15,7 @@ function SelectTeam() {
 
   const dispatch = useDispatch();
 
-  const data = useSelector((state) => state.data.players)
+  const data=useSelector((state)=>state.loginReducer.players)
   const [teamData, setTeamData] = useState({
     teamName: "",
     teamType: "",

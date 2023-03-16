@@ -5,11 +5,20 @@ import { ADDTEAM, GETDATA } from 'Redux/Actions/loginActions/actionStates';
 
 function* players(payload) {
 
-    try{
-    const response =  yield axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/players.json");
-    yield put(setData(Object.values(response.data)));
+  try {
+    const response = yield axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/players.json");
+    const playersDataWithKey = []
+    for (let key in response.data) {
+      playersDataWithKey.push({ ...response.data[key], "key": key })
+    }
+
+    yield put(setData(playersDataWithKey));
 
   }
+
+
+
+
   catch (error) {
     if (payload && payload?.fail) {
       payload.fail(error)
@@ -18,21 +27,27 @@ function* players(payload) {
 }
 function* teams(payload) {
 
-  try{
-  const response =  yield axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/teams.json");
-  yield put(setTeamData(Object.values(response.data)));
+  try {
+    const response = yield axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/teams.json");
+    
+    const teamsDataWithKey = []
+    for (let key in response.data) {
+      teamsDataWithKey.push({ ...response.data[key], "key": key })
+    }
+    
+    yield put(setTeamData(teamsDataWithKey));
 
-}
-catch (error) {
-  if (payload && payload?.fail) {
-    payload.fail(error)
+  }
+  catch (error) {
+    if (payload && payload?.fail) {
+      payload.fail(error)
+    }
   }
 }
-}
-function* addTeam(payload){
+function* addTeam(payload) {
   try {
-    console.log('payload ',payload)
-    yield call( axios.post,"https://customcricketmatch-default-rtdb.firebaseio.com/VTeams.json",payload.data);
+    console.log('payload ', payload)
+    yield call(axios.post, "https://customcricketmatch-default-rtdb.firebaseio.com/VTeams.json", payload.data);
   }
   catch (error) {
     if (payload && payload?.fail) {
@@ -41,6 +56,6 @@ function* addTeam(payload){
   }
 }
 function* Sagaa() {
-  yield all([takeLatest(GETDATA, players),takeLatest(GETDATA, teams),takeLatest(ADDTEAM, addTeam)]);
+  yield all([takeLatest(GETDATA, players), takeLatest(GETDATA, teams), takeLatest(ADDTEAM, addTeam)]);
 }
 export default Sagaa;
