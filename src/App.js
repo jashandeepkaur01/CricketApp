@@ -10,7 +10,7 @@ import { persistorlogin } from "Redux/loginStore";
 import loginStore from "Redux/loginStore";
 
 function App() {
- 
+
   return (
 
     <Provider store={loginStore} >

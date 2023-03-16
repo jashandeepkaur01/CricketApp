@@ -16,8 +16,9 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function Navbar() {
   const dispatch=useDispatch()
+ 
   const tokenData = useSelector((state) => state.loginReducer.token);
-
+ 
   const token=tokenData.length
   return (
     <div className="navouter">
@@ -46,6 +47,11 @@ function Navbar() {
                   Select Team
                 </Link>
               </li>:null}
+              {token?<li className="nav-item">
+                <Link className="nav-link " to="/scheduledMatches">
+                  Matches
+                </Link>
+              </li>:null}
               {token? <li className="nav-item">
                 <Link className="nav-link " to="/scheduleMatch">
                   Schedule Match
@@ -58,6 +64,7 @@ function Navbar() {
                   Login
                 </Link>
               </li>:null}
+           
               {token?<li className="nav-item nav-login">
               <Nav>
             <NavDropdown

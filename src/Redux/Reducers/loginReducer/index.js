@@ -1,11 +1,12 @@
-import { REHYDRATE } from "redux-persist";
 
 
-import { SETDATA, GETDATA, Token, SETTEAMDATA} from "Redux/Actions/loginActions/actionStates";
+
+import { SETDATA, GETDATA, Token, SETTEAMDATA,ADDMATCH} from "Redux/Actions/loginActions/actionStates";
 
 const initalData = {
   players: [],
   teams: [],
+  matches:[],
   token: [],
 }
 
@@ -30,13 +31,9 @@ const loginReducer = (data = initalData, action) => {
     case Token:
       return { ...data, token: action.token}
 
-      // case REHYDRATE:
-      //   let persistedData = ((action || {}).payload).loginReducer || initalData
-      //   console.log(persistedData, action,data,"persistedData<><<><><>")
-      //   return {
-      //     ...data,
-      //     token:persistedData.token
-      //   }
+    case ADDMATCH:
+  
+      return {...data,matches:action.matches.map((data) => ({ ...data }))}
     default:
       return data;
   }
