@@ -15,11 +15,6 @@ const initalData = {
 
 const loginReducer = (data = initalData, action) => {
   switch (action.type) {
-
-  
-
-
-
      case GETDATA:
         return data
     case SETDATA:
