@@ -13,13 +13,13 @@ const initalData = {
 
 
 const data = (data = initalData, action) => {
+
   switch (action.type) {
 
     case GETDATAS:
-      return { ...data, players: action.data.map((data) => ({ ...data })) };
-    
-      case SETDATA:
-        return { ...data, teamData: action.data.map((data) => ({ ...data })) };
+      return data;
+    case SETDATA:
+        return { ...data, players: action.data.map((data) => ({ ...data })) };
 
     case Token:
       return { ...data, token: action.token }
@@ -29,7 +29,9 @@ const data = (data = initalData, action) => {
     //   return {data}
 
     case SETPOSTDATA:
-      return {...data,players:action.data.map((data) => ({...data}))};
+      console.log(action.data)
+      
+      return {...data,teamData:action.data.map((data) => ({...data}))};
     
     default:
       return data;

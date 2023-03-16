@@ -56,7 +56,7 @@ const arr=[
 ]
 function Main() {
 const data = useSelector((state) => state.data.players);
-
+console.log(data,"data")
 return (
     <div>
       <CustomTable tableContent={data} headingDetails={arr} />

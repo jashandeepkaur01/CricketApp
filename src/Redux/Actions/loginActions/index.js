@@ -17,6 +17,7 @@ export const setData=(data)=>{
     }
 }
 
+
 export const setToken=(token)=>{
    return {
        type:Token,
@@ -25,6 +26,7 @@ export const setToken=(token)=>{
 }
 
 export const postdata =(data)=>{
+    console.log("PostData")
     return{
         type:POSTDATA,
         data
