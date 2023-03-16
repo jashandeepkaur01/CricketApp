@@ -4,7 +4,7 @@ import { setToken } from 'Redux/Actions/loginActions'
 export default function Logout() {
     const dispatch = useDispatch()
     function handleLogout() {
-        dispatch(setToken(0))
+        dispatch(setToken([]))
     }
     return (
         <div className="d-flex  justify-content-center w-100 ">

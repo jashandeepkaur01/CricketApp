@@ -10,6 +10,9 @@ const initalData = {
 }
 
 
+
+
+
 const loginReducer = (data = initalData, action) => {
   switch (action.type) {
 
@@ -25,13 +28,13 @@ const loginReducer = (data = initalData, action) => {
     case Token:
       return { ...data, token: action.token}
 
-      case REHYDRATE:
-        let persistedData = ((action || {}).payload).loginReducer || initalData
-        console.log(persistedData, action,"persistedData<><<><><>")
-        return {
-          ...data,
-          token:persistedData.token
-        }
+      // case REHYDRATE:
+      //   let persistedData = ((action || {}).payload).loginReducer || initalData
+      //   console.log(persistedData, action,data,"persistedData<><<><><>")
+      //   return {
+      //     ...data,
+      //     token:persistedData.token
+      //   }
     default:
       return data;
   }

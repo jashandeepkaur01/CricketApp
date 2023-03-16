@@ -7,7 +7,13 @@ function* players(payload){
 
     try{
     const response =  yield axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/players.json");
-    yield put(setData(Object.values(response.data)));
+
+  const dataWithKey=[]
+   for(let key in response.data){
+    dataWithKey.push({...response.data[key],"key":key})
+   }
+   console.log(dataWithKey)
+    yield put(setData(dataWithKey));
            
 } 
 catch(error){

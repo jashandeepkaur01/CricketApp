@@ -21,7 +21,7 @@ export default function CustomTable({ tableContent, headingDetails }) {
 
       <div className=" justify-content-center w-100 px-5 pb-4">
 
-        <table className="table  table-warning table-bordered table-hover  table-sm table-striped">
+        <table className="table  table-success table-bordered table-hover  table-sm table-striped">
           <thead className='table table-dark'>
             <tr>
               {headingDetails.map(val =>

@@ -24,12 +24,8 @@ const composeEnhancers =
   const sagaMiddleware=createSagaMiddleware();
 
 
-
-  export const loginStore = createStore(persistedReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));
-
-// const loginStore=configureStore({reducer:rootreducer,
-//     middleware:()=>[sagaMiddleware]});
-    sagaMiddleware.run(Sagaa);
+ const loginStore = createStore(persistedReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));
+ sagaMiddleware.run(Sagaa);
 export default loginStore;
 
 export const persistorlogin = persistStore(loginStore);

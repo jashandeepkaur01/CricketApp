@@ -73,7 +73,7 @@ function TeamForm({teamData,setTeamData,players,setPlayers,captain,setCaptain,al
         
         <label><b>Select the Players</b></label>
 
-        <Select options={allPlayers.map(val=>({label:val.playername,value:val.playername}))} onChange={handlePlayers}   name="teamPlayers" value={players} closeMenuOnSelect={false} isMulti />
+        <Select options={allPlayers.map(val=>({label:val.Name,value:val.Name}))} onChange={handlePlayers}   name="teamPlayers" value={players} closeMenuOnSelect={false} isMulti />
         {players.length>9?<div className="text-danger">11 players selected</div>:null}
         <label><b>Select Captain for the team</b></label>
         <Select options={players.map(val=>({label:val.label,value:val.value}))} onChange={handleChange}  name="teamCaptain" value={captain} />
