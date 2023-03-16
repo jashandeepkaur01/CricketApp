@@ -18,7 +18,7 @@ function ShowTeamPlayers(playerArr) {
     }
     return (
         <div>
-            <button className='btn btn-outline-dark' onClick={showPlayers}>View Players</button>
+            <button className='btn btn-sm  btn-outline-dark' onClick={showPlayers}>View Players</button>
             <CustomModal footer={false} header={true} visible={showModal} showModal={showModal} setShowModal={setShowModal} title={`${teamName} Players`} onSubmitModal={submitModal}>
                 <ListGroup as="ol" numbered>
                     

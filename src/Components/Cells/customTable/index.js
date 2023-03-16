@@ -25,7 +25,7 @@ export default function CustomTable({ tableContent, headingDetails }) {
   return (
     <>
 
-      <div className=" justify-content-center w-100 px-5 pb-4">
+      <div className=" justify-content-center w-100 px-5 py-5 pb-4">
 
         <table className="table  table-success table-bordered table-hover  table-sm ">
           <thead className='table table-dark'>

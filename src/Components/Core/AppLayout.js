@@ -12,10 +12,7 @@ const AppLayout = ({ isAuthenticated, children }) => {
   return (
     <>
       <Navbar/>
-      {/* error Msg: {errorMsg} */}
-      <div className="d-flex justify-content-end w-100">
-     {networkStatus ? <label className=" m-2 px-4 py-2 text-success">Online</label> : <label className=" m-2 px-4 py-2  text-danger">Offline</label>}
-      </div>
+    
       {children}
     </>
   );
