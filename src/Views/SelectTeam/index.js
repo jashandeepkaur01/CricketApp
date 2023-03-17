@@ -30,9 +30,8 @@ function SelectTeam() {
   const handleShow = () => setShowModal(true);
 
   const submitModal = () => {
-    console.log(playerLoggedInData);
-    console.log('select Team Players....', players);
     let playersInTeam = [playerLoggedInData.key]
+    console.log('logged in as ...',playersInTeam);
     playersInTeam = playersInTeam.concat(players.map(player=>player.key)) // selected players keys
     const selectedPlayersData = playersInTeam.map(k=>{
       for(let playerData of data){
@@ -43,12 +42,9 @@ function SelectTeam() {
       }
     })
 
-    // console.log('selectedPlayersData......................',selectedPlayersData);
-
     const selectedTeam = teamData.teamName;
     let playersInTeamObj = {}
     playersInTeamObj[selectedTeam] = selectedPlayersData;
-    // mainPlayerKey = playersInTeam[0];
     dispatch(updatePlayersTeam(playersInTeamObj));
     console.log('players selected key', playersInTeam);
     dispatch(addTeamData({ ...teamData }));
@@ -64,7 +60,9 @@ function SelectTeam() {
         <TeamForm allPlayers={data} teamData={teamData} setTeamData={setTeamData} players={players} setPlayers={setPlayers} captain={captain} setCaptain={setCaptain} />
       </CustomModal>
       {/* <CallingTeamModal visible={showModal} showModal={showModal} setShowModal={setShowModal} title="Team Selection" allPlayers={data} teamData={teamData} setTeamData={setTeamData} players={players} setPlayers={setPlayers} captain ={captain} setCaptain={setCaptain}/> */}
-      <CustomTable headingDetails={['JerseyNo', 'PlayerCountry', 'playerage', 'playername']} tableContent={data} />
+      {/* <CustomTable headingDetails={['JerseyNo', 'PlayerCountry', 'playerage', 'playername']} tableContent={data} /> */}
+
+      
     </div>
   )
 }
