@@ -3,7 +3,7 @@ import { REHYDRATE } from "redux-persist";
 
 import { SETDATA, GETDATA, Token, SETTEAMDATA} from "Redux/Actions/loginActions/actionStates";
 
-const initalData = {
+const initialData = {
   players: [],
   teams: [],
   token: [],
@@ -13,7 +13,7 @@ const initalData = {
 
 
 
-const loginReducer = (data = initalData, action) => {
+const loginReducer = (data = initialData, action) => {
   switch (action.type) {
      case GETDATA:
         return data

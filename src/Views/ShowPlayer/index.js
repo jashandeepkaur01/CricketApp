@@ -60,10 +60,12 @@ const playerTableHeading=[
 ]
 function Main() {
 const data = useSelector((state) => state.loginReducer.players);
+console.log('.....show player dataa.....',data);
 
 return (
     <div>
-      <CustomTable tableContent={data} headingDetails={playerTableHeading} />
+      <CustomTable tableContent={data} headingDetails={playerTableHeading} btnText='View Team'  component='Name'/>
+
     </div>
   )
 }

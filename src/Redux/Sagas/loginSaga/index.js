@@ -50,14 +50,18 @@ function* addTeam(payload) {
 function* updatePlayersTeam(payload) {
   try {
     const teamName = Object.keys(payload.data)[0];
+    const teamObj = {
+      label: teamName,
+      value: teamName,
+    }
     let teamArr;
-    console.log('payload ... ',payload)
     const requests = payload.data[teamName].map((playerData) => {
-      console.log('playerData', playerData);
-      teamArr = [...playerData.Team, teamName];
+      teamArr = [...playerData.Team,{...teamObj} ];
+      
       return axios.patch(`https://customcricketmatch-default-rtdb.firebaseio.com/players/${playerData.key}.json`,
         { Team: teamArr },
       )
+      
     })
     yield axios.all(requests)
   }

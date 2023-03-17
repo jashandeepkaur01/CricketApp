@@ -1,9 +1,9 @@
-import ShowTeamPlayers from "Components/Atoms/TableButton";
 import React, { useState } from "react";
 import Pagination from "../../Atoms/Pagination";
+import TableButton from "Components/Atoms/TableButton";
 
 
-export default function CustomTable({ tableContent, headingDetails }) {
+export default function CustomTable({ tableContent, headingDetails, btnText, component }) {
   const [showperpage, setShowperPage] = useState(11);
   const [paginate, setPaginate] = useState({
     start: 0,
@@ -17,16 +17,10 @@ export default function CustomTable({ tableContent, headingDetails }) {
     })
   }
 
-  const showTeamPlayers = (playerArr) => {
-    console.log(playerArr);
-
-  }
-
   return (
     <>
 
       <div className=" justify-content-center w-100 px-5 pb-4">
-
         <table className="table  table-success table-bordered table-hover  table-sm ">
           <thead className='table table-dark'>
             <tr>
@@ -41,24 +35,20 @@ export default function CustomTable({ tableContent, headingDetails }) {
           </thead>
           {tableContent.length ?
             <tbody>
-          
-              {tableContent.slice(paginate.start, paginate.end).map((val,index) =>
-              
-           
-                  <tr >
-                 {headingDetails.map(heading=><td >{(typeof val[heading.key] !== 'object')?
-                 val[heading.key]:
-                 <ShowTeamPlayers players={val[heading.key]}/>
-                 }</td>)}
 
-                  </tr>
-                  
+              {tableContent.slice(paginate.start, paginate.end).map((val, index) =>
+                <tr>
+                  {headingDetails.map(heading => <td >{(typeof val[heading.key] !== 'object') ?
+                    val[heading.key] :
+                    <TableButton data={val[heading.key]} btnText={btnText} firstColumnValue={tableContent[index][component]} />
+                  }</td>)}
+                </tr>
+
               )}
             </tbody>
             :
             <div className="d-flex justify-content-center w-100 p-5">
-
-              <h1 className=" text-danger ">..........Add Data</h1>
+              <h1 className=" text-danger ">Loading Data Please Wait.....</h1>
             </div>
           }
         </table>

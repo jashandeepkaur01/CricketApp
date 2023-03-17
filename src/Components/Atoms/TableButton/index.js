@@ -2,32 +2,25 @@ import React, { useState } from 'react'
 import { ListGroup } from 'react-bootstrap';
 import CustomModal from '../customModal';
 
-function ShowTeamPlayers(playerArr) {
+function TableButton(props) {
     const [showModal, setShowModal] = useState(false);
-    const teamName = 'RCB';
-    // console.log(playerArr.players,'playerArr')
-
-    const handleShow = () => setShowModal(true);
-    
+    // const handleShow = () => setShowModal(true);
     const submitModal = () => {
         setShowModal(false);
     }
     const showPlayers = () => {
-        console.log('show players/..', playerArr);
         setShowModal(true);
     }
     return (
         <div>
-            <button className='btn btn-outline-dark' onClick={showPlayers}>View Players</button>
-            <CustomModal footer={false} header={true} visible={showModal} showModal={showModal} setShowModal={setShowModal} title={`${teamName} Players`} onSubmitModal={submitModal}>
+            <button className='btn btn-outline-dark' onClick={showPlayers}>{props.btnText}</button>
+            <CustomModal footer={false} header={true} visible={showModal} showModal={showModal} setShowModal={setShowModal} title={`${props.firstColumnValue}`} onSubmitModal={submitModal}>
                 <ListGroup as="ol" numbered>
-                    
-                    {playerArr.players.map(player=><ListGroup.Item as="li">{player.value}</ListGroup.Item>)}
-                    
+                    {props.data.map(element=><ListGroup.Item as="li">{element.value}</ListGroup.Item>)}
                 </ListGroup>
             </CustomModal>
         </div>
     )
 }
 
-export default ShowTeamPlayers
+export default TableButton

@@ -13,12 +13,10 @@ function SelectTeam() {
   const [players, setPlayers] = useState([]);
   const [captain, setCaptain] = useState([]);
 
-  var mainPlayerKey;
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state.loginReducer.players)
   const playerLoggedInData = useSelector((state) => state.loginReducer.token)[0];
-  // console.log(playerLoggedInData);
   const [teamData, setTeamData] = useState({
     teamName: "",
     teamType: "",
@@ -36,7 +34,6 @@ function SelectTeam() {
     const selectedPlayersData = playersInTeam.map(k=>{
       for(let playerData of data){
         if(k === playerData.key){
-          // console.log('selected Player Data: ',playerData)
           return playerData;
         }
       }
@@ -46,7 +43,6 @@ function SelectTeam() {
     let playersInTeamObj = {}
     playersInTeamObj[selectedTeam] = selectedPlayersData;
     dispatch(updatePlayersTeam(playersInTeamObj));
-    console.log('players selected key', playersInTeam);
     dispatch(addTeamData({ ...teamData }));
     setShowModal(false);
 
@@ -59,10 +55,7 @@ function SelectTeam() {
       <CustomModal footer={true} header={true} visible={showModal} showModal={showModal} setShowModal={setShowModal} title={"Add New Team"} onSubmitModal={submitModal}>
         <TeamForm allPlayers={data} teamData={teamData} setTeamData={setTeamData} players={players} setPlayers={setPlayers} captain={captain} setCaptain={setCaptain} />
       </CustomModal>
-      {/* <CallingTeamModal visible={showModal} showModal={showModal} setShowModal={setShowModal} title="Team Selection" allPlayers={data} teamData={teamData} setTeamData={setTeamData} players={players} setPlayers={setPlayers} captain ={captain} setCaptain={setCaptain}/> */}
-      {/* <CustomTable headingDetails={['JerseyNo', 'PlayerCountry', 'playerage', 'playername']} tableContent={data} /> */}
 
-      
     </div>
   )
 }
