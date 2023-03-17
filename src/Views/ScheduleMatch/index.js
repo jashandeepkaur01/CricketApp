@@ -1,41 +1,34 @@
 import Select from 'react-select'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import DateTimePicker from 'react-datetime-picker';
+
 import { useHistory } from 'react-router-dom';
 import { addMatch } from 'Redux/Actions/loginActions';
-import { STRING_ARRAYS } from 'Shared/Constants';
+
 
 function ScheduleMatch() {
-   const [state,setState]=useState({venue:"",selectedATeam:[],selectedBTeam:[],errorMessage:""})
+  const [state,setState]=useState({venue:"",selectedATeam:[],selectedBTeam:[],errorMessage:""})
   const dispatch = useDispatch()
   const navigate = useHistory()
-  const [value, onChange] = useState(new Date());
   const teamData1 = useSelector(state => state.loginReducer.teams)
-  // const g = { "day": arr[0], "month": arr[1], "date": arr[2], "year": arr[3], "time": arr[4] }
+  const playerData=useSelector(state=>state.loginReducer.players)
+  const loginPlayer=useSelector(state=>state.loginReducer.token)
   
-  const arr = (value || "").toString().split(" ")
-  const newArr=arr[4].split(":")
-  const matchData = [{ venue: state.venue, teamA: state.selectedATeam, teamB:  state.selectedBTeam, date: arr[2], month: arr[1], day: arr[0], year: arr[3], hour: newArr[0],minute:newArr[1],second:newArr[2] }]
+  const teamCheck=playerData?.filter(val=>(val.key==loginPlayer[0].key))
+  const loginPlayerTeam=teamCheck
+    console.log("player",loginPlayerTeam)
+
+  const matchData = [{ venue: state.venue, teamA: state.selectedATeam, teamB:  state.selectedBTeam}]
   const date = new Date();
-  
-
-const monthCheck= STRING_ARRAYS.MONTHS.findIndex(val=>val==matchData[0].month)
-  
-
-// && state.selectedATeam != [] && state.selectedBTeam != [] 
-
- console.log(date.getMinutes(),matchData[0].minute)
-
   function handleStartMatch() {
-    if (state.venue != "" && value != null) {
-      if (matchData[0].date >= date.getDate() && matchData[0].year >= date.getUTCFullYear()&&monthCheck>=date.getMonth()&&date.getHours()<=matchData[0].hour&&date.getMinutes()<=matchData[0].minute) {
+    if (state.venue != ""&&state.selectedATeam!=[]&&state.selectedBTeam!=[]) {
+        matchData[0].date=date.getDate()
+        matchData[0].month=date.getMonth()+1
+        matchData[0].year=date.getFullYear()
         dispatch(addMatch(matchData))
         navigate.push("/scoreComponent")
-      }
-      else {
-        setState({...state,  errorMessage:"Cannot schedule match in past "})
-      }
+      
+    
     }
     else {
       setState({...state,  errorMessage:"Enter all Fields"})
@@ -69,9 +62,8 @@ const monthCheck= STRING_ARRAYS.MONTHS.findIndex(val=>val==matchData[0].month)
           <h4 className='m-2 mx-5 px-5 '>Match between Team A and Team B</h4>
         </div>
         <table>
-          {table("Select Date and time", <DateTimePicker onChange={onChange} value={value} />)}
           {table("Select Venue", <input className="w-75" type="text" value={state.venue} placeholder="Enter venue" onChange={(e) => { setState({...state,venue:e.target.value}) }}></input>)}
-          {table("Select Your Team", <Select options={teamData1?.map(val => ({ label: val.teamName, value: val.teamName }))} onChange={(e)=> setState({...state,selectedATeam:e})} name="teamCaptain" value={state.selectedATeam} />)}
+          {table("Select Your Team", <Select options={teamCheck?.map(val => ({ label: val.Team, value: val.Team }))} onChange={(e)=> setState({...state,selectedATeam:e})} name="teamCaptain" value={state.selectedATeam} />)}
           {table("Select Oponend's Team", <Select options={teamData1?.map(val => ({ label: val.teamName, value: val.teamName }))} onChange={(e)=> setState({...state,selectedBTeam:e})} name="teamCaptain" value={state.selectedBTeam} />)}
         </table>
         <div className="d-flex p-2 mt-4 round rounded-4 rounded-top border border-success bg-success">
