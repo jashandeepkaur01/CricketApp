@@ -47,12 +47,13 @@ console.log("data of players",data)
       <h2 className=''>Select Team</h2>
       <b><p className='d-flex text-lg-left text-success fs-3'>{playerLoggedInData.Name}</p></b><br/>
       <Select className=' text-center' options={Teams} /><br/>
-      <div className="text-left"><Button variant="success" onClick={handleShow}>
+      <div className="d-flex justify-content-around"><Button variant="success" onClick={handleShow}>
         Add Team
-      </Button></div><br/>
+      </Button><br/>
       <CustomModal footer={true} header={true} visible={showModal} showModal={showModal} setShowModal={setShowModal} title={"Team Selection"} onSubmitModal={submitModal}>
         <TeamForm allPlayers={data} teamData={teamData} setTeamData={setTeamData} players={players} setPlayers={setPlayers} captain={captain} setCaptain={setCaptain} />
       </CustomModal>
+      <Button variant="success"><i class="bi bi-forward"></i></Button><br/></div><br/>
 
       
 
