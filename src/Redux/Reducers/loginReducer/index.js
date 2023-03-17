@@ -1,6 +1,4 @@
 
-
-import { useState } from "react";
 import {
   DEADBALL,
   NOBALL,
@@ -19,19 +17,18 @@ import {
 import { SETDATA, GETDATA } from "Redux/Actions/loginActions/actionStates";
 
 
-var singleOver = [];
-var totalScore = 0;
-var oversPlayed = 0.0;
-var currentScore = 0;
-var myWicket = 0;
+const obj={
+  singleOver:[],
+  totalScore:0,
+  oversPlayed:0.0,
+  currentScore:0,
+  myWicket:0,  
+}
 const initalData = {
   players: [],
   token: 0,
   score: 0,
-  singleOver: [],
-  oversPlayed: oversPlayed,
-  totalScore: totalScore,
-  myWicket: myWicket,
+  objs:obj
 };
 let count = 5;
 const data = (data = initalData, action) => {
@@ -40,9 +37,9 @@ const data = (data = initalData, action) => {
   if (action.type === WIDEBALL || action.type === NOBALL) {
     count++;
   } else {
-    if (singleOver.length > count) {
-      singleOver = [];
-      oversPlayed = Math.ceil(oversPlayed);
+    if (data.objs.singleOvers.length > count) {
+      data.objs.singleOver = [];
+      data.objs.oversPlayed = Math.ceil(data.objs.oversPlayed);
     }
   }
 
@@ -59,114 +56,115 @@ const data = (data = initalData, action) => {
       return { ...data, token: action.token };
 
     case SCOREZERO:
-      totalScore += action.score;
-      currentScore = action.score;
-      oversPlayed = oversPlayed + 0.1;
-      oversPlayed = oversPlayed.toFixed(1);
-      oversPlayed = parseFloat(oversPlayed);
-      singleOver = [...singleOver, action.score];
+    data.objs.totalScore += action.score;
+    data.objs.currentScore = action.score;
+    data.objs.oversPlayed = data.objs.oversPlayed + 0.1;
+    data.objs.oversPlayed = data.objs.oversPlayed.toFixed(1);
+    data.objs.oversPlayed = parseFloat(data.objs.oversPlayed);
+    data.objs.singleOver = [...data.objs.singleOver, action.score];
       return {
         ...data,
         score: action.score,
-        singleOver: singleOver,
-        totalScore,
-        oversPlayed,
+        singleOver: data.objs.singleOver,
+        totalScore:data.objs.totalScore,
+        oversPlayed:data.objs.oversPlayed,
       };
       
     case SCOREONE:
-      totalScore += action.score;
-      currentScore = action.score;
-      oversPlayed += 0.1;
-      oversPlayed = oversPlayed.toFixed(1);
-      oversPlayed = parseFloat(oversPlayed);
-      singleOver = [...singleOver, action.score];
+      data.objs.totalScore += action.score;
+      data.objs.currentScore = action.score;
+      data.objs.oversPlayed += 0.1;
+      data.objs.oversPlayed = data.objs.oversPlayed.toFixed(1);
+      data.objs.oversPlayed = parseFloat(data.objs.oversPlayed);
+      data.objs.singleOver = [...data.objs.singleOver, action.score];
       return {
         ...data,
         score: action.score,
-        singleOver: singleOver,
-        totalScore,
-        oversPlayed,
+        singleOver: data.objs.singleOver,
+        totalScore:data.objs.totalScore,
+        oversPlayed:data.objs.oversPlayed,
       };
 
     case SCORETWO:
-      totalScore += action.score;
-      currentScore = action.score;
-      oversPlayed += 0.1;
-      oversPlayed = oversPlayed.toFixed(1);
-      oversPlayed = parseFloat(oversPlayed);
-      singleOver = [...singleOver, action.score];
+      data.objs.totalScore += action.score;
+      data.objs.currentScore = action.score;
+      data.objs.oversPlayed += 0.1;
+      data.objs.oversPlayed = data.objs.oversPlayed.toFixed(1);
+      data.objs.oversPlayed = parseFloat(data.objs.oversPlayed);
+      data.objs.singleOver = [...data.objs.singleOver, action.score];
       return {
         ...data,
         score: action.score,
-        singleOver: singleOver,
-        totalScore,
-        oversPlayed,
+        singleOver: data.objs.singleOver,
+        totalScore:data.objs.totalScore,
+        oversPlayed:data.objs.oversPlayed,
       };
 
     case SCORETHREE:
-      totalScore += action.score;
-      currentScore = action.score;
-      oversPlayed += 0.1;
-      oversPlayed = oversPlayed.toFixed(1);
-      oversPlayed = parseFloat(oversPlayed);
-      singleOver = [...singleOver, action.score];
+      data.objs.totalScore += action.score;
+      data.objs.currentScore = action.score;
+      data.objs.oversPlayed += 0.1;
+     data.objs.oversPlayed = data.objs.oversPlayed.toFixed(1);
+      data.objs.oversPlayed = parseFloat(data.objs.oversPlayed);
+      data.objs.singleOver = [...data.objs.singleOver, action.score];
       return {
         ...data,
         score: action.score,
-        singleOver: singleOver,
-        totalScore,
-        oversPlayed,
+        singleOver: data.objs.singleOver,
+        totalScore:data.objs.totalScore,
+        oversPlayed:data.objs.oversPlayed,
       };
 
     case SCOREFOUR:
-      totalScore += action.score;
-      currentScore = action.score;
-      oversPlayed += 0.1;
-      oversPlayed = oversPlayed.toFixed(1);
-      oversPlayed = parseFloat(oversPlayed);
-      singleOver = [...singleOver, action.score];
+      data.objs.totalScore += action.score;
+      data.objs.currentScore = action.score;
+      data.objs.oversPlayed += 0.1;
+      data.objs.oversPlayed = data.objs.oversPlayed.toFixed(1);
+      data.objs.oversPlayed = parseFloat(data.objs.oversPlayed);
+      data.objs.singleOver = [...data.objs.singleOver, action.score];
       return {
         ...data,
         score: action.score,
-        singleOver: singleOver,
-        totalScore,
-        oversPlayed,
+        singleOver: data.objs.singleOver,
+        totalScore:data.objs.totalScore,
+        oversPlayed:data.objs.oversPlayed,
       };
 
     case SCORESIX:
-      totalScore += action.score;
-      currentScore = action.score;
-      oversPlayed += 0.1;
-      oversPlayed = oversPlayed.toFixed(1);
-      oversPlayed = parseFloat(oversPlayed);
-      singleOver = [...singleOver, action.score];
+      data.objs.totalScore += action.score;
+      data.objs.currentScore = action.score;
+      data.objs.oversPlayed += 0.1;
+      data.objs.oversPlayed = data.objs.oversPlayed.toFixed(1);
+      data.objs.oversPlayed = parseFloat(data.objs.oversPlayed);
+      data.objs.singleOver = [...data.objs.singleOver, action.score];
       return {
         ...data,
         score: action.score,
-        singleOver: singleOver,
-        totalScore,
-        oversPlayed,
+        singleOver: data.objs.singleOver,
+        totalScore:data.objs.totalScore,
+        oversPlayed:data.objs.oversPlayed,
       };
 
     case WIDEBALL:
-    totalScore += 1;
+    data.objs.totalScore += 1;
     
-      singleOver = [...singleOver, action.score];
-      currentScore = action.score;
+    data.objs.singleOver = [...data.objs.singleOver, action.score];
+    data.objs.currentScore = action.score;
       return {
         ...data,
         score: action.score,
-        singleOver: singleOver,
-        totalScore,
+        singleOver: data.objs.singleOver,
+        totalScore:data.objs.totalScore,
       };
 
     case WICKET:
-      singleOver = [...singleOver, action.score];
-      oversPlayed += 0.1;
-      oversPlayed = oversPlayed.toFixed(1);
-      oversPlayed = parseFloat(oversPlayed);
-      if(myWicket<10){
-        myWicket += 1;
+      data.objs.singleOver = [...data.objs.singleOver, action.score];
+      data.objs.oversPlayed += 0.1;
+      data.objs.oversPlayed = data.objs.oversPlayed.toFixed(1);
+      data.objs.oversPlayed = parseFloat(data.objs.oversPlayed);
+      if( data.objs.myWicket<10){
+      if( data.objs.myWicket<10){
+        data.objs.myWicket += 1;
       }else{
         alert("Match Over");
       }
@@ -174,10 +172,10 @@ const data = (data = initalData, action) => {
       return {
         ...data,
         score: action.score,
-        singleOver: singleOver,
-        totalScore,
-        oversPlayed,
-        myWicket,
+        singleOver:  data.objs.singleOver,
+        totalScore: data.objs.totalScore,
+        oversPlayed: data.objs.oversPlayed,
+        myWicket:data.objs.myWicket,
       };
 
     case DEADBALL:
@@ -200,6 +198,7 @@ const data = (data = initalData, action) => {
       oversPlayed = oversPlayed - 0.1;
       oversPlayed = oversPlayed.toFixed(1);
       oversPlayed = parseFloat(oversPlayed);
+
       singleOver.pop();
       
 

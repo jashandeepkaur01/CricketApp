@@ -1,17 +1,9 @@
 import React from "react";
 import {
-  deadBall,
-  noBall,
-  remove,
-  scoreFour,
-  scoreOne,
-  scoreSix,
-  scoreThree,
-  scoreTwo,
-  scoreZero,
-  wicket,
-  wideBall,
+  deadBall,noBall,remove,scoreFour,scoreOne,scoreSix,
+  scoreThree,scoreTwo,scoreZero,wicket,wideBall,
 } from "Redux/Actions/loginActions";
+
 import "./style.css";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -24,7 +16,16 @@ function ScoreCard() {
   const [batsman2,setBatsman2] = useState([]);
   const [bowler,setBowler] = useState([]);
   const [players,setPlayer] = useState([]);
-//   const [startMatch,setStartMatch] = useState(false)
+  const [score1,setScore1] = useState(0);
+  const [score2,setScore2] = useState(0);
+  const [count,setCount] = useState(0);
+  const[stars,setStar]=useState(true);
+  const [ball1,setBall1] = useState(-1);
+  const [ball2,setBall2] = useState(0);
+
+  
+  const inputs = batsman1.value&&batsman2.value&&bowler.value;
+  let star="*";
 
 // console.log(players,"players")
   const handleBatsman1 = (e) => {
@@ -63,18 +64,46 @@ function ScoreCard() {
   const totalScore = useSelector((state) => state.data.totalScore);
   const oversPlayed = useSelector((state) => state.data.oversPlayed);
   const wickets = useSelector((state) => state.data.myWicket);
+  
   // console.log("You Scored ", myScore);
 //   console.log("You Scored000 ",player1.value);
 
+  // console.log(startMatch)
  
+  useEffect(()=>{
 
+  if((myScore%2==0)&&(count%2==0)){
+    setScore1(score1+myScore);
+    setBall1(ball1+1)
+  }
+  else if(myScore%2!==0 && count%2==0){
+    setScore1(score1+myScore);
+    setBall1(ball1+1)
+    setCount(1);
+  }
+  else if(myScore%2==0 && count%2!==0){
+    setScore2(score2+myScore);
+    setBall2(ball2+1)
+  }
+  else if(myScore%2!==0 && count%2!==0){
+    setScore2(score2+myScore);
+    setBall2(ball2+1)
+    setCount(0);
+  }
+ 
+  console.log(count)
+  
+},[totalScore])
+
+
+  
   return (
     <div className="score-main">
       <div className="view-container d-flex justify-content-evenly m-5">
         <div className="view-leftbox ">
           <div className="players">
-            <p className="striker">*{batsman1.value} (Sc) Bl</p>
-            <p className="non-striker">{batsman2.value} (Sc) Bl</p>
+            {stars?<p className="striker">{star}{batsman1.value} {score1} ({ball1})</p>:<p>{batsman1.value} {score1} ({ball1})</p>}
+            {!stars?<p className="non-striker">{star}{batsman2.value} {score2} ({ball2})</p>:<p>{batsman2.value} {score2} ({ball2})</p>}
           </div>
           <div className="score-over">
             <p>Total Score : {totalScore}</p>
@@ -89,7 +118,7 @@ function ScoreCard() {
 
         <div className="view-rightbox">
           <div className="my-bowler">
-            <p>{bowler.value} (0/W)</p>
+            <p>{bowler.value} (0/{wickets})</p>
           </div>
           <div className="my-over">
             <div className="over-balls">
@@ -103,13 +132,14 @@ function ScoreCard() {
           </div>
         </div>
       </div>
-
+          
       <div className="teams-and-btn">
+    
         <div className="bat-ball">
           <div className="Bating-team">
             <h3>Team A</h3>
             <div className="d-flex justify-content-between fs-3">
-            <label>*Batsman</label>
+            <label>Batsman</label>
             <Select className="seletPlayer" options={users.map(val => ({ label:val.Name, value: val.Name, key:val.PhoneNo}))} onChange={handleBatsman1} name="teamPlayer1" value={batsman1} />
             </div>
             <div className="d-flex justify-content-between fs-3">
@@ -127,8 +157,8 @@ function ScoreCard() {
             </div>
           </div>
         </div>
-
-        <div className="btn-box">
+        
+        {inputs?<div className="btn-box">
           <div>
             <div>
               <button
@@ -142,7 +172,9 @@ function ScoreCard() {
               <button
                 type="button"
                 className="btn btn-outline-success"
-                onClick={() => dispatch(scoreOne(1))}
+                onClick={() =>{ 
+                  setStar(!stars);
+                  dispatch(scoreOne(1))}}
               >
                 {" "}
                 1{" "}
@@ -150,7 +182,9 @@ function ScoreCard() {
               <button
                 type="button"
                 className="btn btn-outline-success"
-                onClick={() => dispatch(scoreTwo(2))}
+                onClick={() =>
+                {setStar(stars);
+                 dispatch(scoreTwo(2))}}
               >
                 {" "}
                 2{" "}
@@ -160,7 +194,9 @@ function ScoreCard() {
               <button
                 type="button"
                 className="btn btn-outline-success"
-                onClick={() => dispatch(scoreThree(3))}
+                onClick={() => {
+                  setStar(!stars);
+                  dispatch(scoreThree(3))}}
               >
                 3{" "}
               </button>
@@ -223,7 +259,7 @@ function ScoreCard() {
               </button>
             </div>
           </div>
-        </div>
+        </div>:null}
       </div>
     </div>
   );

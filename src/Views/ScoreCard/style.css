@@ -1,6 +1,10 @@
-.score-main{
-    margin-top: -20px;
-}
+/* body{
+    background-color:bisque;
+} */
+/* .score-main{
+    background-color:bisque;
+} */
+
 .view-container{
     display: flex;
     justify-content: space-between;
