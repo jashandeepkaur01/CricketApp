@@ -15,8 +15,8 @@ const initalData = {
 
 const loginReducer = (data = initalData, action) => {
   switch (action.type) {
-    case GETDATA:
-      return data;
+     case GETDATA:
+        return data
     case SETDATA:
       return { ...data, players: action.data.map((data) => ({ ...data })) };
     case SETTEAMDATA:

@@ -25,7 +25,7 @@ function TeamForm({ teamData, setTeamData, players, setPlayers, captain, setCapt
 
 
   const handlePlayers = (players) => {
-    console.log(players);
+    // console.log(players);
     if (players.length < 11) {
       setPlayers(players || []);
       setTeamData({
@@ -36,6 +36,7 @@ function TeamForm({ teamData, setTeamData, players, setPlayers, captain, setCapt
     else if (players.length > 10) {
       return;
     }
+
   }
   const handleRadio = (event) => {
     console.log("event", event)

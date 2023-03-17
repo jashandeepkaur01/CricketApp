@@ -5,7 +5,7 @@ import CustomModal from '../customModal';
 function ShowTeamPlayers(playerArr) {
     const [showModal, setShowModal] = useState(false);
     const teamName = 'RCB';
-    console.log(playerArr.players,'playerArr')
+    // console.log(playerArr.players,'playerArr')
 
     const handleShow = () => setShowModal(true);
     
