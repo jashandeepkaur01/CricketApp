@@ -7,7 +7,6 @@ import RootRouter from "./Routes/RootRouter";
 import {  persistor } from "./Redux/Store";
 
 import loginStore from "Redux/loginStore";
-// import ScoreCard from "Views/ScoreCard";
 
 function App() {
  
@@ -16,7 +15,6 @@ function App() {
     <Provider store={loginStore} >
       <PersistGate persistor={persistor}>
       <RootRouter />
-      {/* <ScoreCard/> */}
       </PersistGate>
     </Provider>
   );

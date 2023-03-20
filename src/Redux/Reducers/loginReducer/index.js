@@ -23,6 +23,7 @@ const obj={
   oversPlayed:0.0,
   currentScore:0,
   myWicket:0,  
+  ballCount:0,
 }
 const initalData = {
   players: [],
@@ -37,15 +38,12 @@ const data = (data = initalData, action) => {
   if (action.type === WIDEBALL || action.type === NOBALL) {
     count++;
   } else {
-    if (data.objs.singleOvers.length > count) {
+    if (data.objs.singleOver.length > count) {
       data.objs.singleOver = [];
       data.objs.oversPlayed = Math.ceil(data.objs.oversPlayed);
     }
   }
 
-
-  
-  
   switch (action.type) {
     case GETDATA:
       return data;
@@ -158,11 +156,11 @@ const data = (data = initalData, action) => {
       };
 
     case WICKET:
+    
       data.objs.singleOver = [...data.objs.singleOver, action.score];
       data.objs.oversPlayed += 0.1;
       data.objs.oversPlayed = data.objs.oversPlayed.toFixed(1);
       data.objs.oversPlayed = parseFloat(data.objs.oversPlayed);
-      if( data.objs.myWicket<10){
       if( data.objs.myWicket<10){
         data.objs.myWicket += 1;
       }else{
@@ -178,35 +176,36 @@ const data = (data = initalData, action) => {
         myWicket:data.objs.myWicket,
       };
 
-    case DEADBALL:
+      case DEADBALL:
       return {
         ...data,
         score: action.score,
-        totalScore,
+        totalScore:data.objs.totalScore,
       };
 
     case NOBALL:
-    totalScore += 1;
-    currentScore = action.score;
-      singleOver = [...singleOver, action.score];
-      return { ...data, score: action.score, singleOver: singleOver,totalScore };
+    data.objs.totalScore += 1;
+    data.objs.currentScore = action.score;
+    data.objs.singleOver = [...data.objs.singleOver, action.score];
+      return { ...data, score: action.score, singleOver: data.objs.singleOver, totalScore:data.objs.totalScore };
 
     case REMOVE:
 
-      totalScore -= currentScore;
+    data.objs.totalScore -= data.objs.currentScore;
       console.log(action.score,"remove")
-      oversPlayed = oversPlayed - 0.1;
-      oversPlayed = oversPlayed.toFixed(1);
-      oversPlayed = parseFloat(oversPlayed);
+      data.objs.oversPlayed = data.objs.oversPlayed - 0.1;
+      data.objs.oversPlayed = data.objs.oversPlayed.toFixed(1);
+      data.objs.oversPlayed = parseFloat(data.objs.oversPlayed);
 
-      singleOver.pop();
+      data.objs.singleOver.pop();
       
 
-      return { ...data, score: action.score ,totalScore, oversPlayed};
+      return { ...data, score: action.score ,totalScore:data.objs.totalScore, oversPlayed:data.objs.oversPlayed};
 
     default:
       return data;
   }
+
 };
 
 export default data;

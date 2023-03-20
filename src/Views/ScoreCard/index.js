@@ -10,6 +10,8 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import Select from "react-select";
 
+
+
 function ScoreCard() {
   const [users, setUsers] = useState([]);
   const [batsman1,setBatsman1] = useState([]);
@@ -26,6 +28,31 @@ function ScoreCard() {
   
   const inputs = batsman1.value&&batsman2.value&&bowler.value;
   let star="*";
+
+  const out=()=>{
+    players.filter(e=>{
+      if(e.Name !== batsman1.value){
+        return e.Name
+      }
+      return null;
+      
+    })
+
+    users.filter(e=>{
+      if(e.Name !== batsman2.value){
+        return e.Name
+      }
+      return null;
+      
+    })
+
+    // console.log(batsman1.value)
+    setBatsman1('');
+    setBall1(0);
+    setScore1(0);
+    dispatch(wicket("Wc"))
+    }
+    
 
 // console.log(players,"players")
   const handleBatsman1 = (e) => {
@@ -57,31 +84,33 @@ function ScoreCard() {
     }, [])
     
     // console.log(users);
- 
   const dispatch = useDispatch();
   const myScore = useSelector((state) => state.data.score);
-  const myOver = useSelector((state) => state.data.singleOver);
-  const totalScore = useSelector((state) => state.data.totalScore);
-  const oversPlayed = useSelector((state) => state.data.oversPlayed);
-  const wickets = useSelector((state) => state.data.myWicket);
-  
+  const myOver = useSelector((state) => state.data.objs.singleOver);
+  const totalScore = useSelector((state) => state.data.objs.totalScore);
+  const oversPlayed = useSelector((state) => state.data.objs.oversPlayed);
+  const wickets = useSelector((state) => state.data.objs.myWicket);
   // console.log("You Scored ", myScore);
-//   console.log("You Scored000 ",player1.value);
-
-  // console.log(startMatch)
+  //   console.log("You Scored000 ",player1.value);
+  // console.log(Math.floor(oversPlayed));
+  //   var num = 1;
+  // if(oversPlayed === num){
+  //   console.log("Select Bowler");
+  //   num++;
+  // }
  
   useEffect(()=>{
 
-  if((myScore%2==0)&&(count%2==0)){
+  if((myScore%2===0)&&(count%2===0)){
     setScore1(score1+myScore);
     setBall1(ball1+1)
   }
-  else if(myScore%2!==0 && count%2==0){
+  else if(myScore%2!==0 && count%2===0){
     setScore1(score1+myScore);
     setBall1(ball1+1)
     setCount(1);
   }
-  else if(myScore%2==0 && count%2!==0){
+  else if(myScore%2===0 && count%2!==0){
     setScore2(score2+myScore);
     setBall2(ball2+1)
   }
@@ -90,11 +119,23 @@ function ScoreCard() {
     setBall2(ball2+1)
     setCount(0);
   }
- 
-  console.log(count)
   
 },[totalScore])
 
+// data.objs.oversPlayed = data.objs.oversPlayed + 0.1;
+//     data.objs.oversPlayed = data.objs.oversPlayed.toFixed(1);
+//     data.objs.oversPlayed = parseFloat(data.objs.oversPlayed);
+
+//  var output = parseFloat(oversPlayed - Math.floor(oversPlayed))
+//  var result = output.toFixed(1);
+
+//  if(oversPlayed == result){
+
+//  }
+
+if(oversPlayed%10 == 6){
+console.log("SELECT BOWLER")
+}
 
   
   return (
@@ -118,7 +159,7 @@ function ScoreCard() {
 
         <div className="view-rightbox">
           <div className="my-bowler">
-            <p>{bowler.value} (0/{wickets})</p>
+            <p>{bowler.value} ({Math.floor(oversPlayed)}/{wickets})</p>
           </div>
           <div className="my-over">
             <div className="over-balls">
@@ -227,7 +268,7 @@ function ScoreCard() {
             <button
               type="button"
               className="btn btn-outline-success"
-              onClick={() => dispatch(wicket("Wc"))}
+              onClick={() => out()}
             >
               {" "}
               Wc{" "}
