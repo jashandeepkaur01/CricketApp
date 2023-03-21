@@ -17,6 +17,14 @@ function SelectTeam() {
   const [oppTeam, setOppTeam] = useState("");
   const [options, setOptions] = useState([]);
   const navigate = useHistory();
+  const [err1,setErr1] = useState("");
+  const [showErr1,setShowErr1] = useState(false);
+  const [err2,setErr2] = useState("");
+  const [showErr2,setShowErr2] = useState(false);
+  const [err3,setErr3] = useState("");
+  const [showErr3,setShowErr3] = useState(false);
+  const [err4,setErr4] = useState("");
+  const [showErr4,setShowErr4] = useState(false);
 
   const dispatch = useDispatch();
   
@@ -50,6 +58,31 @@ function SelectTeam() {
   const handleShow = () => setShowModal(true);
 
   const submitModal = () => {
+    if(((teamData.teamName).length === 0) || ((teamData.teamType).length === 0) || ((teamData.teamPlayers).length <3) || ((teamData.teamCaptain).length == 0))
+    {
+      if((teamData.teamName).length == 0)
+      {
+        setErr1("Field is required")
+        setShowErr1(true);
+      }
+      else if((teamData.teamType).length == 0)
+      {
+        setErr2("Field is required")
+        setShowErr2(true);
+      }
+      else if((teamData.teamPlayers).length < 3)
+      {
+        setErr3("atleast 3 players required")
+        setShowErr3(true);
+      }
+      else if((teamData.teamCaptain).length == 0)
+      {
+        setErr4("Field is required")
+        setShowErr4(true);
+      }
+      return false;
+    }
+    else{
     let playersInTeam = [playerLoggedInData.key];
     playersInTeam = playersInTeam.concat(players.map((player) => player.key)); // selected players keys
     const selectedPlayersData = playersInTeam.map((k) => {
@@ -69,6 +102,7 @@ function SelectTeam() {
     },1000);
     console.log("playerLoggedinData...", playerLoggedInData.Team);
     setShowModal(false);
+  }
   };
   useEffect(() => {
     let teamNames = teamsData.map((e) => {
@@ -102,7 +136,7 @@ function SelectTeam() {
 
   return (
     <div>
-      <CustomModal
+      {/* <CustomModal
         footer={true}
         header={true}
         visible={showModal}
@@ -120,13 +154,45 @@ function SelectTeam() {
           captain={captain}
           setCaptain={setCaptain}
         />
-      </CustomModal>
+      </CustomModal> */}
       <div className="container selectTeamWrapper text-left bg-light rounded border-dark pb-5">
         <div className="d-flex justify-content-between mt-3 pt-4 pb-5">
           <h3 className="">Select Your Team</h3>
           <Button variant="btn btn-outline-primary" onClick={handleShow}>
             Make a New Team
           </Button>
+          <CustomModal
+            footer={true}
+            header={true}
+            visible={showModal}
+            showModal={showModal}
+            setShowModal={setShowModal}
+            title={"Add New Team"}
+            onSubmitModal={submitModal}
+          >
+            <TeamForm
+              allPlayers={data}
+              teamData={teamData}
+              setTeamData={setTeamData}
+              players={players}
+              setPlayers={setPlayers}
+              captain={captain}
+              setCaptain={setCaptain}
+              Error1 = {err1}
+              teamNameErr = {showErr1}
+              setTeamErr = {setShowErr1}
+              Error2 = {err2}
+              teamTypeErr = {showErr2}
+              setTeamTypeErr ={setShowErr2}
+              Error3 ={err3}
+              playerErr = {showErr3}
+              setPlayerErr = {setShowErr3}
+              Error4 = {err4}
+              captainErr = {showErr4}
+              setCaptainErr = {setShowErr4}
+            
+            />
+          </CustomModal>
         </div>
         <Select
           className="text-center"
@@ -137,8 +203,16 @@ function SelectTeam() {
         <br />
         <p className="text-center">VS</p>
         <h3 className="pt-3">Select Your Opponent's Team</h3>
+
+        {/* <div className="d-flex justify-content-around">
+          <Button variant="success" onClick={handleShow}>
+            Add Team
+          </Button>
+          
+        </div>{" "} */}
+        {/* <br /> */}
         <Select
-          className="text-center"
+          className=" text-center"
           options={uniqueTeams}
           onChange={handleInputChange2}
           value={oppTeam}
@@ -151,7 +225,7 @@ function SelectTeam() {
             Start a Match
           </Button>
         </div>
-      </div>
+    </div>
     </div>
   );
 }
