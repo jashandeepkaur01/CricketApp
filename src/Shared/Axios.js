@@ -22,7 +22,12 @@ const requestWithoutAuth = axios.create({
   defaulHeader,
 });
 
-export const postRequestNoAuth = ({ API = "", DATA = {}, HEADER = {}, PAYLOAD }) => {
+export const postRequestNoAuth = ({
+  API = "",
+  DATA = {},
+  HEADER = {},
+  PAYLOAD,
+}) => {
   return new Promise((resolve, reject) => {
     requestWithoutAuth
       .post(
@@ -63,7 +68,13 @@ export const postRequest = ({ API = "", DATA = {}, HEADER = {}, PAYLOAD }) => {
   });
 };
 
-export const getRequest = ({ API = "", headers = {}, params = {}, data = {}, responseType = "json" }) => {
+export const getRequest = ({
+  API = "",
+  headers = {},
+  params = {},
+  data = {},
+  responseType = "json",
+}) => {
   return new Promise((resolve, reject) => {
     instance
       .get(apiWithAuth(API), {
@@ -85,7 +96,9 @@ export const putRequest = ({ API = "", DATA = {}, PAYLOAD, HEADER = {} }) => {
   return new Promise((resolve, reject) => {
     instance
       .put(apiWithAuth(API), DATA, {
-        ...(PAYLOAD ? pickBy(DATA, (val) => ![""].includes(val)) : { ...defaulHeader.headers, ...HEADER }),
+        ...(PAYLOAD
+          ? pickBy(DATA, (val) => ![""].includes(val))
+          : { ...defaulHeader.headers, ...HEADER }),
       })
       .then((result) => {
         resolve(result);
@@ -96,7 +109,12 @@ export const putRequest = ({ API = "", DATA = {}, PAYLOAD, HEADER = {} }) => {
   });
 };
 
-export const deleteRequest = ({ API = "", DATA = {}, PAYLOAD, HEADER = {} }) => {
+export const deleteRequest = ({
+  API = "",
+  DATA = {},
+  PAYLOAD,
+  HEADER = {},
+}) => {
   return new Promise((resolve, reject) => {
     instance
       .delete(apiWithAuth(API), {
@@ -119,7 +137,9 @@ export const patchRequest = ({ API = "", DATA = {}, PAYLOAD, HEADER = {} }) => {
   return new Promise((resolve, reject) => {
     instance
       .patch(apiWithAuth(API), DATA, {
-        ...(PAYLOAD ? pickBy(DATA, (val) => ![""].includes(val)) : { ...defaulHeader.headers, ...HEADER }),
+        ...(PAYLOAD
+          ? pickBy(DATA, (val) => ![""].includes(val))
+          : { ...defaulHeader.headers, ...HEADER }),
       })
       .then((result) => {
         resolve(result);

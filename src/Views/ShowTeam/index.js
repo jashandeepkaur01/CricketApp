@@ -4,11 +4,11 @@ import CustomTable from "Components/Cells/customTable";
 import { getData } from "Redux/Actions/loginActions";
 
 function ShowTeam() {
-  const  data = useSelector((state) => state.loginReducer.teams);
+  const data = useSelector((state) => state.loginReducer.teams);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getData([]));
-  }, [])
+  }, []);
 
   const teamHeadings = [
     {
@@ -30,7 +30,12 @@ function ShowTeam() {
   ];
   return (
     <>
-      <CustomTable tableContent={data} headingDetails={teamHeadings} btnText='View Players' component='teamName'/>
+      <CustomTable
+        tableContent={data}
+        headingDetails={teamHeadings}
+        btnText="View Players"
+        component="teamName"
+      />
     </>
   );
 }

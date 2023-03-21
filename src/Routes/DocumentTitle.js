@@ -9,9 +9,9 @@ const pathToRegexp = require("path-to-regexp");
 
 const DocumentTitle = ({ isAuthenticated = false }) => {
   const location = useLocation();
-  const matchedRoute = PUBLIC_ROUTES.concat(isAuthenticated ? PRIVATE_ROUTES : AUTH_ROUTES).find((route) =>
-    pathToRegexp(route.path).test(location.pathname)
-  );
+  const matchedRoute = PUBLIC_ROUTES.concat(
+    isAuthenticated ? PRIVATE_ROUTES : AUTH_ROUTES
+  ).find((route) => pathToRegexp(route.path).test(location.pathname));
   const title = matchedRoute ? matchedRoute.title : "";
   return (
     <Helmet>

@@ -3,7 +3,6 @@ import ShowTeam from "../Views/ShowTeam";
 import Home from "../Views/Home";
 import SelectTeam from "Views/SelectTeam";
 
-
 export const PUBLIC_ROUTES = [
   {
     path: "/",
@@ -21,6 +20,4 @@ export const PUBLIC_ROUTES = [
     component: ShowTeam,
     title: "Show Team",
   },
-  
-  
 ];

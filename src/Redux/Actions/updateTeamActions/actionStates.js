@@ -1,1 +1,1 @@
-export const UPDATETEAM = 'UPDATETEAM';
+export const UPDATETEAM = "UPDATETEAM";

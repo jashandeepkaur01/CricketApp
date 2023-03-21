@@ -3,9 +3,15 @@ import { InputField } from "Components/Atoms/customInput";
 import React, { useState } from "react";
 import Select from "react-select";
 
-
-
-function TeamForm({ teamData, setTeamData, players, allPlayers, setPlayers, captain, setCaptain  }) {
+function TeamForm({
+  teamData,
+  setTeamData,
+  players,
+  allPlayers,
+  setPlayers,
+  captain,
+  setCaptain,
+}) {
   // const playerLoggedInData = useSelector((state) => state.loginReducer.token)[0];
   // console.log(playerLoggedInData);
   const [countryData, setCountryDate] = useState([]);
@@ -13,19 +19,18 @@ function TeamForm({ teamData, setTeamData, players, allPlayers, setPlayers, capt
   const handleInput = (data) => {
     setTeamData({
       ...teamData,
-      [data.target.name]: data.target.value
-    })
-  }
-
-  const handleChange = (e) => {
-    console.log(e.value)
-    setCaptain(e)
-    setTeamData({
-      ...teamData,
-      teamCaptain: e.value
-    })
+      [data.target.name]: data.target.value,
+    });
   };
 
+  const handleChange = (e) => {
+    console.log(e.value);
+    setCaptain(e);
+    setTeamData({
+      ...teamData,
+      teamCaptain: e.value,
+    });
+  };
 
   const handlePlayers = (players) => {
     // console.log(players);
@@ -33,28 +38,25 @@ function TeamForm({ teamData, setTeamData, players, allPlayers, setPlayers, capt
       setPlayers(players || []);
       setTeamData({
         ...teamData,
-        teamPlayers: players
-      })
-    }
-    else if (players.length > 10) {
+        teamPlayers: players,
+      });
+    } else if (players.length > 10) {
       return;
     }
-
-  }
+  };
   const handleRadio = (event) => {
-    console.log("event", event)
+    console.log("event", event);
     setTeamData({
       ...teamData,
-      teamType: event
-    })
-
-  }
+      teamType: event,
+    });
+  };
 
   const filterOption = (option, inputValue) => {
     const { label, value } = option;
     // looking if other options with same label are matching inputValue
     const otherKey = option.filter(
-      opt => opt.label === label && opt.value.includes(inputValue)
+      (opt) => opt.label === label && opt.value.includes(inputValue)
     );
     return value.includes(inputValue) || otherKey.length > 0;
   };
@@ -71,15 +73,48 @@ function TeamForm({ teamData, setTeamData, players, allPlayers, setPlayers, capt
           onChange={handleInput}
         />
         <br />
-        <label><b>Select the type of team</b></label><br />
-        <CreateRadio values={["ipl", "international"]} name={"Type of team"} state={teamData.teamType} setState={handleRadio} />
+        <label>
+          <b>Select the type of team</b>
+        </label>
+        <br />
+        <CreateRadio
+          values={["ipl", "international"]}
+          name={"Type of team"}
+          state={teamData.teamType}
+          setState={handleRadio}
+        />
 
-        <label><b>Select the Players</b></label>
+        <label>
+          <b>Select the Players</b>
+        </label>
 
-        <Select options={allPlayers.map(val => ({ label: val.Name, value: val.Name, key: val.key}))} onChange={handlePlayers} name="teamPlayers" value={players} closeMenuOnSelect={false} isMulti />
-        {players.length > 9 ? <div className="text-danger">11 players selected</div> : null}
-        <label><b>Select Captain for the team</b></label>
-        <Select options={players.map(val => ({ label: val.label, value: val.value }))} onChange={handleChange} name="teamCaptain" value={captain} />
+        <Select
+          options={allPlayers.map((val) => ({
+            label: val.Name,
+            value: val.Name,
+            key: val.key,
+          }))}
+          onChange={handlePlayers}
+          name="teamPlayers"
+          value={players}
+          closeMenuOnSelect={false}
+          isMulti
+        />
+        {players.length > 9 ? (
+          <div className="text-danger">11 players selected</div>
+        ) : null}
+        <label>
+          <b>Select Captain for the team</b>
+        </label>
+        <Select
+          options={players.map((val) => ({
+            label: val.label,
+            value: val.value,
+          }))}
+          onChange={handleChange}
+          name="teamCaptain"
+          value={captain}
+        />
       </form>
     </div>
   );

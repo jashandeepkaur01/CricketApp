@@ -1,7 +1,6 @@
 import React from "react";
 
- export const InputField = (props) => {
-  
+export const InputField = (props) => {
   return (
     <div className="form-group">
       {props.label && <label htmlFor="input-field">{props.label}</label>}
@@ -16,4 +15,3 @@ import React from "react";
     </div>
   );
 };
-

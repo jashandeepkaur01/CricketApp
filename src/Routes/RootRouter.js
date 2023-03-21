@@ -14,13 +14,13 @@ import { getData } from "Redux/Actions/loginActions";
 const DEFAULT_AUTHENTICATED_ROUTE = "/selectTeam";
 const DEFAULT_GUEST_ROUTE = "/authmessage";
 
-const GuestRoutes = ({token}) => {
+const GuestRoutes = ({ token }) => {
   return (
     <Switch>
       <Route exact path={AUTH_ROUTES.map((route) => route.path)}>
         <RenderRoutes routes={AUTH_ROUTES} />
       </Route>
-     
+
       <Route exact path={PUBLIC_ROUTES.map((route) => route.path)}>
         <PublicLayout>
           <RenderRoutes routes={PUBLIC_ROUTES} />
@@ -31,47 +31,44 @@ const GuestRoutes = ({token}) => {
   );
 };
 
-const AuthenticatedRoutes = () => {  
+const AuthenticatedRoutes = () => {
   return (
     <Switch>
-        <Route exact path={PUBLIC_ROUTES.map((route) => route.path)}>
+      <Route exact path={PUBLIC_ROUTES.map((route) => route.path)}>
         <PublicLayout>
           <RenderRoutes routes={PUBLIC_ROUTES} />
         </PublicLayout>
       </Route>
 
-        <Route path={PRIVATE_ROUTES.map((route) => route.path)}>
+      <Route path={PRIVATE_ROUTES.map((route) => route.path)}>
         <PrivateLayout>
           <RenderRoutes routes={PRIVATE_ROUTES} />
-       </PrivateLayout>
-        </Route>
-     
-     <Redirect from="*" to={DEFAULT_AUTHENTICATED_ROUTE} />
-    
-      </Switch>
+        </PrivateLayout>
+      </Route>
+
+      <Redirect from="*" to={DEFAULT_AUTHENTICATED_ROUTE} />
+    </Switch>
   );
 };
 
 const RootRouter = () => {
-
- const dispatch=useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getData([]));
-  }, [])
+  }, []);
 
-  const tokenData = useSelector((state) => state.loginReducer.token);
-  const token=tokenData.length
+  const token = useSelector((state) => state.loginReducer.loggedInPlayer);
+
   // console.log(tokenData[0])
   const baseName = process.env.REACT_APP_BASE_NAME;
   const isAuthenticated = !!token;
   return (
-
-
     <BrowserRouter basename={baseName}>
       <DocumentTitle isAuthenticated={isAuthenticated} />
-      <AppLayout isAuthenticated={isAuthenticated}>{token? <AuthenticatedRoutes /> : <GuestRoutes token={token}/>}</AppLayout>
+      <AppLayout isAuthenticated={isAuthenticated}>
+        {token ? <AuthenticatedRoutes /> : <GuestRoutes token={token} />}
+      </AppLayout>
     </BrowserRouter>
-
   );
 };
 
