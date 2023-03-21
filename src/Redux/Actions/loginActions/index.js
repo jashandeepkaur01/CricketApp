@@ -23,7 +23,7 @@ export const setToken = (token) => {
 export const scoreZero = (score) =>{
     return {
         type: SCOREZERO,
-        score:score,      
+        score,      
     };
 };
 export const scoreOne = (score) =>{

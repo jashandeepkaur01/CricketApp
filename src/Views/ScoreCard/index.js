@@ -10,9 +10,8 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import Select from "react-select";
 
-
-
 function ScoreCard() {
+  const dispatch = useDispatch();
   const [users, setUsers] = useState([]);
   const [batsman1,setBatsman1] = useState([]);
   const [batsman2,setBatsman2] = useState([]);
@@ -24,32 +23,44 @@ function ScoreCard() {
   const[stars,setStar]=useState(true);
   const [ball1,setBall1] = useState(-1);
   const [ball2,setBall2] = useState(0);
+  const myScore = useSelector((state) => state.data.score);
+  const myOver = useSelector((state) => state.data.objs.singleOver);
+  const totalScore = useSelector((state) => state.data.objs.totalScore);
+  const oversPlayed = useSelector((state) => state.data.objs.oversPlayed);
+  const wickets = useSelector((state) => state.data.objs.myWicket);
+  // const resetScore = useSelector((state) => state.data.score);
+
+// console.log(resetScore)
 
   
   const inputs = batsman1.value&&batsman2.value&&bowler.value;
   let star="*";
 
   const out=()=>{
-    players.filter(e=>{
-      if(e.Name !== batsman1.value){
-        return e.Name
-      }
-      return null;
-      
-    })
-
-    users.filter(e=>{
-      if(e.Name !== batsman2.value){
-        return e.Name
-      }
-      return null;
-      
-    })
-
-    // console.log(batsman1.value)
-    setBatsman1('');
-    setBall1(0);
-    setScore1(0);
+    if(stars===true){
+      players.filter(e=>{
+        if(e.Name !== batsman1.value){
+          return e.Name
+        }
+        return null;
+        
+      })
+      setBatsman1('');
+      setBall1(-1);
+      setScore1(0);
+    }
+    else if(stars===false){
+      users.filter(e=>{
+        if(e.Name !== batsman2.value){
+          return e.Name
+        }
+        return null;
+        
+      })
+      setBatsman2('');
+      setBall2(-1);
+      setScore2(0);
+    }
     dispatch(wicket("Wc"))
     }
     
@@ -66,7 +77,16 @@ function ScoreCard() {
   }
 
   const handleBowler = (e) => {
+
     setBowler(e)
+    if(oversPlayed !== 0.0){
+      if(stars === false){
+        setStar(true);
+      }else if(stars){
+        setStar(false)
+      }
+    }
+    
   }
 
   const fetchUserData = () => {
@@ -83,61 +103,60 @@ function ScoreCard() {
       fetchUserData()
     }, [])
     
-    // console.log(users);
-  const dispatch = useDispatch();
-  const myScore = useSelector((state) => state.data.score);
-  const myOver = useSelector((state) => state.data.objs.singleOver);
-  const totalScore = useSelector((state) => state.data.objs.totalScore);
-  const oversPlayed = useSelector((state) => state.data.objs.oversPlayed);
-  const wickets = useSelector((state) => state.data.objs.myWicket);
-  // console.log("You Scored ", myScore);
-  //   console.log("You Scored000 ",player1.value);
-  // console.log(Math.floor(oversPlayed));
-  //   var num = 1;
-  // if(oversPlayed === num){
-  //   console.log("Select Bowler");
-  //   num++;
-  // }
- 
+    // console.log(myScore);
+
+
   useEffect(()=>{
+    if(myScore === 'Wc' ){
+      if(stars){
+        setScore1(0);
+        setBall1(0)
+      }else{
+        setScore2(0);
+        setBall2(0)
+      }
+      
+    }else if(myScore === 'WB' || myScore === 'NB'){
+     return null;
+    }
+    else{
+      if(((myScore%2===0)&&(count%2===0) )){
+        setScore1(score1+myScore);
+        setBall1(ball1+1);
+      }
+      else if(myScore%2!==0 && count%2===0){
+        setScore1(score1+myScore);
+        setBall1(ball1+1)
+        setCount(1);
+      }
+      else if(myScore%2===0 && count%2!==0){
+        setScore2(score2+myScore);
+        setBall2(ball2+1)
+      }
+      else if(myScore%2!==0 && count%2!==0){
+        setScore2(score2+myScore);
+        setBall2(ball2+1)
+        setCount(0);
+      }
+    }
 
-  if((myScore%2===0)&&(count%2===0)){
-    setScore1(score1+myScore);
-    setBall1(ball1+1)
+  if((oversPlayed*10)%10===6){
+    // console.log("select bowler");
+    setBowler('');
+
+    // if(stars === true){
+    //   setStar(false);
+    // }else{
+    //   setStar(true)
+    // }
+    // if(myScore === 1 || myScore === 3){
+    //   setStar(true)
+    // }else{
+    //   setStar(false)
+    // }
   }
-  else if(myScore%2!==0 && count%2===0){
-    setScore1(score1+myScore);
-    setBall1(ball1+1)
-    setCount(1);
-  }
-  else if(myScore%2===0 && count%2!==0){
-    setScore2(score2+myScore);
-    setBall2(ball2+1)
-  }
-  else if(myScore%2!==0 && count%2!==0){
-    setScore2(score2+myScore);
-    setBall2(ball2+1)
-    setCount(0);
-  }
-  
-},[totalScore])
+},[myOver])
 
-// data.objs.oversPlayed = data.objs.oversPlayed + 0.1;
-//     data.objs.oversPlayed = data.objs.oversPlayed.toFixed(1);
-//     data.objs.oversPlayed = parseFloat(data.objs.oversPlayed);
-
-//  var output = parseFloat(oversPlayed - Math.floor(oversPlayed))
-//  var result = output.toFixed(1);
-
-//  if(oversPlayed == result){
-
-//  }
-
-if(oversPlayed%10 == 6){
-console.log("SELECT BOWLER")
-}
-
-  
   return (
     <div className="score-main">
       <div className="view-container d-flex justify-content-evenly m-5">
@@ -148,7 +167,7 @@ console.log("SELECT BOWLER")
           </div>
           <div className="score-over">
             <p>Total Score : {totalScore}</p>
-            <p>Overs Played:{oversPlayed}</p>
+            <p>Overs Played: {oversPlayed}</p>
             <p>Wickets : {wickets}</p>
           </div>
         </div>
@@ -159,14 +178,14 @@ console.log("SELECT BOWLER")
 
         <div className="view-rightbox">
           <div className="my-bowler">
-            <p>{bowler.value} ({Math.floor(oversPlayed)}/{wickets})</p>
+            <p>{bowler.value} ({Math.floor(oversPlayed)} / {wickets})</p>
           </div>
           <div className="my-over">
             <div className="over-balls">
               <div>Over:</div>
               <div className="over-balls">
-                {myOver.map((e) => {
-                  return <div className="balls">{e}</div>;
+                {myOver.map((e, idx) => {
+                  return <div key={idx} className="balls">{e}</div>;
                 })}
               </div>
             </div>
