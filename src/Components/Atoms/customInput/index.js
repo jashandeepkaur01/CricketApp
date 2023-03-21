@@ -12,6 +12,7 @@ import React from "react";
         className="form-control w-77"
         placeholder={props.placeholder}
         onChange={props.onChange}
+        
       />
     </div>
   );

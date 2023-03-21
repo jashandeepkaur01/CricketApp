@@ -9,10 +9,11 @@ const RenderRoutes = ({
     },
   ],
 }) => (
-  <Switch>
-    {routes.map((route, routeIdx) => (
+  <>
+{routes.map((route, routeIdx) => (
       <Route path={route.path} key={routeIdx} component={route.component} exact={route.exact} />
     ))}
-  </Switch>
+  </>
+    
 );
 export default RenderRoutes;

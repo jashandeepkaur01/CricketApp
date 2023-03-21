@@ -17,15 +17,17 @@ const DEFAULT_GUEST_ROUTE = "/authmessage";
 const GuestRoutes = ({token}) => {
   return (
     <Switch>
-      <Route exact path={AUTH_ROUTES.map((route) => route.path)}>
-        <RenderRoutes routes={AUTH_ROUTES} />
-      </Route>
-     
-      <Route exact path={PUBLIC_ROUTES.map((route) => route.path)}>
+      {/* <Route exact path={AUTH_ROUTES.map((route) => route.path)}> */}
+        {/* <RenderRoutes routes={AUTH_ROUTES} /> */}
+      {/* </Route> */}
+      {[...PUBLIC_ROUTES, ...AUTH_ROUTES].map((route, routeIdx) => (
+      <Route path={route.path} key={routeIdx} component={route.component} exact={route.exact} />
+    ))}
+      {/* <Route exact path={PUBLIC_ROUTES.map((route) => route.path)}>
         <PublicLayout>
           <RenderRoutes routes={PUBLIC_ROUTES} />
         </PublicLayout>
-      </Route>
+      </Route> */}
       <Redirect from="*" to={DEFAULT_GUEST_ROUTE} />
     </Switch>
   );
@@ -34,18 +36,21 @@ const GuestRoutes = ({token}) => {
 const AuthenticatedRoutes = () => {  
   return (
     <Switch>
-        <Route exact path={PUBLIC_ROUTES.map((route) => route.path)}>
-        <PublicLayout>
-          <RenderRoutes routes={PUBLIC_ROUTES} />
-        </PublicLayout>
-      </Route>
+    {[...PUBLIC_ROUTES, ...PRIVATE_ROUTES].map((route, routeIdx) => (
+      <Route path={route.path} key={routeIdx} component={route.component} exact={route.exact} />
+    ))}
+        {/* <Route exact path={PUBLIC_ROUTES.map((route) => route.path)}>
+        <PublicLayout> */}
+          {/* <RenderRoutes routes={PUBLIC_ROUTES} /> */}
+        {/* </PublicLayout>
+      </Route> */}
 
-        <Route path={PRIVATE_ROUTES.map((route) => route.path)}>
-        <PrivateLayout>
-          <RenderRoutes routes={PRIVATE_ROUTES} />
-       </PrivateLayout>
+        {/* <Route path={PRIVATE_ROUTES.map((route) => route.path)}>
+        <PrivateLayout> */}
+          {/* <RenderRoutes routes={PRIVATE_ROUTES} /> */}
+       {/* </PrivateLayout>
         </Route>
-     
+      */}
      <Redirect from="*" to={DEFAULT_AUTHENTICATED_ROUTE} />
     
       </Switch>
@@ -61,7 +66,7 @@ const RootRouter = () => {
 
   const tokenData = useSelector((state) => state.loginReducer.token);
   const token=tokenData.length
-  // console.log(tokenData[0])
+  console.log(tokenData[0])
   const baseName = process.env.REACT_APP_BASE_NAME;
   const isAuthenticated = !!token;
   return (

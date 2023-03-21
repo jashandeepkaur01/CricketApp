@@ -1,29 +1,28 @@
-import React from 'react'
+import React from "react";
 
-function CreateRadio({values, name, state, setState}) {
+function CreateRadio({ values, name, state, setState }) {
+  const handleOptionChange = (e) => {
+    setState(e.target.value);
+  };
 
-    const handleOptionChange = (e) => {
-        setState(e.target.value);
-      }
- 
   return (
     <div>
-    {values.map((val,index) =>{
-        return(
-            <div key={index}>
+      {values.map((val, index) => {
+        return (
+          <div key={index}>
             <input
-            type="radio"
-            value={val}
-            checked={state === val}
-            onChange={handleOptionChange}
-            name={name}
+              type="radio"
+              value={val}
+              checked={state === val}
+              onChange={handleOptionChange}
+              name={name}
             />
             <label htmlFor={name}>{val}</label>
           </div>
-        )
-    })}
-</div>
-  )
+        );
+      })}
+    </div>
+  );
 }
 
-export default CreateRadio
+export default CreateRadio;
