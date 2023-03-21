@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { setToken } from "Redux/Actions/loginActions";
 const Login = () => {
-  
+
   const [contact, setContact] = useState("");
-  const [errorMessage,setErrorMessage]=useState("")
+  const [errorMessage, setErrorMessage] = useState("")
   const dispatch = useDispatch();
   const data = useSelector(((state) => state.loginReducer.players))
 
@@ -15,13 +15,12 @@ const Login = () => {
   function handleClick() {
 
     let token = []
-    token = data?.filter(val => val.PhoneNo == contact )
+    token = data?.filter(val => val.PhoneNo == contact)
 
     dispatch(setToken(token))
-    if(token.length==0){
-       setErrorMessage("Not Valid Player")
+    if (!token) {
+      setErrorMessage("Not Valid Player")
     }
-
 
   }
   return (
@@ -36,7 +35,7 @@ const Login = () => {
               <h1 className="bg-dark text-dark p-2 text-center  rounded-bottom rounded-4 text-white">Login Here</h1>
               <div className="px-4 bg-transparent">
                 <form className="form-group" >
-                 
+
                   <div className='d-sm-grid gap-2'>
                     <label>Enter Contact no.:</label>
                     <input type='text' placeholder='contact no.' className="form-control my-2" value={contact} onChange={(e) => setContact(e.target.value)} ></input>

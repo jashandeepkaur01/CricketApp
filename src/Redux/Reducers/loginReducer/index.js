@@ -6,11 +6,8 @@ import { SETDATA, GETDATA, Token, SETTEAMDATA} from "Redux/Actions/loginActions/
 const initialData = {
   players: [],
   teams: [],
-  token: [],
+  token: null,
 }
-
-
-
 
 
 const loginReducer = (data = initialData, action) => {

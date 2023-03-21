@@ -1,9 +1,15 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CustomTable from "Components/Cells/customTable";
+import { getData } from "Redux/Actions/loginActions";
 
 function ShowTeam() {
   const  data = useSelector((state) => state.loginReducer.teams);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getData([]));
+  }, [])
+
   const teamHeadings = [
     {
       label: "TeamName",

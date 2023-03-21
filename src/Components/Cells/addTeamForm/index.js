@@ -5,7 +5,7 @@ import Select from "react-select";
 
 
 
-function TeamForm({ teamData, setTeamData, players, setPlayers, captain, setCaptain, allPlayers }) {
+function TeamForm({ teamData, setTeamData, players, allPlayers, setPlayers, captain, setCaptain  }) {
   // const playerLoggedInData = useSelector((state) => state.loginReducer.token)[0];
   // console.log(playerLoggedInData);
   const [countryData, setCountryDate] = useState([]);

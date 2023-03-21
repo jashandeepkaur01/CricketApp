@@ -17,4 +17,9 @@ export const PRIVATE_ROUTES = [
     component: Logout,
     title: "logout",
   },
+  {
+    path: "/selectTeam",
+    component: SelectTeam,
+    title: "Select Team",
+  },
 ];
