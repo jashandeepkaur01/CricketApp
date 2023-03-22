@@ -44,6 +44,11 @@ function Navbar() {
                   Show Team
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink className="nav-NavLink " activeClassName="active" to="/pastMatches">
+                  Matches
+                </NavLink>
+              </li>
               {/* <li className="nav-item">
                 <NavLink className="nav-NavLink "  activeClassName="active" to="/selectTeam">
                   Select Team
@@ -68,6 +73,7 @@ function Navbar() {
                   </NavLink>
                 </li>
               ) : null}
+              
             </ul>
           </div>
         </div>
