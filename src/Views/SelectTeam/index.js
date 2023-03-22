@@ -156,9 +156,9 @@ function SelectTeam() {
         />
       </CustomModal> */}
       <div className="container selectTeamWrapper text-left bg-light rounded border-dark pb-5">
-        <div className="d-flex justify-content-between mt-3 pt-4 pb-5">
+        <div className="d-flex justify-content-between mt-3 pt-4">
           <h3 className="">Select Your Team</h3>
-          <Button variant="btn btn-outline-primary" onClick={handleShow}>
+          <Button variant="btn btn-outline-primary mb-2" onClick={handleShow}>
             Make a New Team
           </Button>
           <CustomModal
@@ -220,7 +220,7 @@ function SelectTeam() {
         <div className="text-center mt-5">
           <Button
             variant="info"
-            onClick={() => navigate.push("/scheduleMatch")}
+            onClick={() => navigate.push("/match")}
           >
             Start a Match
           </Button>

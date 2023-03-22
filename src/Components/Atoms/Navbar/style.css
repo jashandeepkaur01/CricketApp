@@ -1,3 +1,6 @@
+.navouter{
+    box-shadow: 0px 10px 8px -6px rgba(0,0,0,.5);
+}
 .navimg {
   margin-left: 10px;
   margin-right: 10px;
@@ -5,32 +8,32 @@
   height: 55px;
 }
 
-.navbar .navbar-nav .nav-link:active {
+/* .navbar .navbar-nav .nav-link:active {
   color: red;
 }
 
 .navbar .navbar-nav .nav-link {
   color: white;
   font-size: 1.1em;
-}
-.navbar .navbar-nav .nav-link:hover {
-  background-color: gray;
+} */
+/* .navbar .navbar-nav .nav-link:hover {
+  background-color: black;
   color: goldenrod;
-}
+} */
 .nav-item {
   padding: 0px 5px;
 }
-.btn-rd {
+/* .btn-rd {
   border-radius: 100%;
   margin-top: 20%;
   height: 90px;
   width: 100px;
   background-color: rgb(255, 149, 0);
-}
+} */
 .nav-login {
-  position: absolute;
+  /* position: absolute;
   right: 10px;
-  top: 10px;
+  top: 10px; */
 }
 .nav-NavLink.active {
   background-color: rgb(230, 175, 26);
@@ -43,5 +46,5 @@
   border-radius: 6px;
 }
 .nav-NavLink:hover {
-  color: rgb(143, 143, 143);
+  color: black;
 }
