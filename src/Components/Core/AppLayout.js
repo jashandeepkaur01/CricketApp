@@ -2,11 +2,11 @@
 
 import Navbar from "Components/Atoms/Navbar";
 
-// import { useNetworkStatus } from "Hooks/NetworkStatus";
+import { useNetworkStatus } from "Hooks/NetworkStatus";
 
 const AppLayout = ({ isAuthenticated, children }) => {
   // const errorMsg = useSelector((state) => state.error.msg);
-  // const networkStatus = useNetworkStatus();
+  const networkStatus = useNetworkStatus();
 
   return (
     <>

@@ -23,13 +23,12 @@ function ScoreCard() {
   const[stars,setStar]=useState(true);
   const [ball1,setBall1] = useState(-1);
   const [ball2,setBall2] = useState(0);
-  const myScore = useSelector((state) => state.data.score);
-  const myOver = useSelector((state) => state.data.objs.singleOver);
-  const totalScore = useSelector((state) => state.data.objs.totalScore);
-  const oversPlayed = useSelector((state) => state.data.objs.oversPlayed);
-  const wickets = useSelector((state) => state.data.objs.myWicket);
-  // const resetScore = useSelector((state) => state.data.score);
-
+  const myScore = useSelector((state) => state.loginReducer.score);
+  const myOver = useSelector((state) => state.loginReducer.objs.singleOver);
+  const totalScore = useSelector((state) => state.loginReducer.objs.totalScore);
+  const oversPlayed = useSelector((state) => state.loginReducer.objs.oversPlayed);
+  const wickets = useSelector((state) => state.loginReducer.objs.myWicket);
+  // const resetScore = useSelector((state) => state.loginReducer.score);
 // console.log(resetScore)
 
   
@@ -161,7 +160,6 @@ function ScoreCard() {
         setCount(0);
       }
     }
-
   if((oversPlayed*10)%10===6){
     // console.log("select bowler");
     setBowler('');
@@ -174,7 +172,7 @@ function ScoreCard() {
     // if(myScore === 1 || myScore === 3){
     //   setStar(true)
     // }else{
-    //   setStar(false)
+    //   setStar(false)data
     // }
   }
 },[myOver])
@@ -190,7 +188,7 @@ function ScoreCard() {
           <div className="score-over">
             <p>Total Score : {totalScore}</p>
             <p>Overs Played: {oversPlayed}</p>
-            <p>Wickets : {wickets}</p>
+            <p>Wickets : {wickets}</p>data
           </div>
         </div>
 

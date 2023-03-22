@@ -60,7 +60,7 @@ function TeamForm({
   };
 
   const handlePlayers = (players) => {
-    if(players.length < 11) {
+    if(players.length < 12) {
       setPlayers(players || []);
       setTeamData({
         ...teamData,
