@@ -11,6 +11,7 @@ export const InputField = (props) => {
         className="form-control w-77"
         placeholder={props.placeholder}
         onChange={props.onChange}
+        
       />
     </div>
   );

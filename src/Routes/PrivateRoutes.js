@@ -8,6 +8,11 @@ export const PRIVATE_ROUTES = [
   //   title: "Select Team",
   // },
   {
+    path: "/selectTeam",
+    component: SelectTeam,
+    title: "Select Team",
+  },
+  {
     path: "/scheduleMatch",
     component: ScheduleMatch,
     title: "Schedule Match",
