@@ -62,30 +62,51 @@ function ScoreCard() {
       setScore2(0);
     }
     dispatch(wicket("Wc"))
+
     }
-    
+    // console.log(myScore)
 
 // console.log(players,"players")
   const handleBatsman1 = (e) => {
     setPlayer(users.filter(val=>val.PhoneNo!==e.key))
-    setBatsman1(e)
+    
+    if(oversPlayed ===0.0){
+      setBatsman1(e)
+    }
+    if(myScore === "Wc"){
+      setBatsman1(e)
+    }
+
   }
   
   const handleBatsman2 = (e) => {
     setUsers(players.filter(val=>val.Name!==e.value))
-    setBatsman2(e)
+    if(oversPlayed ===0.0){
+      setBatsman2(e)
+    }
+    if(myScore === "Wc"){
+      setBatsman2(e)
+    }
+
   }
 
   const handleBowler = (e) => {
 
-    setBowler(e)
-    if(oversPlayed !== 0.0){
-      if(stars === false){
-        setStar(true);
-      }else if(stars){
-        setStar(false)
-      }
+    if(oversPlayed === 0.0){
+      setBowler(e)
     }
+    if((oversPlayed*10)%10===6){
+      setBowler(e)
+    }
+
+    
+    // if(oversPlayed !== 0.0){
+    //   if(stars === false){
+    //     setStar(true);
+    //   }else if(stars){
+    //     setStar(false)
+    //   }
+    // }
     
   }
 
@@ -120,6 +141,7 @@ function ScoreCard() {
      return null;
     }
     else{
+      
       if(((myScore%2===0)&&(count%2===0) )){
         setScore1(score1+myScore);
         setBall1(ball1+1);

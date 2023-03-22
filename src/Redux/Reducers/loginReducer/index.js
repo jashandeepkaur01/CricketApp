@@ -169,7 +169,7 @@ const data = (data = initalData, action) => {
       
       return {
         ...data,
-        score: 0,
+        score: action.score,
         singleOver:  data.objs.singleOver,
         totalScore: data.objs.totalScore,
         oversPlayed: data.objs.oversPlayed,
