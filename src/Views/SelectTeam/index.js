@@ -136,25 +136,6 @@ function SelectTeam() {
 
   return (
     <div>
-      {/* <CustomModal
-        footer={true}
-        header={true}
-        visible={showModal}
-        showModal={showModal}
-        setShowModal={setShowModal}
-        title={"Add New Team"}
-        onSubmitModal={submitModal}
-      >
-        <TeamForm
-          allPlayers={remainingPlayersData}
-          teamData={teamData}
-          setTeamData={setTeamData}
-          players={players}
-          setPlayers={setPlayers}
-          captain={captain}
-          setCaptain={setCaptain}
-        />
-      </CustomModal> */}
       <div className="container selectTeamWrapper text-left bg-light rounded border-dark pb-5">
         <div className="d-flex justify-content-between mt-3 pt-4 pb-5">
           <h3 className="">Select Your Team</h3>
