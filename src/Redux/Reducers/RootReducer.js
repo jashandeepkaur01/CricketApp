@@ -12,6 +12,7 @@ const appReducer = combineReducers({
   error: errorReducer,
 });
 
+
 const rootReducer = (state, action) => {
   if (action.type === LOGOUT + ACTION_STATES.SUCCESS) {
     state = undefined;
