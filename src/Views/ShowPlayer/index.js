@@ -1,6 +1,7 @@
 import CustomTable from "Components/Cells/customTable";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { getData } from "Redux/Actions/loginActions";
 
 // const arr = ["Player name", "Player PhoneNo", "Player Age", "JerseyyNo", "PlayerCountry", "sixes", "fours", "fiftys", "Hundreds", "Score", "Avg score", "inings played"];
@@ -25,33 +26,33 @@ const playerTableHeading = [
     label: "Country",
     key: "Country",
   },
+  // {
+  //   label: "Fours",
+  //   key: "Fours",
+  // },
+  // {
+  //   label: "Sixes",
+  //   key: "Sixes",
+  // },
+  // {
+  //   label: "Half Centuries",
+  //   key: "Fifties",
+  // },
+  // {
+  //   label: "Centuries",
+  //   key: "Hundreds",
+  // },
+  // {
+  //   label: "Total Score",
+  //   key: "Score",
+  // },
+  // {
+  //   label: "Avg score",
+  //   key: "AvgScore",
+  // },
   {
-    label: "Fours",
-    key: "Fours",
-  },
-  {
-    label: "Sixes",
-    key: "Sixes",
-  },
-  {
-    label: "Half Centuries",
-    key: "Fifties",
-  },
-  {
-    label: "Centuries",
-    key: "Hundreds",
-  },
-  {
-    label: "Total Score",
-    key: "Score",
-  },
-  {
-    label: "Avg score",
-    key: "AvgScore",
-  },
-  {
-    label: "Innings",
-    key: "InningsPlayed",
+    label: "Matches Played",
+    key: "MatchesPlayed",
   },
   {
     label: "Team",
@@ -68,6 +69,7 @@ function Main() {
 
   return (
     <div>
+      
       <CustomTable
         tableContent={data}
         headingDetails={playerTableHeading}
