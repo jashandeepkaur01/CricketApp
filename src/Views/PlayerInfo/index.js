@@ -8,19 +8,17 @@ import { useParams } from 'react-router-dom'
 function PlayerInfo() {
     const params = useParams()
     const { name } = params
-    // console.log(params)
-    // console.log(name);
     const allPlayers = useSelector((state) => state.loginReducer.players)
     console.log(allPlayers);
     const player = allPlayers.find(playerObj => playerObj.Name === name)
-    console.log(player);
+    console.log('player : ', player);
     const battingSummary = [player.BattingCareer];
     const bowlingSummary = [player.BowlingCareer];
-    console.log(battingSummary);
+    // console.log(battingSummary);
     const battingSummaryHeading = [
         {
-            label: "Innings Battled",
-            key: "inningsBattled",
+            label: "Innings Batted",
+            key: "inningsBatted",
         },
         {
             label: "Runs Scored",
@@ -104,14 +102,22 @@ function PlayerInfo() {
                     <div className="playerDetailsLeft">
                         <p><b>Age: </b> {player.Age}</p>
                         <p><b>JerseyNo:</b> {player.JerseyNo}</p>
+                        <div className="playerTeams">
+                            <p><b>Teams: </b>
+                                <ul class="list-group float-end ms-2 list-group-horizontal">
+                                    {player.Team.map(team => <li class="list-group-item">{team.value}</li>)}
+                                </ul>
+                            </p>
+                        </div>
                     </div>
                     <div className="playerDetailsRight">
                         <p><b>Country: </b> {player.Country}</p>
                         <p><b>PhoneNo: </b> {player.PhoneNo}</p>
                     </div>
                 </div>
-                <div className="summary">
-                    <div className="battingSummary">
+
+                <div className="summary d-flex justify-content-around mt-5">
+                    {/* <div className="battingSummary">
                         <h4 className='px-5'>Batting Career Summary</h4>
                         <CustomTable
                             tableContent={battingSummary}
@@ -128,10 +134,42 @@ function PlayerInfo() {
                             btnText="View Team"
                             component="Name"
                         />
+                    </div> */}
+                    <div className="battingSummary">
+                        <h4>Batting Career Summary</h4>
+                        <div className="bsDetailsleft">
+                            <div className='batSummary'><b>Innings Batted: </b> {player.BattingCareer.inningsBatted}</div>
+                            <div className='batSummary'><b>Runs Scored: </b> {player.BattingCareer.runsScored}</div>
+                            <div className='batSummary'><b>Highest Score: </b> {player.BattingCareer.highestScore}</div>
+                            <div className='batSummary'><b>Average Score: </b> {player.BattingCareer.avgScore}</div>
+                            <div className='batSummary'><b>Balls Faced: </b> {player.BattingCareer.ballsFaced}</div>
+                            <div className='batSummary'><b>Batting Strike Rate: </b> {player.BattingCareer.battingStrikeRate}</div>
+                            <div className='batSummary'><b>100s: </b> {player.BattingCareer.centuries}</div>
+                            <div className='batSummary'><b>200s: </b> {player.BattingCareer.doubleCenturies}</div>
+                            <div className='batSummary'><b>50s: </b> {player.BattingCareer.halfCenturies}</div>
+                            <div className='batSummary'><b>4s: </b> {player.BattingCareer.fours}</div>
+                            <div className='batSummary'><b>6s: </b> {player.BattingCareer.sixes}</div>
+                        </div>
+                    </div>
+                    <div className="bowlingSummary">
+                        <h4>Bowling Career Summary</h4>
+                        <div className="bsDetailsright">
+                            <div className='batSummary'><b>Innings Batted: </b> {player.BattingCareer.inningsBatted}</div>
+                            <div className='batSummary'><b>Runs Scored: </b> {player.BattingCareer.runsScored}</div>
+                            <div className='batSummary'><b>Highest Score: </b> {player.BattingCareer.highestScore}</div>
+                            <div className='batSummary'><b>Average Score: </b> {player.BattingCareer.avgScore}</div>
+                            <div className='batSummary'><b>Balls Faced: </b> {player.BattingCareer.ballsFaced}</div>
+                            <div className='batSummary'><b>Batting Strike Rate: </b> {player.BattingCareer.battingStrikeRate}</div>
+                            <div className='batSummary'><b>100s: </b> {player.BattingCareer.centuries}</div>
+                            <div className='batSummary'><b>200s: </b> {player.BattingCareer.doubleCenturies}</div>
+                            <div className='batSummary'><b>50s: </b> {player.BattingCareer.halfCenturies}</div>
+                            <div className='batSummary'><b>4s: </b> {player.BattingCareer.fours}</div>
+                            <div className='batSummary'><b>6s: </b> {player.BattingCareer.sixes}</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
