@@ -22,3 +22,5 @@ const AppLayout = ({ isAuthenticated, children }) => {
 };
 
 export default AppLayout;
+
+

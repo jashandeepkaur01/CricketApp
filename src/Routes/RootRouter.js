@@ -11,7 +11,7 @@ import PrivateLayout from "Components/Core/PrivateLayout";
 import RenderRoutes from "./RenderRoutes";
 import { getData } from "Redux/Actions/loginActions";
 
-const DEFAULT_AUTHENTICATED_ROUTE = "/logout";
+const DEFAULT_AUTHENTICATED_ROUTE = "/selectTeam";
 const DEFAULT_GUEST_ROUTE = "/login";
 
 const GuestRoutes = () => {
@@ -52,13 +52,14 @@ const AuthenticatedRoutes = () => {
 };
 
 const RootRouter = () => {
+
  const dispatch=useDispatch()
   useEffect(() => {
-    dispatch(getData());
+    dispatch(getData([]));
   }, [])
 
-  const token = useSelector((state) => state.user.token);
-
+  const token = useSelector((state) => state.data.token);
+  console.log(token)
   const baseName = process.env.REACT_APP_BASE_NAME;
   const isAuthenticated = !!token;
   return (
