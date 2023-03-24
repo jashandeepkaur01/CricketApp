@@ -60,15 +60,16 @@ function TeamForm({
   };
 
   const handlePlayers = (players) => {
-    if(players.length < 11) {
+    if(players.length <= 11) {
       setPlayers(players || []);
       setTeamData({
         ...teamData,
         teamPlayers: players,
       });
-    } else if (players.length > 10) {
-      return;
-    }
+    } 
+    // else if (players.length > 10) {
+    //   return;
+    // }
     if(players.length < 3) {
       setErr2("atleast 3 players required");
       setPlayerErr(false);
@@ -83,8 +84,8 @@ function TeamForm({
       ...teamData,
       teamType: event,
     });
+    setTeamTypeErr(false);
   };
-  setTeamTypeErr(false);
 
   const filterOption = (option, inputValue) => {
     const { label, value } = option;
@@ -123,6 +124,11 @@ function TeamForm({
         <label>
           <b>Select the Players</b>
         </label>
+        {players.length > 10 ? (
+          <div className="text-success">11 players selected</div>
+        ) : null}
+        <div><span className="text-danger">{playerErr ? Error3 : Err2}</span></div>
+        <br />
         <Select
           options={allPlayers.map((val) => ({
             label: val.Name,
@@ -133,13 +139,11 @@ function TeamForm({
           name="teamPlayers"
           value={players}
           closeMenuOnSelect={false}
+          noOptionsMessage={()=>'Player not Found'}
           isMulti
         />
-        {players.length > 9 ? (
-          <div className="text-danger">11 players selected</div>
-        ) : null}
-        <span className="text-danger">{playerErr ? Error3 : Err2}</span>
-        <br />
+        
+        
         <label>
           <b>Select Captain for the team</b>
         </label>

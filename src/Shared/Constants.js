@@ -7,5 +7,23 @@ export const STRINGS = {
 
 export const validCharacters = /^[a-zA-Z]*$/;
 
+export const teamHeadings = [
+  {
+    label: "TeamName",
+    key: "teamName",
+  },
+  {
+    label: "TeamCaptain",
+    key: "teamCaptain",
+  },
+  {
+    label: "TeamType",
+    key: "teamType",
+  },
+  {
+    label: "TeamPlayers",
+    key: "teamPlayers",
+  },
+];
 
 export const error = "field is required";

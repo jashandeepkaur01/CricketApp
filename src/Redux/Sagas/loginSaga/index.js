@@ -1,13 +1,14 @@
 import axios from "axios";
 import { takeLatest, put, call, all } from "redux-saga/effects";
-import { setData, setTeamData } from "Redux/Actions/loginActions";
-import { ADDTEAM, GETDATA } from "Redux/Actions/loginActions/actionStates";
 import { UPDATETEAM } from "Redux/Actions/updateTeamActions/actionStates";
-
+import { GETDATA } from "Redux/Actions/playerActions/actionStates";
+import { setData } from "Redux/Actions/playerActions";
+import { setTeamData } from "Redux/Actions/teamActions";
+import { ADDTEAM } from "Redux/Actions/teamActions/actionStates";
 function* players(payload) {
   try {
     const response = yield axios.get(
-      "https://customcricketmatch-default-rtdb.firebaseio.com/Vplayers.json"
+      "https://customcricketmatch-default-rtdb.firebaseio.com/playerData.json"
     );
     const playersDataWithKey = [];
     for (let key in response.data) {
@@ -24,7 +25,7 @@ function* players(payload) {
 function* teams(payload) {
   try {
     const response = yield axios.get(
-      "https://customcricketmatch-default-rtdb.firebaseio.com/Vteams.json"
+      "https://customcricketmatch-default-rtdb.firebaseio.com/teamData.json"
     );
     const teamsDataWithKey = [];
     for (let key in response.data) {
@@ -41,7 +42,7 @@ function* teams(payload) {
 function* addTeam(payload) {
   try {
     yield axios.post(
-      "https://customcricketmatch-default-rtdb.firebaseio.com/Vteams.json",
+      "https://customcricketmatch-default-rtdb.firebaseio.com/teamData.json",
       payload.data
     );
   } catch (error) {
@@ -59,12 +60,11 @@ function* updatePlayersTeam(payload) {
       value: teamName,
     };
     let teamArr;
-    debugger;
     const requests = payload.data[teamName].map((playerData) => {
       teamArr = [...playerData.Team, { ...teamObj }];
 
       return axios.patch(
-        `https://customcricketmatch-default-rtdb.firebaseio.com/Vplayers/${playerData.key}.json`,
+        `https://customcricketmatch-default-rtdb.firebaseio.com/playerData/${playerData.key}.json`,
         { Team: teamArr }
       );
     });

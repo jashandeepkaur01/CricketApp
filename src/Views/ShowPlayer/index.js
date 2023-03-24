@@ -1,7 +1,7 @@
 import CustomTable from "Components/Cells/customTable";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getData } from "Redux/Actions/loginActions";
+import { getData } from "Redux/Actions/playerActions";
 
 // const arr = ["Player name", "Player PhoneNo", "Player Age", "JerseyyNo", "PlayerCountry", "sixes", "fours", "fiftys", "Hundreds", "Score", "Avg score", "inings played"];
 const playerTableHeading = [
@@ -59,7 +59,7 @@ const playerTableHeading = [
   },
 ];
 function Main() {
-  const data = useSelector((state) => state.loginReducer.players);
+  const data = useSelector((state) => state.player.players);
   console.log(".....show player dataa.....", data);
   const dispatch = useDispatch();
   useEffect(() => {

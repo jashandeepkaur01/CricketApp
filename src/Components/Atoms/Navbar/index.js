@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { Nav } from "react-bootstrap";
 function Navbar() {
   const loggedInPlayer = useSelector(
-    (state) => state.loginReducer.loggedInPlayer
+    (state) => state.login.loggedInPlayer
   );
   console.log(loggedInPlayer,'loggedInPlayer')
 
@@ -92,7 +92,7 @@ export default Navbar;
 // import cricketLogo from '../../../Assets/Images/cricketLogo.png'
 // import { useSelector } from "react-redux";
 // function Navbar() {
-//   const loggedInPlayer = useSelector((state) => state.loginReducer.loggedInPlayer);
+//   const loggedInPlayer = useSelector((state) => state.login.loggedInPlayer);
 //   return (
 //     <div className="navouter">
 //       <nav className="navbar navbar-expand-lg bg-body-tertiary bg-dark fs-5 ">
