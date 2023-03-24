@@ -29,10 +29,10 @@ function CustomModal(props) {
         {props.footer ? (
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              Close
+              Cancel
             </Button>
             <Button variant="primary" onClick={props.onSubmitModal}>
-              Submit
+              {props.btnText}
             </Button>
           </Modal.Footer>
         ) : null}

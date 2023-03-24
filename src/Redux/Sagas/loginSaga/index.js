@@ -1,9 +1,10 @@
 import axios from "axios";
 import { takeLatest, put, call, all } from "redux-saga/effects";
-import { setData, setTeamData } from "Redux/Actions/loginActions";
-import { ADDTEAM, GETDATA } from "Redux/Actions/loginActions/actionStates";
 import { UPDATETEAM } from "Redux/Actions/updateTeamActions/actionStates";
-
+import { GETDATA } from "Redux/Actions/playerActions/actionStates";
+import { setData } from "Redux/Actions/playerActions";
+import { setTeamData } from "Redux/Actions/teamActions";
+import { ADDTEAM } from "Redux/Actions/teamActions/actionStates";
 function* players(payload) {
   try {
     const response = yield axios.get(
@@ -59,7 +60,6 @@ function* updatePlayersTeam(payload) {
       value: teamName,
     };
     let teamArr;
-    debugger;
     const requests = payload.data[teamName].map((playerData) => {
       teamArr = [...playerData.Team, { ...teamObj }];
 

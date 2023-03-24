@@ -1,15 +1,26 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import "./style.css";
 import cricketLogo from "../../../Assets/Images/cricketLogo.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Nav } from "react-bootstrap";
+import { setLogin } from "Redux/Actions/loginActions";
+
 function Navbar() {
   const loggedInPlayer = useSelector(
-    (state) => state.loginReducer.loggedInPlayer
+    (state) => state.login.loggedInPlayer
   );
-  console.log(loggedInPlayer,'loggedInPlayer')
 
+  console.log(loggedInPlayer, 'loggedInPlayer')
+  const dispatch = useDispatch();
+  // const navigate = useHistory();
+
+  function handleLogout() {
+    // alert('Logout..?');
+    // navigate.push("/");
+    dispatch(setLogin(null));
+  }
+  
   return (
     <div className="navouter">
       <nav className="navbar navbar-expand-lg bg-body-tertiary bg-secondary fs-5 ">
@@ -35,12 +46,12 @@ function Navbar() {
                 </li>
                 {loggedInPlayer ? (
                   <li className="nav-item">
-                  <NavLink className="nav-NavLink "  activeClassName="active" to="/selectTeam">
-                    Select Team
-                  </NavLink>
-                </li>
+                    <NavLink className="nav-NavLink " activeClassName="active" to="/selectTeam">
+                      Select Team
+                    </NavLink>
+                  </li>
                 ) : null}
-                
+
                 {/* <li className="nav-item">
                 <NavLink  className="nav-NavLink " activeClassName="active" to="/scheduleMatch">
                   Schedule Match
@@ -55,7 +66,7 @@ function Navbar() {
 
                 {loggedInPlayer ? (
                   <li className="nav-item">
-                    <NavLink className="nav-NavLink " activeClassName="active" to={'/playerInfo/'+loggedInPlayer.Name}>
+                    <NavLink className="nav-NavLink " activeClassName="active" to={'/playerInfo/' + loggedInPlayer.Name}>
                       {loggedInPlayer.Name}
                     </NavLink>
                   </li>
@@ -69,9 +80,11 @@ function Navbar() {
                 ) : null}
                 {loggedInPlayer ? (
                   <li className="nav-item nav-login">
-                    <NavLink className="nav-NavLink " to="/logout">
-                      Logout
+                    <NavLink className="nav-NavLink " to="/logout">Logout
                     </NavLink>
+                    {/* <NavLink className="nav-NavLink"  to='/' onClick={handleShow}> Logout</NavLink> */}
+                    {/* <p className="nav-NavLink" onClick={()=>alert('hi')}>Logout</p> */}
+                    {/* <a class="nav-NavLink" onClick={handleShow}>Logout</a> */}
                   </li>
                 ) : null}
 

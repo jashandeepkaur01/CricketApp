@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomModal from "Components/Atoms/customModal";
 import TeamForm from "Components/Cells/addTeamForm";
 import { Button } from "react-bootstrap";
-import { addTeamData, getData } from "Redux/Actions/loginActions";
+import { getData } from "Redux/Actions/playerActions";
 import { updatePlayersTeam } from "Redux/Actions/updateTeamActions";
-
+import { addTeamData } from "Redux/Actions/teamActions"
 import Select from "react-select";
 import { useHistory } from "react-router-dom";
 
@@ -28,11 +28,9 @@ function SelectTeam() {
 
   const dispatch = useDispatch();
   
-  const data = useSelector((state) => state.loginReducer.players);
-  let teamsData = useSelector((state) => state.loginReducer.teams);
-  const playerLoggedIn = useSelector(
-    (state) => state.loginReducer.loggedInPlayer
-  );
+  const data = useSelector((state) => state.player.players);
+  let teamsData = useSelector((state) => state.team.teams);
+  const playerLoggedIn = useSelector((state) => state.login.loggedInPlayer);
 
   const playerLoggedInData = data.find(player=>{
     return player.key === playerLoggedIn.key;
@@ -66,17 +64,17 @@ function SelectTeam() {
         setErr1("Field is required")
         setShowErr1(true);
       }
-      else if((teamData.teamType).length == 0)
+      if((teamData.teamType).length == 0)
       {
         setErr2("Field is required")
         setShowErr2(true);
       }
-      else if((teamData.teamPlayers).length < 3)
+      if((teamData.teamPlayers).length < 3)
       {
         setErr3("atleast 3 players required")
         setShowErr3(true);
       }
-      else if((teamData.teamCaptain).length == 0)
+      if((teamData.teamCaptain).length == 0)
       {
         setErr4("Field is required")
         setShowErr4(true);
@@ -169,6 +167,7 @@ function SelectTeam() {
             showModal={showModal}
             setShowModal={setShowModal}
             title={"Add New Team"}
+            btnText={"Add"}
             onSubmitModal={submitModal}
           >
             <TeamForm

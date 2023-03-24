@@ -6,7 +6,7 @@ const Login = () => {
   const [contact, setContact] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.loginReducer.players);
+  const data = useSelector((state) => state.player.players);
 
   // 6127963022
 

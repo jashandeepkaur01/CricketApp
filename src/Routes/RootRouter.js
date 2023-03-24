@@ -9,7 +9,7 @@ import DocumentTitle from "./DocumentTitle";
 import PublicLayout from "Components/Core/PublicLayout";
 import PrivateLayout from "Components/Core/PrivateLayout";
 import RenderRoutes from "./RenderRoutes";
-import { getData } from "Redux/Actions/loginActions";
+import { getData } from "Redux/Actions/playerActions";
 
 const DEFAULT_AUTHENTICATED_ROUTE = "/selectTeam";
 const DEFAULT_GUEST_ROUTE = "/authmessage";
@@ -63,7 +63,7 @@ const RootRouter = () => {
     dispatch(getData([]));
   },[]);
 
-  const token = useSelector((state) => state.loginReducer.loggedInPlayer);
+  const token = useSelector((state) => state.login.loggedInPlayer);
 
   // console.log(tokenData[0])
   const baseName = process.env.REACT_APP_BASE_NAME;

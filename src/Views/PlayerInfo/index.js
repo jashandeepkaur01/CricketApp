@@ -10,7 +10,7 @@ import './style.css'
 function PlayerInfo() {
     const params = useParams()
     const { name } = params
-    const allPlayers = useSelector((state) => state.loginReducer.players)
+    const allPlayers = useSelector((state) => state.player.players)
     console.log(allPlayers);
     const player = allPlayers.find(playerObj => playerObj.Name === name)
     console.log('player : ', player)

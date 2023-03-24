@@ -1,26 +1,21 @@
 import { REHYDRATE } from "redux-persist";
 
-import {
-  SETDATA,
-  GETDATA,
-  LOGIN,
-  SETTEAMDATA,
-} from "Redux/Actions/loginActions/actionStates";
+import { LOGIN } from "Redux/Actions/loginActions/actionStates";
 
 const initialData = {
-  players: [],
-  teams: [],
+  // players: [],
+  // teams: [],
   loggedInPlayer: null,
 };
 
 const loginReducer = (data = initialData, action) => {
   switch (action.type) {
-    case GETDATA:
-      return data;
-    case SETDATA:
-      return { ...data, players: action.data.map((data) => ({ ...data })) };
-    case SETTEAMDATA:
-      return { ...data, teams: action.data.map((data) => ({ ...data })) };
+    // case GETDATA:
+    //   return data;
+    // case SETDATA:
+    //   return { ...data, players: action.data.map((data) => ({ ...data })) };
+    // case SETTEAMDATA:
+    //   return { ...data, teams: action.data.map((data) => ({ ...data })) };
 
     case LOGIN:
       return { ...data, loggedInPlayer: action.loggedInPlayer };
