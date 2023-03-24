@@ -55,6 +55,7 @@ function SelectTeam() {
     if (playerLoggedInData.key !== playerData.key) return playerData;
   });
   console.log("players...", players);
+  console.log("remainingPlayersData...", remainingPlayersData);
   const handleShow = () => setShowModal(true);
 
   const submitModal = () => {
