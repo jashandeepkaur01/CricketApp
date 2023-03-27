@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Pagination from "../../Atoms/Pagination";
 import TableButton from "Components/Atoms/TableButton";
+import { Link } from "react-router-dom";
+import './style.css';
 
 export default function CustomTable({
   tableContent,
@@ -40,17 +42,30 @@ export default function CustomTable({
                 .map((val, index) => (
                   <tr>
                     {headingDetails.map((heading) => (
-                      <td>
-                        {typeof val[heading.key] !== "object" ? (
-                          val[heading.key]
-                        ) : (
-                          <TableButton
-                            data={val[heading.key]}
-                            btnText={btnText}
-                            firstColumnValue={tableContent[index][component]}
-                          />
+                      // {val[heading.key] == 'Score' ? <td>200</td>:
+                      <td>{typeof val[heading.key] !== "object" ?
+                      // heading.key === headingDetails[0].key ?
+                        heading.key === 'Name' ?
+                        <Link className='playerNameLink' to={'/playerInfo/'+val[heading.key]}>{val[heading.key]}</Link> :
+                          (val[heading.key]) :
+                        (<TableButton
+                          data={val[heading.key]}
+                          btnText={btnText}
+                          firstColumnValue={tableContent[index][component]}
+                        />
                         )}
                       </td>
+                      // <td>
+                      //   {typeof val[heading.key] !== "object" ? (
+                      //     val[heading.key]
+                      //   ) : (
+                      //     <TableButton
+                      //       data={val[heading.key]}
+                      //       btnText={btnText}
+                      //       firstColumnValue={tableContent[index][component]}
+                      //     />
+                      //   )}
+                      // </td>
                     ))}
                   </tr>
                 ))}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { takeLatest, put, call, all } from "redux-saga/effects";
+import { takeLatest, put, all } from "redux-saga/effects";
 import { UPDATETEAM } from "Redux/Actions/updateTeamActions/actionStates";
 import { GETDATA } from "Redux/Actions/playerActions/actionStates";
 import { setData } from "Redux/Actions/playerActions";

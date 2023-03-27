@@ -1,0 +1,8 @@
+.playerNameLink{
+    text-decoration: none;
+    color: black;
+}
+.playerNameLink:hover{
+    color: blue;
+    text-decoration: underline;
+}

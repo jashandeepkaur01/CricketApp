@@ -44,6 +44,7 @@
   color: white;
   padding: 10px 5px;
   border-radius: 6px;
+  transition:0.3s all;
 }
 .nav-NavLink:hover {
   color: black;
