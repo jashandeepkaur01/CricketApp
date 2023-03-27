@@ -30,14 +30,16 @@ export const PRIVATE_ROUTES = [
     component: SelectTeam,
     title: "Select Team",
   },
-  {
-    path: "/match",
-    component: Match,
-    title: "match",
-  },
-  {
-    path: "/playerInfo",
-    component: PlayerInfo,
-    title: "playerInfo",
-  },
+  // {
+  //   path: "/match",
+  //   component: Match,
+  //   title: "match",
+  // },
+
+
+  // {
+  //   path: "/playerInfo",
+  //   component: PlayerInfo,
+  //   title: "playerInfo",
+  // },
 ];
