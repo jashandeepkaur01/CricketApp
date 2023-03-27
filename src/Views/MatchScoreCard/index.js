@@ -6,7 +6,7 @@ function MatchScoreCard() {
         <div>
             <div className="container bg-light">
                 <h3>Scorecard</h3>
-                <h6>Batting Team</h6>
+                <h6 className='pt-2'>Batting Team</h6>
                 <Table>
                     <thead>
                         <tr>
@@ -47,7 +47,7 @@ function MatchScoreCard() {
 
                     </tbody>
                 </Table>
-                <h6>Bowling Team</h6>
+                <h6 className='pt-2'>Bowling Team</h6>
                 <Table>
                     <thead>
                         <tr>

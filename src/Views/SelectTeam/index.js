@@ -8,6 +8,7 @@ import { updatePlayersTeam } from "Redux/Actions/updateTeamActions";
 import { addTeamData } from "Redux/Actions/teamActions"
 import Select from "react-select";
 import { useHistory } from "react-router-dom";
+import { matchTeams } from "Redux/Actions/matchActions";
 
 function SelectTeam() {
   const [showModal, setShowModal] = useState(false);
@@ -132,6 +133,12 @@ function SelectTeam() {
   const handleInputChange2 = (selectedValue) => {
     setOppTeam(selectedValue);
   };
+  const startMatchNow = () => {
+    console.log('Team: ',team)
+    console.log('OppTeam: ',oppTeam);
+    dispatch(matchTeams([team.label,oppTeam.label]));
+    navigate.push("/match")
+  }
 
   return (
     <div>
@@ -220,7 +227,7 @@ function SelectTeam() {
         <div className="text-center mt-5">
           <Button
             variant="info"
-            onClick={() => navigate.push("/match")}
+            onClick={startMatchNow}
           >
             Start a Match
           </Button>
