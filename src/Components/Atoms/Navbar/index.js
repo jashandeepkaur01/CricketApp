@@ -5,9 +5,7 @@ import cricketLogo from "../../../Assets/Images/cricketLogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Nav } from "react-bootstrap";
 import { setLogin } from "Redux/Actions/loginActions";
-import LogoutModal from "../LogoutModal";
-// import LogoutModal from "../LogoutModal";
-// import LogoutModal from "../LogoutModal/index.js/index"
+import LogoutModal from "../LogoutModal"; 
 
 function Navbar() {
   const [show, setShow] = useState(false);
@@ -19,6 +17,7 @@ function Navbar() {
   const dispatch = useDispatch();
   // const navigate = useHistory();
   const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
 
   function handleLogout() {
     handleShow();
@@ -88,13 +87,7 @@ function Navbar() {
                   <li className="nav-item nav-login">
                     {/* <NavLink className="nav-NavLink " to="/logout">Logout
                     </NavLink> */}
-                    <span className="nav-NavLink" onClick={handleLogout}>Logout</span>
-                    {/* <Button variant="primary" onClick={handleShow}>
-                      Launch static backdrop modal
-                    </Button> */}
-                    {/* <NavLink className="nav-NavLink"  to='/' onClick={handleShow}> Logout</NavLink> */}
-                    {/* <p className="nav-NavLink" onClick={()=>alert('hi')}>Logout</p> */}
-                    {/* <a class="nav-NavLink" onClick={handleShow}>Logout</a> */}
+                    <span className="nav-NavLink logoutBtn" onClick={handleLogout}>Logout</span>
                   </li>
                 ) : null}
               </ul>
@@ -102,7 +95,7 @@ function Navbar() {
           </div>
         </div>
       </nav>
-      <LogoutModal/>
+      <LogoutModal show={show} handleClose={handleClose} title='Logout'/>
     </div>
   );
 }

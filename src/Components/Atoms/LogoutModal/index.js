@@ -1,37 +1,44 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { setLogin } from 'Redux/Actions/loginActions';
 
-function LogoutModal () {
-  const [show, setShow] = useState(false);
+function LogoutModal ({title,show,handleClose}) {
+  // const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
+  const dispatch = useDispatch();
+  const navigate = useHistory();
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
+  function handleLoginModal(){
+    console.log('logging out ')
+    navigate.push("/");
+    dispatch(setLogin(null));
+    handleClose();
+  }
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch static backdrop modal
-      </Button> */}
-
       <Modal
         show={show}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          I will not close if you click outside me. Don't even try to press
-          escape key.
+          Are you sure to logout..?
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Cancel
           </Button>
-          <Button variant="primary">Understood</Button>
+          <Button variant="primary" onClick={handleLoginModal}>Logout</Button>
         </Modal.Footer>
       </Modal>
     </>

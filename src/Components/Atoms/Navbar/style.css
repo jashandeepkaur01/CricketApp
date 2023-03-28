@@ -35,6 +35,9 @@
   right: 10px;
   top: 10px; */
 }
+.logoutBtn{
+  cursor: pointer;
+}
 .nav-NavLink.active {
   background-color: rgb(230, 175, 26);
   color: black;
