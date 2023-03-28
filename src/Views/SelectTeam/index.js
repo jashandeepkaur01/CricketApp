@@ -8,7 +8,7 @@ import { updatePlayersTeam } from "Redux/Actions/updateTeamActions";
 import { addTeamData } from "Redux/Actions/teamActions"
 import Select from "react-select";
 import { useHistory } from "react-router-dom";
-import { matchTeams } from "Redux/Actions/matchActions";
+import { addMatchData, matchTeams } from "Redux/Actions/matchActions";
 
 function SelectTeam() {
   const [showModal, setShowModal] = useState(false);
@@ -32,15 +32,16 @@ function SelectTeam() {
   const data = useSelector((state) => state.player.players);
   let teamsData = useSelector((state) => state.team.teams);
   const playerLoggedIn = useSelector((state) => state.login.loggedInPlayer);
-
+  console.log('playerLoggedIn...',playerLoggedIn)
   const playerLoggedInData = data.find(player=>{
     return player.key === playerLoggedIn.key;
   })
-  console.log('playerLoggedIN teams....',playerLoggedInData.Team)
+  console.log('players data...',data);
+  // console.log('playerLoggedIN teams....',playerLoggedInData?.Team)
   const loggedInPlayer = {
-    label: playerLoggedInData.Name,
-    value: playerLoggedInData.Name,
-    key: playerLoggedInData.key,
+    label: playerLoggedInData?.Name,
+    value: playerLoggedInData?.Name,
+    key: playerLoggedInData?.key,
   };
   const [players, setPlayers] = useState([loggedInPlayer]);
   const [teamData, setTeamData] = useState({
@@ -136,7 +137,13 @@ function SelectTeam() {
   const startMatchNow = () => {
     console.log('Team: ',team)
     console.log('OppTeam: ',oppTeam);
-    dispatch(matchTeams([team.label,oppTeam.label]));
+    // dispatch(matchTeams([team.label,oppTeam.label]));
+    const matchData = {
+      myTeam: team.label,
+      oppTeam: oppTeam.label,
+      date: '25 March 2023',
+    }
+    dispatch(addMatchData(matchData));
     navigate.push("/match")
   }
 
@@ -203,7 +210,7 @@ function SelectTeam() {
         </div>
         <Select
           className="text-center"
-          options={playerLoggedInData.Team}
+          options={playerLoggedInData?.Team}
           onChange={handleInputChange1}
           value={team}
         />

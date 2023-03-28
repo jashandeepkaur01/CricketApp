@@ -36,8 +36,9 @@
   top: 10px; */
 }
 .nav-NavLink.active {
-  background-color: rgb(230, 175, 26);
-  color: black;
+  /* background-color: rgb(230, 175, 26); */
+  border: 2px solid rgb(230, 175, 26);
+  color: #00FFFF;
 }
 .nav-NavLink {
   text-decoration: none;
@@ -47,5 +48,5 @@
   transition:0.3s all;
 }
 .nav-NavLink:hover {
-  color: black;
+  color: #00FFFF;
 }

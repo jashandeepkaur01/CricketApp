@@ -5,6 +5,8 @@ import { GETDATA } from "Redux/Actions/playerActions/actionStates";
 import { setData } from "Redux/Actions/playerActions";
 import { setTeamData } from "Redux/Actions/teamActions";
 import { ADDTEAM } from "Redux/Actions/teamActions/actionStates";
+import { ADDMATCHDATA, GETMATCHDATA } from "Redux/Actions/matchActions/actionStates";
+import { setMatchData } from "Redux/Actions/matchActions";
 function* players(payload) {
   try {
     const response = yield axios.get(
@@ -75,13 +77,44 @@ function* updatePlayersTeam(payload) {
     }
   }
 }
-
+function* addMatch(payload) {
+  console.log('adding to firebase...loginSaga...payload.data: ',payload.data)
+  try {
+    yield axios.post(
+      "https://customcricketmatch-default-rtdb.firebaseio.com/matchData.json",
+      payload.data
+    );
+  } catch (error) {
+    if (payload && payload?.fail) {
+      payload.fail(error);
+    }
+  }
+}
+function* matchData({payload}) {
+  try {
+    const response = yield axios.get(
+      "https://customcricketmatch-default-rtdb.firebaseio.com/matchData.json"
+    );
+    const matchDataWithKey = [];
+    payload.success(response.data)
+    for (let key in response.data) {
+      matchDataWithKey.push({ ...response.data[key], key: key });
+    } 
+    yield put(setMatchData(matchDataWithKey));
+  } catch (error) {
+    if (payload && payload?.fail) {
+      payload.fail(error);
+    }
+  }
+}
 function* Sagaa() {
   yield all([
     takeLatest(GETDATA, players),
     takeLatest(GETDATA, teams),
     takeLatest(ADDTEAM, addTeam),
     takeLatest(UPDATETEAM, updatePlayersTeam),
+    takeLatest(ADDMATCHDATA, addMatch),
+    takeLatest(GETMATCHDATA,matchData),
   ]);
 }
 

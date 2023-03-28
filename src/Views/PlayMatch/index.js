@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
+import { getMatchData, matchTeams } from 'Redux/Actions/matchActions';
+import { getData } from 'Redux/Actions/playerActions';
+import './style.css'
 
 function PlayMatch() {
     const [currScore, setCurrScore] = useState(0);
@@ -10,11 +13,13 @@ function PlayMatch() {
     const [currOver, setCurrOver] = useState([]);
     const [myTeamPlayers, setMyTeamPlayers] = useState([]);
     const [oppTeamPlayers, setOppTeamPlayers] = useState([]);
-    const [remainingTeamPlayers,setRemainingTeamPlayers] = useState([]);
+    const [remainingTeamPlayers, setRemainingTeamPlayers] = useState([]);
     const [batsman1, setBatsman1] = useState('');
     const [batsman2, setBatsman2] = useState('');
-    const [displayBatsman1,setDisplayBatsman1] = useState('Select Batsman');
-    const [displayBatsman2,setDisplayBatsman2] = useState('Select Batsman');
+    const [bowler, setBowler] = useState('');
+    const [displayBatsman1, setDisplayBatsman1] = useState('Select Batsman');
+    const [displayBatsman2, setDisplayBatsman2] = useState('Select Batsman');
+    const [displayBowler, setDisplayBowler] = useState('Select Bowler');
     // let myTeamPlayers = [];
     // let oppTeamPlayers = [];
     // let remainingTeamPlayers = [];
@@ -23,11 +28,24 @@ function PlayMatch() {
     //     oppTeamPlayers: [],
     //     remainingTeamPlayers: [],
     // })
-    // console.log('vvvv',displayBatsman1.value);
+
+    const dispatch = useDispatch();
+
+
     const teamsData = useSelector((state) => state.team.teams);
-    const currMatchData = useSelector((state) => state.match.currMatch);
-    console.log('my team name: ' + currMatchData.myTeam)
-    useEffect(()=>{
+    // const currMatchData = useSelector((state) => state.match.matches);
+    const currMatchData = {
+        myTeam: 'RCB',
+        oppTeam: 'MI',
+    }
+    console.log('teamsData...',teamsData);
+    console.log('currMatchData: ' + currMatchData)
+    const isPlayersSelected = batsman1.value && batsman2.value && bowler.value;
+    // const isBatsmanSelected = batsman1.value && batsman2.value;
+
+    console.log('selected...' + isPlayersSelected);
+    let myMatchData;
+    useEffect(() => {
         for (let team of teamsData) {
             if (currMatchData.myTeam === team.teamName) {
                 console.log(team);
@@ -39,9 +57,17 @@ function PlayMatch() {
                 setOppTeamPlayers(team.teamPlayers)
             }
         }
-    },[])
-    
-    console.log(myTeamPlayers,'kkkkk')
+        // dispatch(matchTeams([team.label, oppTeam.label]));
+        dispatch(getMatchData({
+            success: (data)=>{
+                myMatchData = data;
+                console.log(data);
+            },
+            fail: () =>{}
+        }));
+    }, [])
+    console.log('myMatchData....',myMatchData);
+    console.log(myTeamPlayers, 'kkkkk')
 
     if (isOverCompleted) {
         setTimeout(() => {
@@ -111,16 +137,19 @@ function PlayMatch() {
         // console.log(selectedBatsman);
         setDisplayBatsman2(selectedBatsman);
     }
-
+    const handleBowler = (selectedBowler) => {
+        setBowler(selectedBowler);
+        setDisplayBowler(selectedBowler)
+    }
 
     return (
         <div className='w-75'>
-            <div className="container bg-secondary p-2">
+            <div className="playMatchContainer border border-dark p-2">
                 {/* <h2>match controls here</h2> */}
-                <div className="scoredisplay border border-2 rounded border-outline-info d-flex justify-content-around mb-4">
+                <div className="scoredisplay border border-2 rounded border-outline-info d-flex justify-content-around pt-2 mb-4">
                     <div className="displayLeft">
-                        <p>{(displayBatsman1.value)?displayBatsman1.value:'(Select Batsman 1)'}</p>
-                        <p>{(displayBatsman2.value)?displayBatsman2.value:'(Select Batsman 2)'}</p>
+                        <p>{(displayBatsman1.value) ? displayBatsman1.value : '(Select Batsman 1)'}</p>
+                        <p>{(displayBatsman2.value) ? displayBatsman2.value : '(Select Batsman 2)'}</p>
                         <p>Total Score: {currScore}</p>
                         <p>Overs: {overs}</p>
                     </div>
@@ -128,7 +157,7 @@ function PlayMatch() {
                         <h2>{displayScore}</h2>
                     </div>
                     <div className="displayRight">
-                        <p>Bowler</p>
+                        <p>{(displayBowler.value) ? 'Bowler: ' + displayBowler.value : '(Select Bowler)'}</p>
                         <p>Overs: {currOver.map(currBall => currBall + ' ')}</p>
                     </div>
                 </div>
@@ -139,27 +168,32 @@ function PlayMatch() {
                         <label>Select Batsman 2</label>
                         <Select options={remainingTeamPlayers} onChange={handleBatsman2} value={batsman2} />
                     </div>
-                    <div className="control-box text-center">
-                        <div>
-                            <button className='btn btn-light btn-outline-primary px-4 py-2' onClick={(e) => handleScoreClick(e)}>0</button>
-                            <button className='btn btn-light btn-outline-primary px-4 py-2' onClick={(e) => handleScoreClick(e)}>1</button>
-                            <button className='btn btn-light btn-outline-primary px-4 py-2' onClick={(e) => handleScoreClick(e)}>2</button>
-                        </div>
-                        <div>
-                            <button className='btn btn-light btn-outline-primary px-4 py-2' onClick={(e) => handleScoreClick(e)}>3</button>
-                            <button className='btn btn-light btn-outline-primary px-4 py-2' onClick={(e) => handleScoreClick(e)}>4</button>
-                            <button className='btn btn-light btn-outline-primary px-4 py-2' onClick={(e) => handleScoreClick(e)}>6</button>
-                        </div>
-                        <div>
-                            <button className='btn btn-light btn-outline-primary px-3 py-2' onClick={(e) => handleScoreClick(e)}>NB</button>
-                            <button className='btn btn-light btn-outline-primary px-3 py-2' onClick={(e) => handleScoreClick(e)}>WB</button>
-                            <button className='btn btn-light btn-outline-primary px-3 py-2' onClick={(e) => handleScoreClick(e)}>WC</button>
-                        </div>
-                        <div>
-                            <button className='btn btn-light btn-outline-primary px-3 py-2' onClick={(e) => handleScoreClick(e)}>DB</button>
-                            <button className='btn btn-light btn-outline-primary px-3 py-2' onClick={(e) => handleScoreClick(e)}>Undo</button>
-                        </div>
+                    <div className="bowling w-25">
+                        <label>Select Bowler</label>
+                        <Select options={oppTeamPlayers} onChange={handleBowler} value={bowler} />
                     </div>
+                    {isPlayersSelected ?
+                        <div className="control-box text-center">
+                            <div>
+                                <button className='btn btn-light btn-outline-primary px-4 py-2' onClick={(e) => handleScoreClick(e)}>0</button>
+                                <button className='btn btn-light btn-outline-primary px-4 py-2' onClick={(e) => handleScoreClick(e)}>1</button>
+                                <button className='btn btn-light btn-outline-primary px-4 py-2' onClick={(e) => handleScoreClick(e)}>2</button>
+                            </div>
+                            <div>
+                                <button className='btn btn-light btn-outline-primary px-4 py-2' onClick={(e) => handleScoreClick(e)}>3</button>
+                                <button className='btn btn-light btn-outline-primary px-4 py-2' onClick={(e) => handleScoreClick(e)}>4</button>
+                                <button className='btn btn-light btn-outline-primary px-4 py-2' onClick={(e) => handleScoreClick(e)}>6</button>
+                            </div>
+                            <div>
+                                <button className='btn btn-light btn-outline-primary px-3 py-2' onClick={(e) => handleScoreClick(e)}>NB</button>
+                                <button className='btn btn-light btn-outline-primary px-3 py-2' onClick={(e) => handleScoreClick(e)}>WB</button>
+                                <button className='btn btn-light btn-outline-primary px-3 py-2' onClick={(e) => handleScoreClick(e)}>WC</button>
+                            </div>
+                            <div>
+                                <button className='btn btn-light btn-outline-primary px-3 py-2' onClick={(e) => handleScoreClick(e)}>DB</button>
+                                <button className='btn btn-light btn-outline-primary px-3 py-2' onClick={(e) => handleScoreClick(e)}>Undo</button>
+                            </div>
+                        </div> : null}
                 </div>
             </div>
         </div>

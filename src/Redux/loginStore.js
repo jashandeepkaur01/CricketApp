@@ -10,7 +10,7 @@ import createSagaMiddleware from "redux-saga";
 const rootPersistConfig = {
   key: "rootdata",
   storage: storage,
-  whitelist: ["loginReducer"],
+  whitelist: ["login"],
 };
 
 const composeEnhancers =

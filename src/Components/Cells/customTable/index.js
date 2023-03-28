@@ -25,12 +25,13 @@ export default function CustomTable({
   return (
     <>
       <div className=" justify-content-center w-100 px-5 pb-4">
-        <table className="table  table-success table-bordered table-hover  table-sm ">
+        <table className="table table-success table-bordered table-hover table-sm text-center">
           <thead className="table table-dark">
             <tr>
               {headingDetails.map((val) => (
                 <th>
-                  <div className="d-flex ">{val.label}</div>
+                  {val.label}
+                  {/* <div className="d-flex ">{val.label}</div> */}
                 </th>
               ))}
             </tr>

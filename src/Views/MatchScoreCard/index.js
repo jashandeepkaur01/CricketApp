@@ -1,12 +1,16 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
+import { useSelector } from 'react-redux';
 
 function MatchScoreCard() {
+    const currMatchData = useSelector((state) => state.match.matches);
+
     return (
         <div>
             <div className="container bg-light">
                 <h3>Scorecard</h3>
-                <h6 className='pt-2'>Batting Team</h6>
+                <h5 className='teamPlaying'>India Innings</h5>
+                <h6 className='pt-2'>Batting Team ({currMatchData.myTeam})</h6>
                 <Table>
                     <thead>
                         <tr>
@@ -47,7 +51,7 @@ function MatchScoreCard() {
 
                     </tbody>
                 </Table>
-                <h6 className='pt-2'>Bowling Team</h6>
+                <h6 className='pt-2'>Bowling Team ({currMatchData.oppTeam})</h6>
                 <Table>
                     <thead>
                         <tr>
