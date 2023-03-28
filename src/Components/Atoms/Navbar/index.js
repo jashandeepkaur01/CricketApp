@@ -5,8 +5,12 @@ import cricketLogo from "../../../Assets/Images/cricketLogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Nav } from "react-bootstrap";
 import { setLogin } from "Redux/Actions/loginActions";
+import LogoutModal from "../LogoutModal";
+// import LogoutModal from "../LogoutModal";
+// import LogoutModal from "../LogoutModal/index.js/index"
 
 function Navbar() {
+  const [show, setShow] = useState(false);
   const loggedInPlayer = useSelector(
     (state) => state.login.loggedInPlayer
   );
@@ -14,13 +18,15 @@ function Navbar() {
   console.log(loggedInPlayer, 'loggedInPlayer')
   const dispatch = useDispatch();
   // const navigate = useHistory();
+  const handleShow = () => setShow(true);
 
   function handleLogout() {
+    handleShow();
     // alert('Logout..?');
     // navigate.push("/");
-    dispatch(setLogin(null));
+    // dispatch(setLogin(null));
   }
-  
+
   return (
     <div className="navouter">
       <nav className="navbar navbar-expand-lg bg-body-tertiary bg-secondary fs-5 ">
@@ -80,19 +86,23 @@ function Navbar() {
                 ) : null}
                 {loggedInPlayer ? (
                   <li className="nav-item nav-login">
-                    <NavLink className="nav-NavLink " to="/logout">Logout
-                    </NavLink>
+                    {/* <NavLink className="nav-NavLink " to="/logout">Logout
+                    </NavLink> */}
+                    <span className="nav-NavLink" onClick={handleLogout}>Logout</span>
+                    {/* <Button variant="primary" onClick={handleShow}>
+                      Launch static backdrop modal
+                    </Button> */}
                     {/* <NavLink className="nav-NavLink"  to='/' onClick={handleShow}> Logout</NavLink> */}
                     {/* <p className="nav-NavLink" onClick={()=>alert('hi')}>Logout</p> */}
                     {/* <a class="nav-NavLink" onClick={handleShow}>Logout</a> */}
                   </li>
                 ) : null}
-
               </ul>
             </div>
           </div>
         </div>
       </nav>
+      <LogoutModal/>
     </div>
   );
 }
