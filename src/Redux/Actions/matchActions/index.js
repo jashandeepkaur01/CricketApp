@@ -16,17 +16,14 @@ export const getMatchData = (payload) => {
 }
 export const setMatchData = (data) => {
     console.log('setting match data..(data with key).',data);
-    const onlyValues = Object.values(data);
-    console.log(onlyValues);
     return {
         type: SETMATCHDATA,
         data,
     }
 }
-export const addMatchData = (data) => {
-    console.log('adding match data...',data);
+export const addMatchData = (payload) => {
     return {
         type: ADDMATCHDATA,
-        data,
+        payload,
     }
 }

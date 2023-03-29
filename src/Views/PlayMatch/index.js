@@ -1,6 +1,7 @@
 import BowlerModal from 'Components/Atoms/BowlerModal';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import Select from 'react-select';
 import { getMatchData, matchTeams } from 'Redux/Actions/matchActions';
 import { getData } from 'Redux/Actions/playerActions';
@@ -22,74 +23,68 @@ function PlayMatch() {
     const [displayBatsman1, setDisplayBatsman1] = useState('Select Batsman');
     const [displayBatsman2, setDisplayBatsman2] = useState('Select Batsman');
     const [displayBowler, setDisplayBowler] = useState('Select Bowler');
-    // let myTeamPlayers = [];
-    // let oppTeamPlayers = [];
-    // let remainingTeamPlayers = [];
-    // const [teamPlayers,setTeamPlayers] = useState({
-    //     myTeamPlayers: [],
-    //     oppTeamPlayers: [],
-    //     remainingTeamPlayers: [],
-    // })
+    const [onStrike, setOnStrike] = useState(0);
+    const isCurrentMatchRef = useRef(false)
+
+
+    const params = useParams()
+    const { matchOrganiserKey } = params;
+    console.log(matchOrganiserKey);
 
     const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
+    const handleClose = () => setShow(false);
 
-  function handleBowlerModal() {
-    console.log('handling bowler')
-    handleShow();
-  }
+    function handleBowlerModal() {
+        // console.log('handling bowler')
+        handleShow();
+    }
 
 
 
     const dispatch = useDispatch();
     const teamsData = useSelector((state) => state.team.teams);
     const currMatchData = useSelector((state) => state.match.currMatch);
-    // const currMatchData = {
-    //     myTeam: 'RCB',
-    //     oppTeam: 'MI',
-    // }
-    console.log('teamsData...',teamsData);
-    console.log('currMatchData: ' + currMatchData)
+
+    const currentGoingMatch = currMatchData.find(match => match.matchOrganiser === matchOrganiserKey);
+    console.log('currentGoingMatch....', currentGoingMatch)
+    // console.log('currMatchData......',currMatchData);
     // for(let i in currMatchData){
     //     console.log('dd...',currMatchData[i]);
     // }
-    // const isPlayersSelected = batsman1.value && batsman2.value && bowler.value;
-    const isPlayersSelected = batsman1.value && batsman2.value;
+    let isPlayersSelected = batsman1.value && batsman2.value && bowler.value;
+    // const isPlayersSelected = batsman1.value && batsman2.value;
     const isBatsmanSelected = batsman1.value && batsman2.value;
-    console.log('isBatsman Selected...',isBatsmanSelected);
+    // console.log('isBatsman Selected...',isBatsmanSelected);
     console.log('selected...' + isPlayersSelected);
-    let myMatchData;
     useEffect(() => {
-        dispatch(getMatchData({}))
-        
+        dispatch(getMatchData([]))
+    }, [])
+
+    useEffect(() => {
+        // if (isCurrentMatchRef.current) {
         for (let team of teamsData) {
-            if (currMatchData.myTeam === team.teamName) {
-                console.log(team);
+            if (currentGoingMatch?.myTeam === team.teamName) {
+                // console.log(team);
                 setMyTeamPlayers(team.teamPlayers);
-                console.log('myTeam...', myTeamPlayers);
+                // console.log('myTeam...', myTeamPlayers);
             }
-            if (currMatchData.oppTeam === team.teamName) {
-                console.log(team)
+            if (currentGoingMatch?.oppTeam === team.teamName) {
+                // console.log(team)
                 setOppTeamPlayers(team.teamPlayers)
             }
         }
-        handleBowlerModal();
-        // dispatch(matchTeams([team.label, oppTeam.label]));
-        // dispatch(getMatchData({
-        //     success: (data)=>{
-        //         myMatchData = data;
-        //         console.log(data);
-        //     },
-        //     fail: () =>{}
-        // }));
-    }, [])
-    console.log('myMatchData....',myMatchData);
-    console.log(myTeamPlayers, 'kkkkk')
+        // handleBowlerModal();
+        // } else {
+        //     isCurrentMatchRef.current = true
+        // }
+    }, [currMatchData])
 
     if (isOverCompleted) {
         setTimeout(() => {
             // alert('over completed...');
-            handleBowlerModal();
+            // handleBowlerModal();
+            console.log('select bowler...');
+            isPlayersSelected = false;
             setIsOverCompleted(false);
             setCurrOver([]);
         }, 200)
@@ -109,7 +104,7 @@ function PlayMatch() {
         if (btnValue === 'WB' || btnValue === 'NB') {
             console.log('wide ball')
             setCurrScore(currScore + 1)
-            setDisplayScore(currScore)
+            // setDisplayScore(currScore)
             if (btnValue === 'WB') {
                 setDisplayScore('Wide Ball')
                 setCurrOver([...currOver, 'WB'])
@@ -121,8 +116,19 @@ function PlayMatch() {
         }
         else if (btnValue === 'WC' || btnValue === 'DB') {
             console.log('Out');
-            console.log(currScore);
+            // console.log(currScore);
+            let playerOut;
             if (btnValue === 'WC') {
+                if (onStrike) {
+                    console.log('batsman out : ', batsman2);
+                    playerOut = batsman2;
+                    setBatsman2('');
+                }
+                else {
+                    console.log('batsman out : ', batsman1);
+                    playerOut = batsman1;
+                    setBatsman1('');
+                }
                 setDisplayScore('OUT')
                 setCurrOver([...currOver, 'WC'])
             }
@@ -130,6 +136,9 @@ function PlayMatch() {
                 setDisplayScore('Dead Ball')
                 setCurrOver([...currOver, 'DB'])
             }
+            setMyTeamPlayers(myTeamPlayers.filter(player => player !== playerOut));
+            setRemainingTeamPlayers(myTeamPlayers.filter(player => player !== playerOut));
+
         }
         else if (btnValue === 'Undo') {
             console.log('undo...');
@@ -140,8 +149,10 @@ function PlayMatch() {
             // console.log(typeof btnValue);
             btnValue = +btnValue;
             setCurrScore(currScore + btnValue)
-            setDisplayScore(currScore + btnValue)
+            setDisplayScore(btnValue)
             setCurrOver([...currOver, btnValue])
+            if (btnValue === 1 || btnValue === 3)
+                setOnStrike(!onStrike);
         }
     }
     const handleBatsman1 = (selectedBatsman) => {
@@ -157,7 +168,8 @@ function PlayMatch() {
     }
     const handleBowler = (selectedBowler) => {
         setBowler(selectedBowler);
-        setDisplayBowler(selectedBowler)
+        setDisplayBowler(selectedBowler);
+        isPlayersSelected = true;
     }
 
     return (
@@ -166,8 +178,8 @@ function PlayMatch() {
                 {/* <h2>match controls here</h2> */}
                 <div className="scoredisplay border border-2 rounded border-outline-info d-flex justify-content-around pt-2 mb-4">
                     <div className="displayLeft">
-                        <p>{(displayBatsman1.value) ? displayBatsman1.value : '(Select Batsman 1)'}</p>
-                        <p>{(displayBatsman2.value) ? displayBatsman2.value : '(Select Batsman 2)'}</p>
+                        <p>{(displayBatsman1.value) ? ((!onStrike) ? '*' : '') + displayBatsman1.value : '(Select Batsman 1)'}</p>
+                        <p>{(displayBatsman2.value) ? ((onStrike) ? '*' : '') + displayBatsman2.value : '(Select Batsman 2)'}</p>
                         <p>Total Score: {currScore}</p>
                         <p>Overs: {overs}</p>
                     </div>
@@ -176,7 +188,9 @@ function PlayMatch() {
                     </div>
                     <div className="displayRight">
                         <p>{(displayBowler.value) ? 'Bowler: ' + displayBowler.value : '(Select Bowler)'}</p>
-                        <p>Overs: {currOver.map(currBall => currBall + ' ')}</p>
+                        <p>Over: {currOver.map(currBall => currBall + ' ')}</p>
+                        <p>{currMatchData.myTeam}</p>
+                        <p>{currMatchData.oppTeam}</p>
                     </div>
                 </div>
                 <div className="controls d-flex justify-content-between">
@@ -188,8 +202,8 @@ function PlayMatch() {
                     </div>
                     <div className="bowling w-25">
                         <label>Select Bowler</label>
-                        {/* <Select options={oppTeamPlayers} onChange={handleBowler} value={bowler} /> */}
-                        <BowlerModal show={show} handleClose={handleClose} title='Choose Bowler' oppTeamPlayers={oppTeamPlayers} handleBowler={handleBowler} bowler={bowler}/>
+                        <Select options={oppTeamPlayers} onChange={handleBowler} value={bowler} />
+                        {/* <BowlerModal show={show} handleClose={handleClose} title='Choose Bowler' oppTeamPlayers={oppTeamPlayers} handleBowler={handleBowler} bowler={bowler} /> */}
                     </div>
                     {isPlayersSelected ?
                         <div className="control-box text-center">
@@ -215,8 +229,19 @@ function PlayMatch() {
                         </div> : null}
                 </div>
             </div>
+            <Popup>
+                <input type='text'/>
+            </Popup>
         </div>
     )
 }
 
 export default PlayMatch
+
+
+export const Popup = ({ children }) => {
+    return <div>
+        {children}
+    </div>
+}
+

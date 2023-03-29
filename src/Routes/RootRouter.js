@@ -10,6 +10,7 @@ import PublicLayout from "Components/Core/PublicLayout";
 import PrivateLayout from "Components/Core/PrivateLayout";
 import RenderRoutes from "./RenderRoutes";
 import { getData } from "Redux/Actions/playerActions";
+import { getMatchData } from "Redux/Actions/matchActions";
 
 const DEFAULT_AUTHENTICATED_ROUTE = "/selectTeam";
 const DEFAULT_GUEST_ROUTE = "/authmessage";
@@ -61,6 +62,7 @@ const RootRouter = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getData([]));
+    dispatch(getMatchData({}));
   },[]);
 
   const token = useSelector((state) => state.login.loggedInPlayer);

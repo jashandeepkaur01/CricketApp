@@ -8,35 +8,36 @@ import { updatePlayersTeam } from "Redux/Actions/updateTeamActions";
 import { addTeamData } from "Redux/Actions/teamActions"
 import Select from "react-select";
 import { useHistory } from "react-router-dom";
-import { addMatchData, matchTeams } from "Redux/Actions/matchActions";
+import { addMatchData, getMatchData, matchTeams } from "Redux/Actions/matchActions";
 
 function SelectTeam() {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);    // console.log('myMatchData....',myMatchData);
   const [captain, setCaptain] = useState([]);
   const [uniqueTeams, setUniqueTeams] = useState([]);
   const [team, setTeam] = useState("");
   const [oppTeam, setOppTeam] = useState("");
   const [options, setOptions] = useState([]);
   const navigate = useHistory();
-  const [err1,setErr1] = useState("");
-  const [showErr1,setShowErr1] = useState(false);
-  const [err2,setErr2] = useState("");
-  const [showErr2,setShowErr2] = useState(false);
-  const [err3,setErr3] = useState("");
-  const [showErr3,setShowErr3] = useState(false);
-  const [err4,setErr4] = useState("");
-  const [showErr4,setShowErr4] = useState(false);
+  const [err1, setErr1] = useState("");
+  const [showErr1, setShowErr1] = useState(false);
+  const [err2, setErr2] = useState("");
+  const [showErr2, setShowErr2] = useState(false);
+  const [err3, setErr3] = useState("");
+  const [showErr3, setShowErr3] = useState(false);
+  const [err4, setErr4] = useState("");
+  const [showErr4, setShowErr4] = useState(false);
 
   const dispatch = useDispatch();
-  
+
   const data = useSelector((state) => state.player.players);
   let teamsData = useSelector((state) => state.team.teams);
   const playerLoggedIn = useSelector((state) => state.login.loggedInPlayer);
-  console.log('playerLoggedIn...',playerLoggedIn)
-  const playerLoggedInData = data.find(player=>{
+  // console.log('playerLoggedIn...',playerLoggedIn)
+  const playerLoggedInData = data.find(player => {
     return player.key === playerLoggedIn.key;
   })
-  console.log('players data...',data);
+  // console.log('playerLoggedInData...',playerLoggedIn.key);
+  // console.log('players data...',data);
   // console.log('playerLoggedIN teams....',playerLoggedInData?.Team)
   const loggedInPlayer = {
     label: playerLoggedInData?.Name,
@@ -50,61 +51,61 @@ function SelectTeam() {
     teamPlayers: [],
     teamCaptain: "",
   });
-  console.log("logged in player key....", playerLoggedInData);
+  // console.log("logged in player key....", playerLoggedInData);
   const remainingPlayersData = data.filter((playerData) => {
     if (playerLoggedInData.key !== playerData.key) return playerData;
   });
-  console.log("players...", players);
-  console.log("remainingPlayersData...", remainingPlayersData);
+  // console.log("players...", players);
+  // console.log("remainingPlayersData...", remainingPlayersData);
   const handleShow = () => setShowModal(true);
 
   const submitModal = () => {
-    if(((teamData.teamName).length === 0) || ((teamData.teamType).length === 0) || ((teamData.teamPlayers).length <3) || ((teamData.teamCaptain).length == 0))
-    {
-      if((teamData.teamName).length == 0)
-      {
+    if (((teamData.teamName).length === 0) || ((teamData.teamType).length === 0) || ((teamData.teamPlayers).length < 3) || ((teamData.teamCaptain).length == 0)) {
+      if ((teamData.teamName).length == 0) {
         setErr1("Field is required")
         setShowErr1(true);
       }
-      if((teamData.teamType).length == 0)
-      {
+      if ((teamData.teamType).length == 0) {
         setErr2("Field is required")
         setShowErr2(true);
       }
-      if((teamData.teamPlayers).length < 3)
-      {
+      if ((teamData.teamPlayers).length < 3) {
         setErr3("atleast 3 players required")
         setShowErr3(true);
       }
-      if((teamData.teamCaptain).length == 0)
-      {
+      if ((teamData.teamCaptain).length == 0) {
         setErr4("Field is required")
         setShowErr4(true);
       }
       return false;
     }
-    else{
-    let playersInTeam = [playerLoggedInData.key];
-    playersInTeam = playersInTeam.concat(players.map((player) => player.key)); // selected players keys
-    const selectedPlayersData = playersInTeam.map((k) => {
-      for (let playerData of data) {
-        if (k === playerData.key) {
-          return playerData;
+    else {
+      let playersInTeam = [playerLoggedInData.key];
+      playersInTeam = playersInTeam.concat(players.map((player) => player.key)); // selected players keys
+      const selectedPlayersData = playersInTeam.map((k) => {
+        for (let playerData of data) {
+          if (k === playerData.key) {
+            return playerData;
+          }
         }
-      }
-    });
-    const selectedTeam = teamData.teamName;
-    let playersInTeamObj = {};
-    playersInTeamObj[selectedTeam] = selectedPlayersData;
-    dispatch(updatePlayersTeam(playersInTeamObj));
-    dispatch(addTeamData({ ...teamData }));
-    setTimeout(()=>{
-      dispatch(getData([]));
-    },1000);
-    console.log("playerLoggedinData...", playerLoggedInData.Team);
-    setShowModal(false);
-  }
+      });
+      const selectedTeam = teamData.teamName;
+      let playersInTeamObj = {};
+      playersInTeamObj[selectedTeam] = selectedPlayersData;
+      dispatch(updatePlayersTeam(playersInTeamObj));
+      dispatch(addTeamData({ ...teamData }));
+      setTimeout(() => {
+        dispatch(getData([]));
+      }, 1000);
+      // console.log("playerLoggedinData...", playerLoggedInData.Team);
+      setShowModal(false);
+    }
   };
+
+  useEffect(() => {
+    dispatch(getData([]));
+  }, [])
+
   useEffect(() => {
     let teamNames = teamsData.map((e) => {
       return e.teamName;
@@ -118,7 +119,8 @@ function SelectTeam() {
       };
     });
     setOptions(options);
-  }, []);
+
+  }, [teamsData]);
 
   const handleInputChange1 = (selectedValue) => {
     const teamNames = options;
@@ -128,24 +130,41 @@ function SelectTeam() {
     const filteredItems = teamNames.filter(
       (e, index) => e.value.search(selectedValue.value) === -1
     );
-    console.log({ filteredItems });
+    console.log('handleInputchange 1 called...');
+    console.log('filtered items....', filteredItems);
     setUniqueTeams(filteredItems);
+    setOppTeam('');
   };
   const handleInputChange2 = (selectedValue) => {
     setOppTeam(selectedValue);
   };
+  const generateID = () => {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  };
   const startMatchNow = () => {
-    console.log('Team: ',team)
-    console.log('OppTeam: ',oppTeam);
+    console.log('Team: ', team)
+    console.log('OppTeam: ', oppTeam);
     // dispatch(matchTeams([team.label,oppTeam.label]));
     const matchData = {
+      matchOrganiser : playerLoggedIn.key,
       myTeam: team.label,
       oppTeam: oppTeam.label,
       date: '25 March 2023',
       score: 123,
+      // id: generateID(),
     }
-    // dispatch(addMatchData(matchData));
-    navigate.push("/match")
+    console.log('matchData...',matchData);
+    dispatch(addMatchData({
+      data: matchData,
+      success: (response) => {
+        console.log('response..',response);
+        navigate.push("/match/"+playerLoggedIn.key)
+      },
+      fail: () => {
+        console.warn('Cannot find page...')
+      }
+    }))
+
   }
 
   return (
@@ -193,19 +212,19 @@ function SelectTeam() {
               setPlayers={setPlayers}
               captain={captain}
               setCaptain={setCaptain}
-              Error1 = {err1}
-              teamNameErr = {showErr1}
-              setTeamErr = {setShowErr1}
-              Error2 = {err2}
-              teamTypeErr = {showErr2}
-              setTeamTypeErr ={setShowErr2}
-              Error3 ={err3}
-              playerErr = {showErr3}
-              setPlayerErr = {setShowErr3}
-              Error4 = {err4}
-              captainErr = {showErr4}
-              setCaptainErr = {setShowErr4}
-            
+              Error1={err1}
+              teamNameErr={showErr1}
+              setTeamErr={setShowErr1}
+              Error2={err2}
+              teamTypeErr={showErr2}
+              setTeamTypeErr={setShowErr2}
+              Error3={err3}
+              playerErr={showErr3}
+              setPlayerErr={setShowErr3}
+              Error4={err4}
+              captainErr={showErr4}
+              setCaptainErr={setShowErr4}
+
             />
           </CustomModal>
         </div>
@@ -240,7 +259,7 @@ function SelectTeam() {
             Start a Match
           </Button>
         </div>
-    </div>
+      </div>
     </div>
   );
 }

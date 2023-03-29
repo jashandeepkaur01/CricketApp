@@ -2,10 +2,10 @@ const { MATCHTEAMS, GETMATCHDATA, ADDMATCHDATA, SETMATCHDATA } = require("Redux/
 
 const initialData = {
     matches:[],
-    currMatch: {}
+    currMatch: []
 }
 const matchReducer = (data = initialData, action) => {
-    console.log('matchReducer action.data...' + action.data);
+    // console.log('matchReducer action.data...' + action.data);
     switch (action.type) {
         case MATCHTEAMS:
             // console.log('data...',data.currMatch);
@@ -15,7 +15,8 @@ const matchReducer = (data = initialData, action) => {
             console.log('setmatchdata reducer...')
             console.log('data....'+ data);
             console.log('action.data...'+ action.data)
-            return { ...data, currMatch: action.data };
+            // return { ...data, currMatch: action.data };
+            return { ...data, currMatch: action.data.map((data) => ({ ...data }))};
         // case GETMATCHDATA:
         //     console.log('match reducer. data...', data)
         //     return data;
