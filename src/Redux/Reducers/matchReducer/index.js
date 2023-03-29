@@ -14,11 +14,11 @@ const matchReducer = (data = initialData, action) => {
         case SETMATCHDATA:
             console.log('setmatchdata reducer...')
             console.log('data....'+ data);
-            console.log('action.data...'+action.data)
-            return { ...data, matches: action.data };
-        case GETMATCHDATA:
-            console.log('match reducer. data...', data)
-            return data;
+            console.log('action.data...'+ action.data)
+            return { ...data, currMatch: action.data };
+        // case GETMATCHDATA:
+        //     console.log('match reducer. data...', data)
+        //     return data;
         // case ADDMATCHDATA:
         //     console.log('match reducer ADDMATCHDATA called....')
         //     return { ...data, currMatch: { ...data.currMatch, myTeam: action.data[0], oppTeam: action.data[1] } }

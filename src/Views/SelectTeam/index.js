@@ -142,8 +142,9 @@ function SelectTeam() {
       myTeam: team.label,
       oppTeam: oppTeam.label,
       date: '25 March 2023',
+      score: 123,
     }
-    dispatch(addMatchData(matchData));
+    // dispatch(addMatchData(matchData));
     navigate.push("/match")
   }
 
