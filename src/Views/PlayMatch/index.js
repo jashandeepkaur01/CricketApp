@@ -1,3 +1,4 @@
+import BowlerModal from 'Components/Atoms/BowlerModal';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
@@ -6,6 +7,7 @@ import { getData } from 'Redux/Actions/playerActions';
 import './style.css'
 
 function PlayMatch() {
+    const [show, setShow] = useState(false);
     const [currScore, setCurrScore] = useState(0);
     const [displayScore, setDisplayScore] = useState(0);
     const [overs, setOvers] = useState(0);
@@ -29,23 +31,37 @@ function PlayMatch() {
     //     remainingTeamPlayers: [],
     // })
 
+    const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+
+  function handleBowlerModal() {
+    console.log('handling bowler')
+    handleShow();
+  }
+
+
+
     const dispatch = useDispatch();
-
-
     const teamsData = useSelector((state) => state.team.teams);
-    // const currMatchData = useSelector((state) => state.match.matches);
-    const currMatchData = {
-        myTeam: 'RCB',
-        oppTeam: 'MI',
-    }
+    const currMatchData = useSelector((state) => state.match.currMatch);
+    // const currMatchData = {
+    //     myTeam: 'RCB',
+    //     oppTeam: 'MI',
+    // }
     console.log('teamsData...',teamsData);
     console.log('currMatchData: ' + currMatchData)
-    const isPlayersSelected = batsman1.value && batsman2.value && bowler.value;
-    // const isBatsmanSelected = batsman1.value && batsman2.value;
-
+    // for(let i in currMatchData){
+    //     console.log('dd...',currMatchData[i]);
+    // }
+    // const isPlayersSelected = batsman1.value && batsman2.value && bowler.value;
+    const isPlayersSelected = batsman1.value && batsman2.value;
+    const isBatsmanSelected = batsman1.value && batsman2.value;
+    console.log('isBatsman Selected...',isBatsmanSelected);
     console.log('selected...' + isPlayersSelected);
     let myMatchData;
     useEffect(() => {
+        dispatch(getMatchData({}))
+        
         for (let team of teamsData) {
             if (currMatchData.myTeam === team.teamName) {
                 console.log(team);
@@ -57,21 +73,23 @@ function PlayMatch() {
                 setOppTeamPlayers(team.teamPlayers)
             }
         }
+        handleBowlerModal();
         // dispatch(matchTeams([team.label, oppTeam.label]));
-        dispatch(getMatchData({
-            success: (data)=>{
-                myMatchData = data;
-                console.log(data);
-            },
-            fail: () =>{}
-        }));
+        // dispatch(getMatchData({
+        //     success: (data)=>{
+        //         myMatchData = data;
+        //         console.log(data);
+        //     },
+        //     fail: () =>{}
+        // }));
     }, [])
     console.log('myMatchData....',myMatchData);
     console.log(myTeamPlayers, 'kkkkk')
 
     if (isOverCompleted) {
         setTimeout(() => {
-            alert('over completed...');
+            // alert('over completed...');
+            handleBowlerModal();
             setIsOverCompleted(false);
             setCurrOver([]);
         }, 200)
@@ -170,7 +188,8 @@ function PlayMatch() {
                     </div>
                     <div className="bowling w-25">
                         <label>Select Bowler</label>
-                        <Select options={oppTeamPlayers} onChange={handleBowler} value={bowler} />
+                        {/* <Select options={oppTeamPlayers} onChange={handleBowler} value={bowler} /> */}
+                        <BowlerModal show={show} handleClose={handleClose} title='Choose Bowler' oppTeamPlayers={oppTeamPlayers} handleBowler={handleBowler} bowler={bowler}/>
                     </div>
                     {isPlayersSelected ?
                         <div className="control-box text-center">

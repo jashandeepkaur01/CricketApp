@@ -80,7 +80,7 @@ function* updatePlayersTeam(payload) {
 function* addMatch(payload) {
   console.log('adding to firebase...loginSaga...payload.data: ',payload.data)
   try {
-    yield axios.post(
+    yield axios.put(
       "https://customcricketmatch-default-rtdb.firebaseio.com/matchData.json",
       payload.data
     );
@@ -90,16 +90,22 @@ function* addMatch(payload) {
     }
   }
 }
-function* matchData({payload}) {
+function* matchData(payload) {
   try {
     const response = yield axios.get(
       "https://customcricketmatch-default-rtdb.firebaseio.com/matchData.json"
     );
-    const matchDataWithKey = [];
-    payload.success(response.data)
-    for (let key in response.data) {
-      matchDataWithKey.push({ ...response.data[key], key: key });
-    } 
+    // const matchDataWithKey = [];
+    // payload.success(response.data)
+      
+    // for (let key in response.data) {
+    //   matchDataWithKey.push({ ...response.data[key], key: key });
+    // } 
+    const matchDataWithKey = response.data;
+    // for (let key in response.data) {
+    //    matchDataWithKey = {...response.data, key: key}
+    // }
+    
     yield put(setMatchData(matchDataWithKey));
   } catch (error) {
     if (payload && payload?.fail) {
