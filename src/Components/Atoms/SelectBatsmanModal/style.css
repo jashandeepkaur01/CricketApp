@@ -1,0 +1,18 @@
+.selectPlayerContainer{
+    /* display: none; */
+    position: absolute;
+    top: 200px;
+    left: 300px;
+    background-color: bisque;
+    padding: 10px 0px;
+    width: 600px;
+    height: 300px;
+    z-index: 2;
+}
+.selectPlayerTitle,.selectPlayerFooter{
+    padding: 0px 10px;
+}
+.selectPlayerBody{
+    height: 180px;
+    padding: 20px;
+}

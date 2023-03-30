@@ -146,13 +146,77 @@ function SelectTeam() {
     console.log('OppTeam: ', oppTeam);
     // dispatch(matchTeams([team.label,oppTeam.label]));
     const matchData = {
+      name: team.label + 'vs' + oppTeam.label,
+      date: '30 March 2023',
+      venue: 'Australia',
+      status: true,
+      isCompleted: false,
       matchOrganiser : playerLoggedIn.key,
       myTeam: team.label,
       oppTeam: oppTeam.label,
-      date: '25 March 2023',
-      score: 123,
-      // id: generateID(),
+      wonBy: '',
+      currentBatsman1: {},
+      currentBatsman2: {},
+      currentBowler: {},
+      overs: 0,
+      myTeamData: {
+        name: team.label,
+        runs: 0,
+        sixes: 7,
+        fours: 5,
+        doubleCenturies: 20,
+        centuries: 10,
+        halfCenturies: 5,
+      },
     }
+    // const matchData = {
+    //   name: team.label + 'vs' + oppTeam.label,
+    //   date: '30 March 2023',
+    //   venue: 'Australia',
+    //   status: true,
+    //   isCompleted: false,
+    //   matchOrganiser : playerLoggedIn.key,
+    //   myTeam: team.label,
+    //   oppTeam: oppTeam.label,
+    //   wonBy: '',
+    //   myTeamData: {
+    //     name: team.label,
+    //     runs: 0,
+    //     sixes: 0,
+    //     fours: 0,
+    //     twos: 0,
+    //     twoHundreds: 0,
+    //     hundreds: 0,
+    //     fifties: 0,
+    //     overs: [{}],
+    //     batters: [{
+    //       name: '',
+    //       runs: 0,
+    //       balls: 0,
+    //       fours: 0,
+    //       sixes: 0,
+    //       strikeRate: 0,
+    //       outBy: '',
+    //     }],
+    //     bowlers: [{
+    //       name: '',
+    //       runsConceded: 0,
+    //       balls: '',
+    //       strikeRate: 0,
+    //       wkts: 0,
+    //     }]
+    //   },
+    // }
+    // overs: [{
+    //   bowler:
+    //   runs:
+    //   6s,
+    //   4s,
+    //   WB,
+    //   wkts,
+    // }]
+
+    // id: generateID(),
     console.log('matchData...',matchData);
     dispatch(addMatchData({
       data: matchData,

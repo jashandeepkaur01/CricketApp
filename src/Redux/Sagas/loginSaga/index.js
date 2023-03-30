@@ -5,7 +5,7 @@ import { GETDATA } from "Redux/Actions/playerActions/actionStates";
 import { setData } from "Redux/Actions/playerActions";
 import { setTeamData } from "Redux/Actions/teamActions";
 import { ADDTEAM } from "Redux/Actions/teamActions/actionStates";
-import { ADDMATCHDATA, GETMATCHDATA } from "Redux/Actions/matchActions/actionStates";
+import { ADDMATCHDATA, GETMATCHDATA, UPDATECURRMATCHDATA } from "Redux/Actions/matchActions/actionStates";
 import { setMatchData } from "Redux/Actions/matchActions";
 function* players(payload) {
   try {
@@ -109,6 +109,29 @@ function* matchData(payload) {
     }
   }
 }
+function* updateMatchData(payload) {
+  console.log('saga....payload value...',payload.data);
+  console.log('saga....match key',payload.data.key);
+  try {
+      return axios.patch(
+        `https://customcricketmatch-default-rtdb.firebaseio.com/matchData/${payload.data.key}.json`,
+        payload.data
+      );
+    // let teamArr;
+    // const requests = payload.data[teamName].map((playerData) => {
+    //   teamArr = [...playerData.Team, { ...teamObj }];
+    //   return axios.patch(
+    //     `https://customcricketmatch-default-rtdb.firebaseio.com/playerData/${playerData.key}.json`,
+    //     { Team: teamArr }
+    //   );
+    // });
+    // yield axios.all(requests);
+  } catch (error) {
+    if (payload && payload?.fail) {
+      payload.fail(error);
+    }
+  }
+}
 function* Sagaa() {
   yield all([
     takeLatest(GETDATA, players),
@@ -117,6 +140,7 @@ function* Sagaa() {
     takeLatest(UPDATETEAM, updatePlayersTeam),
     takeLatest(ADDMATCHDATA, addMatch),
     takeLatest(GETMATCHDATA,matchData),
+    takeLatest(UPDATECURRMATCHDATA,updateMatchData),
   ]);
 }
 
