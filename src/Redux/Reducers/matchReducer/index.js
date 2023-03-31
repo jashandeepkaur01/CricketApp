@@ -12,9 +12,9 @@ const matchReducer = (data = initialData, action) => {
             return { ...data, currMatch: { ...data.matches, myTeam: action.data[0], oppTeam: action.data[1] } };
         //   return { ...data, match: action.data.map((data) => ({ ...data })) };
         case SETMATCHDATA:
-            console.log('setmatchdata reducer...')
-            console.log('data....'+ data);
-            console.log('action.data...'+ action.data)
+            // console.log('setmatchdata reducer...')
+            // console.log('data....'+ data);
+            // console.log('action.data...'+ action.data)
             // return { ...data, currMatch: action.data };
             return { ...data, currMatch: action.data.map((data) => ({ ...data }))};
         // case GETMATCHDATA:
