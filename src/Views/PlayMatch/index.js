@@ -30,8 +30,8 @@ function PlayMatch() {
     const [isShowBatsmanModal, setIsShowBatsmanModal] = useState(false);
     const [isShowBowlerModal, setIsShowBowlerModal] = useState(false);
     // console.log(isShowBowlerModal);
-    // var onStrikeVal = 0;
-    const onStrikeVal = useRef(0);
+
+    const onStrikeValue = useRef(0);
 
     const params = useParams()
     const { matchOrganiserKey } = params;
@@ -224,13 +224,13 @@ function PlayMatch() {
             setDisplayScore(btnValue)
             setCurrOver([...currOver, btnValue])
             if (btnValue === 1 || btnValue === 3){
-                if (onStrikeVal.current) {
-                    onStrikeVal.current = 0;
-                    setOnStrike(onStrikeVal.current);
+                if (onStrikeValue.current) {
+                    onStrikeValue.current = 0;
+                    setOnStrike(onStrikeValue.current);
                 }
                 else {
-                    onStrikeVal.current = 1;
-                    setOnStrike(onStrikeVal.current);
+                    onStrikeValue.current = 1;
+                    setOnStrike(onStrikeValue.current);
                 }
             }
 
@@ -242,7 +242,7 @@ function PlayMatch() {
         }
         dispatch(updateCurrMatchData(matchData));
     }
-    console.log('onStriikeVal ........', onStrikeVal.current);
+    console.log('onStrikeVal ........', onStrikeValue.current);
     const handleBatsman1 = (selectedBatsman) => {
         setBatsman1(selectedBatsman);
         console.log(selectedBatsman);
@@ -290,7 +290,7 @@ function PlayMatch() {
                 {/* <h2>match controls here</h2> */}
                 <div className="scoredisplay border border-2 rounded border-outline-info d-flex justify-content-around pt-2 mb-4">
                     <div className="displayLeft">
-                        <p>{(displayBatsman1.value) ? ((!onStrike) ? '*' : '') + displayBatsman1.value + ' (21/12)' : '(Select Batsman 1)'}</p>
+                        <p>{(displayBatsman1.value) ? ((!onStrike) ? '*' : '') + displayBatsman1.value + ' ('+ batsman1Data.runs + '/' + batsman1Data.ballsPlayed + ')' : '(Select Batsman 1)'}</p>
                         <p>{(displayBatsman2.value) ? ((onStrike) ? '*' : '') + displayBatsman2.value + ' (54/36)' : '(Select Batsman 2)'}</p>
                         <p>Total Score: {currScore}</p>
                         <p>Overs: {overs}</p>

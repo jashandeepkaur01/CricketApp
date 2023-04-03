@@ -153,6 +153,7 @@ function SelectTeam() {
       isCompleted: false,
       matchOrganiser: playerLoggedIn.key,
       wonBy: '',
+      onStrike: 0,
       firstInnings: {
         battingTeam: {
           teamName: team.label,
@@ -163,6 +164,9 @@ function SelectTeam() {
           halfCenturies: 0,
           sixes: 0,
           fours: 0,
+          players: [],
+          wkts: 0,
+          yetToBat: [],
           currBatters: [{
             name: '',
             key: '',
@@ -197,9 +201,6 @@ function SelectTeam() {
               outAtBall: 0,
             }
           }],
-          players: [],
-          wkts: 0,
-          yetToBat: [],
         },
         bowlingTeam: {
           teamName: oppTeam.label,
@@ -221,6 +222,9 @@ function SelectTeam() {
           halfCenturies: 0,
           sixes: 0,
           fours: 0,
+          players: [],
+          wkts: 0,
+          yetToBat: [],
           currBatters: [{
             name: '',
             key: '',
@@ -255,14 +259,12 @@ function SelectTeam() {
               outAtBall: 0,
             }
           }],
-          players: [],
-          wkts: 0,
-          yetToBat: [],
         },
         bowlingTeam: {
           teamName: team.label,
           currBowler: {
             name: '',
+            balls: 0,
           },
           overs: [],
           currOver: 0,

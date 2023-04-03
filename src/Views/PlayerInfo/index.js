@@ -58,17 +58,17 @@ function PlayerInfo() {
                             component="Name"
                         />
                     </div> */}
-                    <div className="battingSummary bg-light p-4 rounded shadow">
+                    <div className="battingSummary bg-light">
                         <h4>Batting Career Summary</h4>
-                        <div className="bsDetailsleft">
+                        <div className="bsDetailsLeft">
                             {battingSummaryHeading.map(heading =>
                                 <SummaryCard label={heading.label} value={player.BattingCareer[heading.key]} />
                             )}
                         </div>
                     </div>
-                    <div className="bowlingSummary bg-light p-4 rounded shadow">
+                    <div className="bowlingSummary bg-light">
                         <h4>Bowling Career Summary</h4>
-                        <div className="bsDetailsright">
+                        <div className="bsDetailsRight">
                             {bowlingSummaryHeading.map(heading =>
                                 <SummaryCard label={heading.label} value={player.BowlingCareer[heading.key]} />
                             )}
