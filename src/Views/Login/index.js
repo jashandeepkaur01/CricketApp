@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     let loggedInPlayerData = data.find((val) => val.PhoneNo == contact);
     if (loggedInPlayerData) dispatch(setLogin(loggedInPlayerData));
-    else setErrorMessage("Not Valid Player");
+    else setErrorMessage("Phone number is not valid");
     console.log('hi');
     // alert('how are you...')
     // alert('how are you...')

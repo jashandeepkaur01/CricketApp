@@ -25,6 +25,7 @@ function PlayMatch() {
     const [displayBatsman2, setDisplayBatsman2] = useState('Select Batsman');
     const [displayBowler, setDisplayBowler] = useState('Select Bowler');
     const [batsman1Data, setBatsman1Data] = useState({ runs: 0, ballsPlayed: 0 });
+    const [batsman2Data, setBatsman2Data] = useState({ runs: 0, ballsPlayed: 0 });
     const [onStrike, setOnStrike] = useState(0);
     const isCurrentMatchRef = useRef(false)
     const [isShowBatsmanModal, setIsShowBatsmanModal] = useState(false);
@@ -120,17 +121,29 @@ function PlayMatch() {
                     name: currentMatchData?.firstInnings?.battingTeam?.currBatters[0]?.name,
                     value: currentMatchData?.firstInnings?.battingTeam?.currBatters[0]?.name,
                     key: currentMatchData?.firstInnings?.battingTeam?.currBatters[0]?.key,
+                    runs: currentMatchData?.firstInnings?.battingTeam?.currBatters[0]?.runs,
+                    ballsPlayed: currentMatchData?.firstInnings?.battingTeam?.currBatters[0]?.ballsPlayed,
+                    fours: currentMatchData?.firstInnings?.battingTeam?.currBatters[0]?.fours,
+                    sixes: currentMatchData?.firstInnings?.battingTeam?.currBatters[0]?.sixes,
+                    halfCenturies: currentMatchData?.firstInnings?.battingTeam?.currBatters[0]?.halfCenturies,
                 },
                 currBatsman2: {
                     name: currentMatchData?.firstInnings?.battingTeam?.currBatters[1]?.name,
                     value: currentMatchData?.firstInnings?.battingTeam?.currBatters[1]?.name,
                     key: currentMatchData?.firstInnings?.battingTeam?.currBatters[1]?.key,
+                    runs: currentMatchData?.firstInnings?.battingTeam?.currBatters[1]?.runs,
+                    ballsPlayed: currentMatchData?.firstInnings?.battingTeam?.currBatters[1]?.ballsPlayed,
+                    fours: currentMatchData?.firstInnings?.battingTeam?.currBatters[1]?.fours,
+                    sixes: currentMatchData?.firstInnings?.battingTeam?.currBatters[1]?.sixes,
+                    halfCenturies: currentMatchData?.firstInnings?.battingTeam?.currBatters[1]?.halfCenturies,
                 }
             }
             const currentBowler = {
                 value: currentMatchData?.firstInnings?.bowlingTeam?.currBowler?.name,
                 label: currentMatchData?.firstInnings?.bowlingTeam?.currBowler?.name,
                 key: currentMatchData?.firstInnings?.bowlingTeam?.currBowler?.key,
+                currOverBalls: currentMatchData?.firstInnings?.bowlingTeam?.currBowler?.currOverBalls,
+                // runsConceded :  currentMatchData?.firstInnings?.bowlingTeam?.currBowler?.runs,
             }
             setBatsman1(currentBatsmans.currBatsman1);
             setDisplayBatsman1(currentBatsmans.currBatsman1);
@@ -138,6 +151,22 @@ function PlayMatch() {
             setDisplayBatsman2(currentBatsmans.currBatsman2);
             setBowler(currentBowler);
             setDisplayBowler(currentBowler);
+            setBatsman1Data({
+                ...batsman1Data,
+                runs: currentBatsmans.currBatsman1.runs,
+                ballsPlayed: currentBatsmans.currBatsman1.ballsPlayed,
+                fours: currentBatsmans.currBatsman1.fours,
+                sixes: currentBatsmans.currBatsman1.sixes,
+                halfCenturies: currentBatsmans.currBatsman1.halfCenturies,
+            })
+            setBatsman2Data({
+                ...batsman2Data,
+                runs: currentBatsmans.currBatsman2.runs,
+                ballsPlayed: currentBatsmans.currBatsman2.ballsPlayed,
+                fours: currentBatsmans.currBatsman2.fours,
+                sixes: currentBatsmans.currBatsman2.sixes,
+                halfCenturies: currentBatsmans.currBatsman2.halfCenturies,
+            })
         }
 
     }, [currMatchData])
@@ -150,7 +179,20 @@ function PlayMatch() {
             console.log('select bowler...');
             isPlayersSelected = false;
             setIsOverCompleted(false);
+            console.log('current over....', currOver);
+            // const overScore = currOver.reduce(
+            //     (accumulator, runs) => accumulator + runs
+            // );
+            // console.log('total score...',overScore);
             setCurrOver([]);
+            if (onStrikeValue.current) {
+                onStrikeValue.current = 0;
+                setOnStrike(onStrikeValue.current);
+            }
+            else {
+                onStrikeValue.current = 1;
+                setOnStrike(onStrikeValue.current);
+            }
         }, 200)
     }
     function handleScoreClick(e) {
@@ -171,6 +213,9 @@ function PlayMatch() {
                 setOvers(currentOver)
             }
             matchData.firstInnings.bowlingTeam.currOver = currentOver;
+            matchData.firstInnings.bowlingTeam.currOverBalls = currOver;
+
+            // console.log('matchData.firstInnings.bowlingTeam.currOver....', matchData.firstInnings.bowlingTeam.currOverBalls)
         }
         if (btnValue === 'WB' || btnValue === 'NB') {
             console.log('wide ball')
@@ -186,7 +231,6 @@ function PlayMatch() {
             }
         }
         else if (btnValue === 'WC' || btnValue === 'DB') {
-            console.log('Out');
             // console.log(currScore);
             let playerOut;
             if (btnValue === 'WC') {
@@ -217,13 +261,14 @@ function PlayMatch() {
         else {
             // console.log(typeof currScore);
             // console.log(typeof btnValue);
+
             btnValue = +btnValue;
             let currentScore = currScore + btnValue;
             matchData.firstInnings.battingTeam.totalRuns = currentScore;
             setCurrScore(currentScore)
             setDisplayScore(btnValue)
             setCurrOver([...currOver, btnValue])
-            if (btnValue === 1 || btnValue === 3){
+            if (btnValue === 1 || btnValue === 3) {
                 if (onStrikeValue.current) {
                     onStrikeValue.current = 0;
                     setOnStrike(onStrikeValue.current);
@@ -233,7 +278,49 @@ function PlayMatch() {
                     setOnStrike(onStrikeValue.current);
                 }
             }
+            console.log('onStike val: ', onStrikeValue);
+            console.log('onStike: ', onStrike);
+            let shot = '';
+            let shotScore = 0;
+            if (btnValue === 4) {
+                shot = 'fours';
+                shotScore = 4;
+            }
+            else if (btnValue === 6) {
+                shot = 'sixes';
+                shotScore = 6;
+            }
+            if (btnValue === 4 || btnValue === 6)
+                matchData.firstInnings.battingTeam.currBatters[onStrike][shot] += 1;
 
+            matchData.firstInnings.battingTeam.currBatters[onStrike] = {
+                ...matchData.firstInnings.battingTeam.currBatters[onStrike],
+                runs: matchData.firstInnings.battingTeam.currBatters[onStrike].runs + btnValue,
+                ballsPlayed: matchData.firstInnings.battingTeam.currBatters[onStrike].ballsPlayed + 1,
+                // fours: matchData.firstInnings.battingTeam.currBatters[onStrike].fours + 1
+
+            }
+
+            if (onStrike) {
+                console.log('second');
+                setBatsman2Data(
+                    {
+                        ...batsman2Data,
+                        runs: batsman2Data.runs + btnValue,
+                        ballsPlayed: batsman2Data.ballsPlayed + 1,
+                    })
+            }
+            else {
+                console.log('first')
+                setBatsman1Data(
+                    {
+                        ...batsman1Data,
+                        runs: batsman1Data.runs + btnValue,
+                        ballsPlayed: batsman1Data.ballsPlayed + 1,
+                    })
+            }
+
+            console.log('data : ' + matchData.firstInnings.battingTeam.currBatters[0])
             // if (btnValue === 1 || btnValue === 3)
             //     if(onStrike)
             //         setOnStrike(0);
@@ -290,8 +377,8 @@ function PlayMatch() {
                 {/* <h2>match controls here</h2> */}
                 <div className="scoredisplay border border-2 rounded border-outline-info d-flex justify-content-around pt-2 mb-4">
                     <div className="displayLeft">
-                        <p>{(displayBatsman1.value) ? ((!onStrike) ? '*' : '') + displayBatsman1.value + ' ('+ batsman1Data.runs + '/' + batsman1Data.ballsPlayed + ')' : '(Select Batsman 1)'}</p>
-                        <p>{(displayBatsman2.value) ? ((onStrike) ? '*' : '') + displayBatsman2.value + ' (54/36)' : '(Select Batsman 2)'}</p>
+                        <p>{(displayBatsman1.value) ? ((!onStrike) ? '*' : '') + displayBatsman1.value + ' (' + batsman1Data.runs + '/' + batsman1Data.ballsPlayed + ')' : '(Select Batsman 1)'}</p>
+                        <p>{(displayBatsman2.value) ? ((onStrike) ? '*' : '') + displayBatsman2.value + ' (' + batsman2Data.runs + '/' + batsman2Data.ballsPlayed + ')' : '(Select Batsman 2)'}</p>
                         <p>Total Score: {currScore}</p>
                         <p>Overs: {overs}</p>
                     </div>

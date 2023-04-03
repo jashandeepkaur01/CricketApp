@@ -170,7 +170,7 @@ function SelectTeam() {
           currBatters: [{
             name: '',
             key: '',
-            runs: '',
+            runs: 0,
             ballsPlayed: 0,
             sixes: 0,
             fours: 0,
@@ -187,7 +187,7 @@ function SelectTeam() {
           {
             name: '',
             key: '',
-            runs: '',
+            runs: 0,
             ballsPlayed: 0,
             sixes: 0,
             fours: 0,
@@ -228,7 +228,7 @@ function SelectTeam() {
           currBatters: [{
             name: '',
             key: '',
-            runs: '',
+            runs: 0,
             ballsPlayed: 0,
             sixes: 0,
             fours: 0,
@@ -245,7 +245,7 @@ function SelectTeam() {
           {
             name: '',
             key: '',
-            runs: '',
+            runs: 0,
             ballsPlayed: 0,
             sixes: 0,
             fours: 0,

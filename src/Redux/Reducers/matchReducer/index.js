@@ -1,7 +1,9 @@
-const { MATCHTEAMS, GETMATCHDATA, ADDMATCHDATA, SETMATCHDATA } = require("Redux/Actions/matchActions/actionStates");
+import { retry } from "redux-saga/effects";
+
+const { MATCHTEAMS, GETMATCHDATA, ADDMATCHDATA, SETMATCHDATA, UPDATECURRMATCHDATA } = require("Redux/Actions/matchActions/actionStates");
 
 const initialData = {
-    matches:[],
+    matches: [],
     currMatch: []
 }
 const matchReducer = (data = initialData, action) => {
@@ -16,13 +18,28 @@ const matchReducer = (data = initialData, action) => {
             // console.log('data....'+ data);
             // console.log('action.data...'+ action.data)
             // return { ...data, currMatch: action.data };
-            return { ...data, currMatch: action.data.map((data) => ({ ...data }))};
+            return { ...data, currMatch: action.data.map((data) => ({ ...data })) };
         // case GETMATCHDATA:
         //     console.log('match reducer. data...', data)
         //     return data;
         // case ADDMATCHDATA:
         //     console.log('match reducer ADDMATCHDATA called....')
         //     return { ...data, currMatch: { ...data.currMatch, myTeam: action.data[0], oppTeam: action.data[1] } }
+        case UPDATECURRMATCHDATA:
+            const finalCurrentMatch = data.currMatch.map(currentMatch => {
+                if(currentMatch.matchOrganiser === action.data.matchOrganiser) {
+                    return {
+                        ...currentMatch,
+                        ...action.data
+                    }
+                }
+                return currentMatch;
+            });
+            return {  ...data,
+                    currMatch: finalCurrentMatch
+            }
+            // return data
+            // return { ...data, currMatch: }
         default:
             return data;
     }
