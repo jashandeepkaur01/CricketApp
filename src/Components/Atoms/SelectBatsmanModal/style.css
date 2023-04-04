@@ -1,5 +1,4 @@
 .selectPlayerContainer{
-    /* display: none; */
     position: absolute;
     top: 200px;
     left: 300px;
@@ -12,7 +11,8 @@
 .selectPlayerTitle,.selectPlayerFooter{
     padding: 0px 10px;
 }
-.selectPlayerBody{
-    height: 180px;
-    padding: 20px;
+.selectPlayerFooter{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
 }

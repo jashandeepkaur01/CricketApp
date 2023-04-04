@@ -10,7 +10,8 @@ export default function CustomTable({
   btnText,
   component,
 }) {
-  const [showperpage, setShowperPage] = useState(11);
+  // const [showperpage, setShowperPage] = useState(11);
+  const showperpage = 11;
   const [paginate, setPaginate] = useState({
     start: 0,
     end: showperpage,

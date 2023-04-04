@@ -11,7 +11,7 @@ const Pagination = ({ showperPage, onPaginationChanges, total }) => {
         setCounter(counter - 1);
       }
     } else if (type === "next") {
-      if (Math.ceil(total / showperPage) === counter || total == 0) {
+      if (Math.ceil(total / showperPage) === counter || total === 0) {
         setCounter(counter);
       } else {
         setCounter(counter + 1);
@@ -21,7 +21,6 @@ const Pagination = ({ showperPage, onPaginationChanges, total }) => {
 
   useEffect(() => {
     const value = showperPage * counter;
-
     onPaginationChanges(value - showperPage, value);
   }, [counter]);
   return (

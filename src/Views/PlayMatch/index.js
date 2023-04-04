@@ -7,6 +7,8 @@ import Select from 'react-select';
 import { getMatchData, matchTeams, updateCurrMatchData } from 'Redux/Actions/matchActions';
 import { getData } from 'Redux/Actions/playerActions';
 import './style.css'
+import { current } from '@reduxjs/toolkit';
+import NewBatsmanModal from 'Components/Atoms/NewBatsmanModal';
 
 function PlayMatch() {
     const [show, setShow] = useState(false);
@@ -20,6 +22,7 @@ function PlayMatch() {
     const [remainingTeamPlayers, setRemainingTeamPlayers] = useState([]);
     const [batsman1, setBatsman1] = useState('');
     const [batsman2, setBatsman2] = useState('');
+    const [remainingBatsmans, setRemainingBatsmans] = useState('');
     const [bowler, setBowler] = useState('');
     const [displayBatsman1, setDisplayBatsman1] = useState('Select Batsman');
     const [displayBatsman2, setDisplayBatsman2] = useState('Select Batsman');
@@ -30,6 +33,9 @@ function PlayMatch() {
     const isCurrentMatchRef = useRef(false)
     const [isShowBatsmanModal, setIsShowBatsmanModal] = useState(false);
     const [isShowBowlerModal, setIsShowBowlerModal] = useState(false);
+    const [playerOut,setPlayerOut] = useState('');
+    const [newBatsman, setNewBatsman] = useState('');
+    const [isShowNewBatsmanModal, setIsShowNewBatsmanModal] = useState(false);
     // console.log(isShowBowlerModal);
 
     const onStrikeValue = useRef(0);
@@ -66,20 +72,20 @@ function PlayMatch() {
     // console.log('my Team data: name',currentGoingMatch?.myTeamData?.name)
     // console.log('my Team data: runs',currentGoingMatch?.myTeamData?.runs)
     // console.log('my Team data: 6s',currentGoingMatch?.myTeamData?.sixes)
-
+    // debugger;
     let isPlayersSelected = batsman1.value && batsman2.value && bowler.value;
     // const isPlayersSelected = batsman1.value && batsman2.value;
     const isBatsmanSelected = batsman1.value && batsman2.value;
     // console.log('isBatsman Selected...',isBatsmanSelected);
-    console.log('selected...' + isPlayersSelected);
+    // console.log('selected...' + isPlayersSelected);
 
     useEffect(() => {
         dispatch(getMatchData([]))
     }, [])
-
     useEffect(() => {
         // if (isCurrentMatchRef.current) {
         if (currentGoingMatch !== undefined) {
+            const matchData = JSON.parse(JSON.stringify(currentGoingMatch))
             if (currentGoingMatch.firstInnings.battingTeam.currBatters[0].name === '') {
                 console.log('select players now...');
                 setTimeout(() => {
@@ -93,8 +99,11 @@ function PlayMatch() {
         }
 
         for (let team of teamsData) {
-            if (currentGoingMatch?.firstInnings?.battingTeam.teamName === team.teamName) {
+            if (currentGoingMatch?.firstInnings?.battingTeam?.teamName === team.teamName) {
                 // console.log(team);
+                // currentGoingMatch.firstInnings.battingTeam.teamPlayers = team.teamPlayers;
+                // console.log(currentGoingMatch.firstInnings.battingTeam);
+                console.log(team.teamPlayers);
                 setMyTeamPlayers(team.teamPlayers);
                 // console.log('myTeam...', myTeamPlayers);
             }
@@ -115,6 +124,7 @@ function PlayMatch() {
 
             setCurrScore(currentMatchData?.firstInnings?.battingTeam?.totalRuns);
             setOvers(currentMatchData?.firstInnings?.bowlingTeam.currOver);
+            setRemainingBatsmans(currentMatchData?.firstInnings?.battingTeam?.yetToBat);
 
             const currentBatsmans = {
                 currBatsman1: {
@@ -145,10 +155,21 @@ function PlayMatch() {
                 currOverBalls: currentMatchData?.firstInnings?.bowlingTeam?.currBowler?.currOverBalls,
                 // runsConceded :  currentMatchData?.firstInnings?.bowlingTeam?.currBowler?.runs,
             }
-            setBatsman1(currentBatsmans.currBatsman1);
+            // setBatsman1(currentBatsmans.currBatsman1);
+            setBatsman1({
+                value: currentBatsmans.currBatsman1.name,
+                label: currentBatsmans.currBatsman1.name,
+                key: currentBatsmans.currBatsman1.key,
+            })
+            setBatsman2({
+                value: currentBatsmans.currBatsman2.name,
+                label: currentBatsmans.currBatsman2.name,
+                key: currentBatsmans.currBatsman2.key,
+            })
             setDisplayBatsman1(currentBatsmans.currBatsman1);
-            setBatsman2(currentBatsmans.currBatsman2);
+            // setBatsman2(currentBatsmans.currBatsman2);
             setDisplayBatsman2(currentBatsmans.currBatsman2);
+            // setPlayerOut('');
             setBowler(currentBowler);
             setDisplayBowler(currentBowler);
             setBatsman1Data({
@@ -168,7 +189,6 @@ function PlayMatch() {
                 halfCenturies: currentBatsmans.currBatsman2.halfCenturies,
             })
         }
-
     }, [currMatchData])
 
     if (isOverCompleted) {
@@ -193,7 +213,7 @@ function PlayMatch() {
                 onStrikeValue.current = 1;
                 setOnStrike(onStrikeValue.current);
             }
-        }, 200)
+        }, 20)
     }
     function handleScoreClick(e) {
         // const matchData = {...currentGoingMatch};
@@ -204,7 +224,8 @@ function PlayMatch() {
             let currentOver = 0;
             if ((overs * 10) % 10 === 5) {
                 console.log('over completed...');
-                setIsOverCompleted(true);
+                if (btnValue !== 'WC')
+                    setIsOverCompleted(true);
                 currentOver = parseFloat((overs + 0.5).toFixed(1))
                 setOvers(currentOver)
             }
@@ -232,18 +253,36 @@ function PlayMatch() {
         }
         else if (btnValue === 'WC' || btnValue === 'DB') {
             // console.log(currScore);
-            let playerOut;
+            // let playerOut;
             if (btnValue === 'WC') {
                 if (onStrike) {
                     console.log('batsman out : ', batsman2);
-                    playerOut = batsman2;
+                    setPlayerOut(batsman2.label)
                     setBatsman2('');
+                    setIsShowNewBatsmanModal(true);
+                    console.log('overs.....', overs)
+                    if ((overs * 10) % 10 === 5) {
+                        console.log('out at last ball...');
+                        // setIsOverCompleted(true);
+                    }
                 }
                 else {
                     console.log('batsman out : ', batsman1);
-                    playerOut = batsman1;
+                    setPlayerOut(batsman1.label)
                     setBatsman1('');
+                    setIsShowNewBatsmanModal(true);
+                    console.log('overs.....', overs)
+                    if ((overs * 10) % 10 === 5) {
+                        console.log('out at last ball...');
+                        // setIsOverCompleted(true);
+                    }
                 }
+                // setTimeout(() => {
+                //     if ((overs * 10) % 10 === 5) {
+                //         console.log('out at last ball...');
+                //         setIsOverCompleted(true);
+                //     }
+                // }, 10);
                 setDisplayScore('OUT')
                 setCurrOver([...currOver, 'WC'])
             }
@@ -331,14 +370,16 @@ function PlayMatch() {
     }
     console.log('onStrikeVal ........', onStrikeValue.current);
     const handleBatsman1 = (selectedBatsman) => {
+        debugger;
         setBatsman1(selectedBatsman);
-        console.log(selectedBatsman);
+        console.log(myTeamPlayers);
         const matchInfo = currentGoingMatch;
         matchInfo.firstInnings.battingTeam.currBatters[0] = {
             ...(matchInfo.firstInnings.battingTeam.currBatters[0] ?? {}),
             name: selectedBatsman.label,
             key: selectedBatsman.key,
         }
+        matchInfo.firstInnings.battingTeam.teamPlayers = myTeamPlayers;
         // console.log('matchInfo ....',matchInfo);
         dispatch(updateCurrMatchData(matchInfo))
 
@@ -346,6 +387,7 @@ function PlayMatch() {
         setRemainingTeamPlayers(myTeamPlayers.filter(player => player !== selectedBatsman));
     }
     const handleBatsman2 = (selectedBatsman) => {
+        console.log('selectedBatsman2.....' + selectedBatsman.label);
 
         const matchInfo = currentGoingMatch;
         matchInfo.firstInnings.battingTeam.currBatters[1] = {
@@ -353,6 +395,10 @@ function PlayMatch() {
             name: selectedBatsman.label,
             key: selectedBatsman.key,
         }
+        console.log(remainingTeamPlayers);
+        const remainingBatters = remainingTeamPlayers.filter(player => player !== selectedBatsman);
+        setRemainingBatsmans(remainingBatters);
+        matchInfo.firstInnings.battingTeam.yetToBat = remainingBatters;
         // console.log('matchInfo ....',matchInfo);
         dispatch(updateCurrMatchData(matchInfo))
         setBatsman2(selectedBatsman);
@@ -370,7 +416,90 @@ function PlayMatch() {
         setDisplayBowler(selectedBowler);
         isPlayersSelected = true;
     }
-
+    const selectNewBatsmanModal = () => {
+        console.log('select new batsman');
+        console.log('overs....', overs);
+        console.log('btnValue....', displayScore);
+        setIsShowNewBatsmanModal(false);
+        if ((overs * 10) % 10 === 0) {
+            setIsOverCompleted(true);
+        }
+    }
+    const handleNewBatsman = (selectedBatsman) => {
+        console.log('selected... ', selectedBatsman);
+        console.log(remainingTeamPlayers);
+        console.log(myTeamPlayers);
+        setNewBatsman(selectedBatsman);
+        const matchInfo = currentGoingMatch;
+        matchInfo.firstInnings.battingTeam.currBatters[onStrike] = {
+            ...(matchInfo.firstInnings.battingTeam.currBatters[onStrike] ?? {}),
+            name: selectedBatsman.label,
+            key: selectedBatsman.key,
+            runs: 0,
+            ballsPlayed: 0,
+            sixes: 0,
+            fours: 0,
+            hundreds: 0,
+            doubleCenturies: 0,
+            centuries: 0,
+            halfCenturies: 0,
+            out: {
+                outStatus: false,
+                outByBowler: '',
+                outAtBall: 0,
+            }
+        }
+        const remainingBatters = remainingBatsmans.filter(player => player !== selectedBatsman);
+        setRemainingBatsmans(remainingBatters);
+        matchInfo.firstInnings.battingTeam.yetToBat = remainingBatters;
+        setDisplayScore('');
+        if (onStrike) {
+            console.log('player 2')
+            setBatsman2(selectedBatsman);
+            setDisplayBatsman2(selectedBatsman);
+            console.log(batsman2Data)
+            console.log(batsman2Data.runs)
+            if (batsman2Data.runs >= 200) {
+                const doubleCenturies = batsman2Data.runs % 200;
+                matchInfo.firstInnings.battingTeam.doubleCenturies += doubleCenturies;
+                setBatsman2Data({ ...batsman2Data, doubleCenturies: doubleCenturies });
+            }
+            else if (batsman2Data.runs >= 100) {
+                const centuries = batsman2Data.runs % 100;
+                matchInfo.firstInnings.battingTeam.centuries += centuries;
+                setBatsman2Data({ ...batsman2Data, centuries: centuries });
+            }
+            else if (batsman2Data.runs >= 50) {
+                const halfCenturies = batsman2Data.runs % 50;
+                matchInfo.firstInnings.battingTeam.halfCenturies += halfCenturies;
+                setBatsman2Data({ ...batsman2Data, halfCenturies: halfCenturies });
+            }
+        }
+        else {
+            console.log('player 1')
+            setBatsman1(selectedBatsman);
+            setDisplayBatsman1(selectedBatsman);
+            console.log(batsman1Data)
+            console.log(batsman1Data.runs)
+            if (batsman1Data.runs >= 200) {
+                const doubleCenturies = batsman1Data.runs % 200;
+                matchInfo.firstInnings.battingTeam.doubleCenturies += doubleCenturies;
+                setBatsman1Data({ ...batsman1Data, doubleCenturies: doubleCenturies });
+            }
+            else if (batsman1Data.runs >= 100) {
+                const centuries = batsman1Data.runs % 100;
+                matchInfo.firstInnings.battingTeam.centuries += centuries;
+                setBatsman1Data({ ...batsman1Data, centuries: centuries });
+            }
+            else if (batsman1Data.runs >= 50) {
+                const halfCenturies = batsman1Data.runs % 50;
+                matchInfo.firstInnings.battingTeam.halfCenturies += halfCenturies;
+                setBatsman1Data({ ...batsman1Data, halfCenturies: halfCenturies });
+            }
+        }
+        dispatch(updateCurrMatchData(matchInfo))
+    }
+    console.log(remainingBatsmans);
     return (
         <div className='w-75'>
             <div className="playMatchContainer border border-dark p-2">
@@ -414,6 +543,14 @@ function PlayMatch() {
                             {/* <BowlerModal show={show} handleClose={handleClose} title='Choose Bowler' oppTeamPlayers={oppTeamPlayers} handleBowler={handleBowler} bowler={bowler} /> */}
                         </div>
                     </SelectPlayerModal> : null}
+                    {isShowNewBatsmanModal ?
+                        <NewBatsmanModal
+                            title='Select Batsman' playerOut={playerOut} setIsShowPlayerModal={setIsShowNewBatsmanModal} onSubmit={selectNewBatsmanModal}>
+                            <div className="batting  w-50 mx-auto text-center">
+                                {/* <label>Select Batsman</label> */}
+                                <Select options={remainingBatsmans} onChange={handleNewBatsman} value={newBatsman} />
+                            </div>
+                        </NewBatsmanModal> : null}
                     {isPlayersSelected ?
                         <div className="control-box text-center">
                             <div>

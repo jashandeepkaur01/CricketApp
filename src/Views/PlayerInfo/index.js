@@ -1,5 +1,4 @@
 import SummaryCard from 'Components/Atoms/SummaryCard'
-import CustomTable from 'Components/Cells/customTable'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -40,24 +39,6 @@ function PlayerInfo() {
                 </div>
 
                 <div className="summary d-flex justify-content-evenly mt-5">
-                    {/* <div className="battingSummary">
-                        <h4 className='px-5'>Batting Career Summary</h4>
-                        <CustomTable
-                            tableContent={battingSummary}
-                            headingDetails={battingSummaryHeading}
-                            btnText="View Team"
-                            component="Name"
-                        />
-                    </div>
-                    <div className="bowlingSummary">
-                        <h4 className='px-5'>Bowling Career Summary</h4>
-                        <CustomTable
-                            tableContent={bowlingSummary}
-                            headingDetails={bowlingSummaryHeading}
-                            btnText="View Team"
-                            component="Name"
-                        />
-                    </div> */}
                     <div className="battingSummary bg-light">
                         <h4>Batting Career Summary</h4>
                         <div className="bsDetailsLeft">

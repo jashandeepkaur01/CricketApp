@@ -1,8 +1,8 @@
 import SelectTeam from "Views/SelectTeam";
 import ScheduleMatch from "Views/ScheduleMatch";
 import Logout from "Views/Logout";
-import Match from "Views/Match";
-import PlayerInfo from "Views/PlayerInfo";
+// import Match from "Views/Match";
+// import PlayerInfo from "Views/PlayerInfo";
 
 export const PRIVATE_ROUTES = [
   // {

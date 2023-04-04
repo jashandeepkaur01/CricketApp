@@ -1,7 +1,7 @@
 import ShowPlayer from "../Views/ShowPlayer";
 import ShowTeam from "../Views/ShowTeam";
 import Home from "../Views/Home";
-import SelectTeam from "Views/SelectTeam";
+// import SelectTeam from "Views/SelectTeam";
 import PlayerInfo from "Views/PlayerInfo";
 import Match from "Views/Match";
 

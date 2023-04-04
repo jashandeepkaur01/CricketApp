@@ -12,7 +12,7 @@ const Login = () => {
 
   function handleClick(e) {
     e.preventDefault();
-    let loggedInPlayerData = data.find((val) => val.PhoneNo == contact);
+    let loggedInPlayerData = data.find((val) => val.PhoneNo === contact);
     if (loggedInPlayerData) dispatch(setLogin(loggedInPlayerData));
     else setErrorMessage("Phone number is not valid");
     console.log('hi');

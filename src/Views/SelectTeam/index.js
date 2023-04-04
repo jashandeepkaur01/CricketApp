@@ -5,7 +5,7 @@ import TeamForm from "Components/Cells/addTeamForm";
 import { Button } from "react-bootstrap";
 import { getData } from "Redux/Actions/playerActions";
 import { updatePlayersTeam } from "Redux/Actions/updateTeamActions";
-import { addTeamData } from "Redux/Actions/teamActions"
+import { addTeamData } from "Redux/Actions/teamActions";
 import Select from "react-select";
 import { useHistory } from "react-router-dom";
 import { addMatchData, getMatchData, matchTeams } from "Redux/Actions/matchActions";
@@ -124,9 +124,12 @@ function SelectTeam() {
 
   const handleInputChange1 = (selectedValue) => {
     const teamNames = options;
-
+    console.log(selectedValue);
     setTeam(selectedValue);
-
+    // let teamNames = teamsData.map((e) => {
+    //   if(e.teamName)
+    //   return e.teamName;
+    // });
     const filteredItems = teamNames.filter(
       (e, index) => e.value.search(selectedValue.value) === -1
     );

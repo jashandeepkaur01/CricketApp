@@ -50,3 +50,6 @@
 .nav-NavLink:hover {
   color: #00FFFF;
 }
+.logoutBtn{
+  cursor: pointer;
+}

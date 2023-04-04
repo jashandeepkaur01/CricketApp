@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 function CustomModal(props) {
+
   const handleClose = () => {
     props.setShowModal(false);
   };
 
-  // const handleSubmit =()=>{
-  //     console.log('Modal submitted');
-  //     props.setShowModal(false);
-  //   }
 
   return (
     <>

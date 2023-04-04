@@ -87,14 +87,14 @@ function TeamForm({
     setTeamTypeErr(false);
   };
 
-  const filterOption = (option, inputValue) => {
-    const { label, value } = option;
-    // looking if other options with same label are matching inputValue
-    const otherKey = option.filter(
-      (opt) => opt.label === label && opt.value.includes(inputValue)
-    );
-    return value.includes(inputValue) || otherKey.length > 0;
-  };
+  // const filterOption = (option, inputValue) => {
+  //   const { label, value } = option;
+  //   // looking if other options with same label are matching inputValue
+  //   const otherKey = option.filter(
+  //     (opt) => opt.label === label && opt.value.includes(inputValue)
+  //   );
+  //   return value.includes(inputValue) || otherKey.length > 0;
+  // };
 
   return (
     <div>
