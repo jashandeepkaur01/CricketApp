@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import "./style.css";
 import cricketLogo from "../../../Assets/Images/cricketLogo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogin } from "Redux/Actions/loginActions";
 import LogoutModal from "../LogoutModal";
 
 function Navbar() {
@@ -23,7 +22,7 @@ function Navbar() {
 
   return (
     <div className="navouter">
-      <nav className="navbar navbar-expand-lg bg-body-tertiary bg-secondary fs-5 ">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary bg-dark fs-5 ">
         <div className="container-fluid">
           <img className="navimg" alt="logo" src={cricketLogo} />
           <div className="collapse navbar-collapse d-flex justify-content-between">
@@ -83,7 +82,10 @@ function Navbar() {
           </div>
         </div>
       </nav>
-      <LogoutModal show={show} handleClose={handleClose} title='Logout'/>
+      {show?
+      <LogoutModal handleClose={handleClose} title='Logout'/>
+        :null
+    }
     </div>
   );
 }
