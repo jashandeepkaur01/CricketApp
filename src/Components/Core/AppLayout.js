@@ -1,6 +1,6 @@
 // import { useSelector } from "react-redux";
 
-import Navbar from "Components/Atoms/Navbar";
+import Navbar from "../Atoms/Navbar";
 
 import { useNetworkStatus } from "Hooks/NetworkStatus";
 

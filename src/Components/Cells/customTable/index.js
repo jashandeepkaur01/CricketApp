@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Pagination from "../../Atoms/Pagination";
-import TableButton from "Components/Atoms/TableButton";
+
 import { Link } from "react-router-dom";
 import './style.css';
+import TableButton from "../../Atoms/TableButton";
 
 export default function CustomTable({
   tableContent,
