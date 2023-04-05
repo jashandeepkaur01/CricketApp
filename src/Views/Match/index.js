@@ -5,7 +5,6 @@ import PlayMatch from 'Views/PlayMatch'
 function Match() {
   return (
     <div>
-      {/* <p>Match component here</p> */}
       <div className="container d-flex w-100">
         <PlayMatch />
         <MatchScoreCard />

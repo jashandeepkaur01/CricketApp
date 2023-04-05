@@ -7,7 +7,7 @@ function MatchScoreCard() {
 
     return (
         <div>
-            <div className="container bg-light">
+            <div className="container bg-light border border-1 border-dark rounded">
                 <h3>Scorecard</h3>
                 <h5 className='teamPlaying'>India Innings</h5>
                 <h6 className='pt-2'>Batting Team ({currMatchData.myTeam})</h6>

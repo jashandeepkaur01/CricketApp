@@ -1,5 +1,7 @@
 .playMatchContainer{
-    background:aliceblue;
+    /* background:aliceblue; */
+    background: linear-gradient(90deg, #a4d5ff, #f0f8ff);
+    border-radius: 10px;
 }
 .scoredisplay{
     background-color: white;
