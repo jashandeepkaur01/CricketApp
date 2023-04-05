@@ -14,6 +14,7 @@ function PlayMatch() {
     const [currScore, setCurrScore] = useState(0);
     const [displayScore, setDisplayScore] = useState(0);
     const [overs, setOvers] = useState(0);
+    const [wickets,setWickets] = useState(0);
     const [isOverCompleted, setIsOverCompleted] = useState(false);
     const [currOver, setCurrOver] = useState([]);
     const [myTeamPlayers, setMyTeamPlayers] = useState([]);
@@ -78,6 +79,7 @@ function PlayMatch() {
 
             setCurrScore(currentMatchData?.firstInnings?.battingTeam?.totalRuns);
             setOvers(currentMatchData?.firstInnings?.bowlingTeam.currOver);
+            setWickets(currentMatchData?.firstInnings?.battingTeam.wkts);
             setRemainingBatsmans(currentMatchData?.firstInnings?.battingTeam?.yetToBat);
 
             const currentBatsmans = {
@@ -207,8 +209,24 @@ function PlayMatch() {
                     setBatsman1('');
                     setIsShowNewBatsmanModal(true);
                 }
+                let totalWickets = wickets;
+                totalWickets += 1;
+                setWickets(totalWickets)
                 setDisplayScore('OUT')
                 setCurrOver([...currOver, 'WC'])
+                matchData.firstInnings.battingTeam.wkts = totalWickets;
+                matchData.firstInnings.battingTeam.currBatters[onStrike] = {
+                    ...matchData.firstInnings.battingTeam.currBatters[onStrike],
+                    out: {
+                        outAtBall: overs,
+                        outByBowler: bowler.label,
+                        outStatus: true,
+                    }
+                }
+                // matchData.firstInnings.battingTeam.playersPlayed = [
+                //     ...matchData.firstInnings.battingTeam.playersPlayed,
+                //     matchData.firstInnings.battingTeam.currBatters[onStrike]
+                // ]
             }
             else {
                 setDisplayScore('Dead Ball')
@@ -216,7 +234,6 @@ function PlayMatch() {
             }
             setMyTeamPlayers(myTeamPlayers.filter(player => player !== playerOut));
             setRemainingTeamPlayers(myTeamPlayers.filter(player => player !== playerOut));
-
         }
         else if (btnValue === 'Undo') {
             console.log('undo...');
@@ -255,6 +272,9 @@ function PlayMatch() {
                 ...matchData.firstInnings.battingTeam.currBatters[onStrike],
                 runs: matchData.firstInnings.battingTeam.currBatters[onStrike].runs + btnValue,
                 ballsPlayed: matchData.firstInnings.battingTeam.currBatters[onStrike].ballsPlayed + 1,
+                // out: {
+                //     outAtBall : matchData.firstInnings.bowlingTeam
+                // }
                 // fours: matchData.firstInnings.battingTeam.currBatters[onStrike].fours + 1
             }
 
@@ -294,7 +314,6 @@ function PlayMatch() {
         setRemainingTeamPlayers(myTeamPlayers.filter(player => player !== selectedBatsman));
     }
     const handleBatsman2 = (selectedBatsman) => {
-
         const matchInfo = currentGoingMatch;
         matchInfo.firstInnings.battingTeam.currBatters[1] = {
             ...(matchInfo.firstInnings.battingTeam.currBatters[1] ?? {}),
@@ -355,37 +374,39 @@ function PlayMatch() {
         if (onStrike) {
             setBatsman2(selectedBatsman);
             setDisplayBatsman2(selectedBatsman);
-            if (batsman2Data.runs >= 200) {
-                const doubleCenturies = batsman2Data.runs % 200;
+            console.log(batsman2Data);
+            if (batsman2Data.runs >= 20) {
+                const doubleCenturies = parseInt(batsman2Data.runs / 20);
                 matchInfo.firstInnings.battingTeam.doubleCenturies += doubleCenturies;
                 setBatsman2Data({ ...batsman2Data, doubleCenturies: doubleCenturies });
             }
-            else if (batsman2Data.runs >= 100) {
-                const centuries = batsman2Data.runs % 100;
+            else if (batsman2Data.runs >= 10) {
+                const centuries = parseInt(batsman2Data.runs / 10);
                 matchInfo.firstInnings.battingTeam.centuries += centuries;
                 setBatsman2Data({ ...batsman2Data, centuries: centuries });
             }
-            else if (batsman2Data.runs >= 50) {
-                const halfCenturies = batsman2Data.runs % 50;
+            else if (batsman2Data.runs >= 5) {
+                const halfCenturies = parseInt(batsman2Data.runs / 5);
                 matchInfo.firstInnings.battingTeam.halfCenturies += halfCenturies;
                 setBatsman2Data({ ...batsman2Data, halfCenturies: halfCenturies });
             }
         }
         else {
+            console.log(batsman1Data);
             setBatsman1(selectedBatsman);
             setDisplayBatsman1(selectedBatsman);
-            if (batsman1Data.runs >= 200) {
-                const doubleCenturies = batsman1Data.runs % 200;
+            if (batsman1Data.runs >= 20) {
+                const doubleCenturies = parseInt(batsman1Data.runs / 20);
                 matchInfo.firstInnings.battingTeam.doubleCenturies += doubleCenturies;
                 setBatsman1Data({ ...batsman1Data, doubleCenturies: doubleCenturies });
             }
-            else if (batsman1Data.runs >= 100) {
-                const centuries = batsman1Data.runs % 100;
+            else if (batsman1Data.runs >= 10) {
+                const centuries = parseInt(batsman1Data.runs / 10);
                 matchInfo.firstInnings.battingTeam.centuries += centuries;
                 setBatsman1Data({ ...batsman1Data, centuries: centuries });
             }
-            else if (batsman1Data.runs >= 50) {
-                const halfCenturies = batsman1Data.runs % 50;
+            else if (batsman1Data.runs >= 5) {
+                const halfCenturies = parseInt(batsman1Data.runs / 5);
                 matchInfo.firstInnings.battingTeam.halfCenturies += halfCenturies;
                 setBatsman1Data({ ...batsman1Data, halfCenturies: halfCenturies });
             }
@@ -400,7 +421,7 @@ function PlayMatch() {
                     <div className="displayLeft">
                         <p>{(displayBatsman1.value) ? ((!onStrike) ? '*' : '') + displayBatsman1.value + ' (' + batsman1Data.runs + '/' + batsman1Data.ballsPlayed + ')' : '(Select Batsman 1)'}</p>
                         <p>{(displayBatsman2.value) ? ((onStrike) ? '*' : '') + displayBatsman2.value + ' (' + batsman2Data.runs + '/' + batsman2Data.ballsPlayed + ')' : '(Select Batsman 2)'}</p>
-                        <p>Total Score: {currScore}</p>
+                        <p>Total Score: ({currScore} / {wickets})</p>
                         <p>Overs: {overs}</p>
                     </div>
                     <div className="displayCenter my-auto">
@@ -456,12 +477,5 @@ function PlayMatch() {
     )
 }
 
-export default PlayMatch
-
-
-export const Popup = ({ children }) => {
-    return <div>
-        {children}
-    </div>
-}
+export default PlayMatch;
 

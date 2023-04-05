@@ -2,7 +2,6 @@ import React from 'react'
 import './style.css'
 function SelectPlayerModal({title,setIsShowPlayerModal,openAnotherModal,...props}) {
     const closeModal = () => {
-        console.log('closing modal...');
         setIsShowPlayerModal(false);
         if(openAnotherModal)
             openAnotherModal(true);
