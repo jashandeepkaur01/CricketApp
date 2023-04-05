@@ -14,7 +14,7 @@ function PlayMatch() {
     const [currScore, setCurrScore] = useState(0);
     const [displayScore, setDisplayScore] = useState(0);
     const [overs, setOvers] = useState(0);
-    const [wickets,setWickets] = useState(0);
+    const [wickets, setWickets] = useState(0);
     const [isOverCompleted, setIsOverCompleted] = useState(false);
     const [currOver, setCurrOver] = useState([]);
     const [myTeamPlayers, setMyTeamPlayers] = useState([]);
@@ -32,23 +32,24 @@ function PlayMatch() {
     const [onStrike, setOnStrike] = useState(0);
     const [isShowBatsmanModal, setIsShowBatsmanModal] = useState(false);
     const [isShowBowlerModal, setIsShowBowlerModal] = useState(false);
-    const [playerOut,setPlayerOut] = useState('');
+    const [playerOut, setPlayerOut] = useState('');
     const [newBatsman, setNewBatsman] = useState('');
     const [isShowNewBatsmanModal, setIsShowNewBatsmanModal] = useState(false);
 
 
     const onStrikeValue = useRef(0);
 
-    const controlButtons = [0,1,2,3,4,6,'NB','WB','WC','DB','Undo'];
+    const controlButtons = [0, 1, 2, 3, 4, 6, 'NB', 'WB', 'WC', 'DB', 'Undo'];
 
     const params = useParams()
-    const { matchOrganiserKey } = params;
+    const { matchUniqueKey } = params;
 
     const dispatch = useDispatch();
     const teamsData = useSelector((state) => state.team.teams);
     const currMatchData = useSelector((state) => state.match.currMatch);
 
-    const currentGoingMatch = currMatchData.find(match => match.matchOrganiser === matchOrganiserKey);
+    const currentGoingMatch = currMatchData.find(match => match.key === matchUniqueKey);
+    console.log('currentGoingMatch....',currentGoingMatch);
 
     let isPlayersSelected = batsman1.value && batsman2.value && bowler.value;
 
@@ -187,7 +188,9 @@ function PlayMatch() {
             // console.log('matchData.firstInnings.bowlingTeam.currOver....', matchData.firstInnings.bowlingTeam.currOverBalls)
         }
         if (btnValue === 'WB' || btnValue === 'NB') {
-            setCurrScore(currScore + 1)
+            debugger;
+            let currentScore = currScore + 1;
+            setCurrScore(currentScore)
             if (btnValue === 'WB') {
                 setDisplayScore('Wide Ball')
                 setCurrOver([...currOver, 'WB'])
@@ -196,6 +199,7 @@ function PlayMatch() {
                 setDisplayScore('No Ball')
                 setCurrOver([...currOver, 'NB'])
             }
+            matchData.firstInnings.battingTeam.totalRuns = currentScore;
         }
         else if (btnValue === 'WC' || btnValue === 'DB') {
             if (btnValue === 'WC') {
@@ -218,15 +222,19 @@ function PlayMatch() {
                 matchData.firstInnings.battingTeam.currBatters[onStrike] = {
                     ...matchData.firstInnings.battingTeam.currBatters[onStrike],
                     out: {
-                        outAtBall: overs,
+                        outAtBall: overs + 0.1,
                         outByBowler: bowler.label,
                         outStatus: true,
                     }
                 }
-                // matchData.firstInnings.battingTeam.playersPlayed = [
-                //     ...matchData.firstInnings.battingTeam.playersPlayed,
-                //     matchData.firstInnings.battingTeam.currBatters[onStrike]
-                // ]
+                if (matchData.firstInnings.battingTeam.playersPlayed === undefined)
+                    matchData.firstInnings.battingTeam.playersPlayed = [matchData.firstInnings.battingTeam.currBatters[onStrike]];
+                else {
+                    matchData.firstInnings.battingTeam.playersPlayed = [
+                        ...matchData.firstInnings.battingTeam.playersPlayed,
+                        matchData.firstInnings.battingTeam.currBatters[onStrike]
+                    ]
+                }
             }
             else {
                 setDisplayScore('Dead Ball')
@@ -376,17 +384,17 @@ function PlayMatch() {
             setDisplayBatsman2(selectedBatsman);
             console.log(batsman2Data);
             if (batsman2Data.runs >= 20) {
-                const doubleCenturies = parseInt(batsman2Data.runs / 20);
+                const doubleCenturies = parseInt(batsman2Data.runs / 200);
                 matchInfo.firstInnings.battingTeam.doubleCenturies += doubleCenturies;
                 setBatsman2Data({ ...batsman2Data, doubleCenturies: doubleCenturies });
             }
             else if (batsman2Data.runs >= 10) {
-                const centuries = parseInt(batsman2Data.runs / 10);
+                const centuries = parseInt(batsman2Data.runs / 100);
                 matchInfo.firstInnings.battingTeam.centuries += centuries;
                 setBatsman2Data({ ...batsman2Data, centuries: centuries });
             }
             else if (batsman2Data.runs >= 5) {
-                const halfCenturies = parseInt(batsman2Data.runs / 5);
+                const halfCenturies = parseInt(batsman2Data.runs / 50);
                 matchInfo.firstInnings.battingTeam.halfCenturies += halfCenturies;
                 setBatsman2Data({ ...batsman2Data, halfCenturies: halfCenturies });
             }
@@ -413,7 +421,7 @@ function PlayMatch() {
         }
         dispatch(updateCurrMatchData(matchInfo))
     }
-    console.log(remainingBatsmans);
+    // console.log(remainingBatsmans);
     return (
         <div className='w-75 me-3'>
             <div className="playMatchContainer border border-dark shadow p-2">
@@ -458,17 +466,17 @@ function PlayMatch() {
                         </NewBatsmanModal> : null}
                     {isPlayersSelected ?
                         <div className="control-box text-center">
-                            {controlButtons.map(controlButton=>{
-                                if(controlButton === 2 || controlButton === 6 || controlButton === 'WC'){
-                                    if(controlButton === 'WC')
-                                        return <><MatchControlBtn paddingVal = 'px-3' control={handleScoreClick} label={controlButton} /><br /></>
-                                    return <><MatchControlBtn  paddingVal = 'px-4' control={handleScoreClick} label={controlButton} /><br /></>
+                            {controlButtons.map(controlButton => {
+                                if (controlButton === 2 || controlButton === 6 || controlButton === 'WC') {
+                                    if (controlButton === 'WC')
+                                        return <><MatchControlBtn paddingVal='px-3' control={handleScoreClick} label={controlButton} /><br /></>
+                                    return <><MatchControlBtn paddingVal='px-4' control={handleScoreClick} label={controlButton} /><br /></>
                                 }
-                                else{
-                                    if(controlButton === 'NB' || controlButton === 'WB')
-                                        return <MatchControlBtn  paddingVal = 'px-3' control={handleScoreClick} label={controlButton} />
+                                else {
+                                    if (controlButton === 'NB' || controlButton === 'WB')
+                                        return <MatchControlBtn paddingVal='px-3' control={handleScoreClick} label={controlButton} />
                                 }
-                                    return <MatchControlBtn  paddingVal = 'px-4' control={handleScoreClick} label={controlButton} />
+                                return <MatchControlBtn paddingVal='px-4' control={handleScoreClick} label={controlButton} />
                             })}
                         </div> : null}
                 </div>

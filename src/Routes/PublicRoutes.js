@@ -28,7 +28,7 @@ export const PUBLIC_ROUTES = [
     title: "Show Team",
   },
   {
-    path: "/match/:matchOrganiserKey",
+    path: "/match/:matchUniqueKey",
     component: Match,
     title: "match",
   },

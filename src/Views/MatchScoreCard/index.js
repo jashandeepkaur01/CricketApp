@@ -1,16 +1,22 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 function MatchScoreCard() {
-    const currMatchData = useSelector((state) => state.match.matches);
+    const params = useParams()
+    const { matchUniqueKey } = params;
 
+    const currMatches = useSelector((state) => state.match.currMatch);
+    // console.log(currMatchData);
+    console.log('current matches....',currMatches);
+    console.log('match score card......',matchUniqueKey)
     return (
         <div>
             <div className="container bg-light border border-1 border-dark rounded">
                 <h3>Scorecard</h3>
                 <h5 className='teamPlaying'>India Innings</h5>
-                <h6 className='pt-2'>Batting Team ({currMatchData.myTeam})</h6>
+                <h6 className='pt-2'>Batting Team </h6>
                 <Table>
                     <thead>
                         <tr>
@@ -51,7 +57,7 @@ function MatchScoreCard() {
 
                     </tbody>
                 </Table>
-                <h6 className='pt-2'>Bowling Team ({currMatchData.oppTeam})</h6>
+                <h6 className='pt-2'>Bowling Team </h6>
                 <Table>
                     <thead>
                         <tr>

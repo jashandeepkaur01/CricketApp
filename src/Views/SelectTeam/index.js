@@ -161,7 +161,6 @@ function SelectTeam() {
         battingTeam: {
           teamName: team.label,
           totalRuns: 0,
-          // totalBalls: '',
           doubleCenturies: 0,
           centuries: 0,
           halfCenturies: 0,
@@ -343,7 +342,9 @@ function SelectTeam() {
       data: matchData,
       success: (response) => {
         console.log('response..', response);
-        navigate.push("/match/" + playerLoggedIn.key)
+        console.log('current match key .....', response.data.name);
+        navigate.push("/match/" + response.data.name)
+        // navigate.push("/match/" + playerLoggedIn.key)
       },
       fail: () => {
         console.warn('Cannot find page...')
@@ -354,25 +355,6 @@ function SelectTeam() {
 
   return (
     <div>
-      {/* <CustomModal
-        footer={true}
-        header={true}
-        visible={showModal}
-        showModal={showModal}
-        setShowModal={setShowModal}
-        title={"Add New Team"}
-        onSubmitModal={submitModal}
-      >
-        <TeamForm
-          allPlayers={remainingPlayersData}
-          teamData={teamData}
-          setTeamData={setTeamData}
-          players={players}
-          setPlayers={setPlayers}
-          captain={captain}
-          setCaptain={setCaptain}
-        />
-      </CustomModal> */}
       <div className="container selectTeamWrapper text-left bg-light rounded border-dark pb-5">
         <div className="d-flex justify-content-between mt-3 pt-4">
           <h3 className="">Select Your Team</h3>
@@ -423,13 +405,6 @@ function SelectTeam() {
         <p className="text-center">VS</p>
         <h3 className="pt-3">Select Your Opponent's Team</h3>
 
-        {/* <div className="d-flex justify-content-around">
-          <Button variant="success" onClick={handleShow}>
-            Add Team
-          </Button>
-          
-        </div>{" "} */}
-        {/* <br /> */}
         <Select
           className=" text-center"
           options={uniqueTeams}
