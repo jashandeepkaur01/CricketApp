@@ -65,7 +65,7 @@ function Carousel() {
               </div>
               <a
                 className="carousel-control-prev"
-                href="#carouselExampleControls"
+                href="javascript:void(0)"
                 role="button"
                 data-slide="prev"
                 onClick={onPrevClick}
@@ -78,7 +78,7 @@ function Carousel() {
               </a>
               <a
                 className="carousel-control-next"
-                href="#carouselExampleControls"
+                href="javascript:void(0)"
                 role="button"
                 data-slide="next"
                 onClick={onNextClick}

@@ -23,22 +23,8 @@
 .nav-item {
   padding: 0px 5px;
 }
-/* .btn-rd {
-  border-radius: 100%;
-  margin-top: 20%;
-  height: 90px;
-  width: 100px;
-  background-color: rgb(255, 149, 0);
-} */
-.nav-login {
-  /* position: absolute;
-  right: 10px;
-  top: 10px; */
-}
 .nav-NavLink.active {
-  /* background-color: rgb(230, 175, 26); */
-  border: 2px solid rgb(230, 175, 26);
-  color: #00FFFF;
+  color: rgb(230, 175, 26);
 }
 .nav-NavLink {
   text-decoration: none;
@@ -48,7 +34,7 @@
   transition:0.3s all;
 }
 .nav-NavLink:hover {
-  color: #00FFFF;
+  color: rgb(230, 175, 26);
 }
 .logoutBtn{
   cursor: pointer;

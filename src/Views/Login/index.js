@@ -20,11 +20,11 @@ const Login = () => {
     <>
       <form className="loginBox">
         <h1 className="loginHeading">Login</h1>
-        <div className="d-flex  justify-content-center w-100">
-          <h5 className="text-danger mt-2 mb-0">{errorMessage}</h5>
-        </div>
         <input type="number" className="loginInput" placeholder="Phone number" value={contact}
           onChange={(e) => setContact(e.target.value)} />
+        <div className="d-flex  justify-content-center w-100">
+          <span className="text-danger mt-2 mb-0">{errorMessage}</span>
+        </div>
         <button className="loginBtn" onClick={handleClick}>Login</button>
       </form>
     </>
