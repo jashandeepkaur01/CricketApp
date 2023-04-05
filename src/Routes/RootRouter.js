@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
+import { Switch, Route, Redirect, HashRouter} from "react-router-dom";
 import { AUTH_ROUTES } from "./AuthRoutes";
 import { PUBLIC_ROUTES } from "./PublicRoutes";
 import { PRIVATE_ROUTES } from "./PrivateRoutes";
@@ -71,12 +71,12 @@ const RootRouter = () => {
   const baseName = process.env.REACT_APP_BASE_NAME;
   const isAuthenticated = !!token;
   return (
-    <BrowserRouter basename={baseName}>
+    <HashRouter basename={baseName}>
       <DocumentTitle isAuthenticated={isAuthenticated} />
       <AppLayout isAuthenticated={isAuthenticated}>
         {token ? <AuthenticatedRoutes /> : <GuestRoutes token={token} />}
       </AppLayout>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
