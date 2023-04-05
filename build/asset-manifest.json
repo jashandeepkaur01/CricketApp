@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.be5aefb0.chunk.css",
-    "main.js": "/static/js/main.699fdd8a.chunk.js",
-    "main.js.map": "/static/js/main.699fdd8a.chunk.js.map",
+    "main.css": "/static/css/main.40811e37.chunk.css",
+    "main.js": "/static/js/main.9b218c92.chunk.js",
+    "main.js.map": "/static/js/main.9b218c92.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.b99fa094.js",
     "runtime-main.js.map": "/static/js/runtime-main.b99fa094.js.map",
     "static/css/2.c44a97c6.chunk.css": "/static/css/2.c44a97c6.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.f8315572.chunk.js.map": "/static/js/3.f8315572.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.c44a97c6.chunk.css.map": "/static/css/2.c44a97c6.chunk.css.map",
-    "static/css/main.be5aefb0.chunk.css.map": "/static/css/main.be5aefb0.chunk.css.map",
+    "static/css/main.40811e37.chunk.css.map": "/static/css/main.40811e37.chunk.css.map",
     "static/js/2.bb03d5f8.chunk.js.LICENSE.txt": "/static/js/2.bb03d5f8.chunk.js.LICENSE.txt",
     "static/media/bootstrap-icons.css": "/static/media/bootstrap-icons.b2e5aab6.woff2",
     "static/media/cricketLogo.ae0aab27.png": "/static/media/cricketLogo.ae0aab27.png"
@@ -21,7 +21,7 @@
     "static/js/runtime-main.b99fa094.js",
     "static/css/2.c44a97c6.chunk.css",
     "static/js/2.bb03d5f8.chunk.js",
-    "static/css/main.be5aefb0.chunk.css",
-    "static/js/main.699fdd8a.chunk.js"
+    "static/css/main.40811e37.chunk.css",
+    "static/js/main.9b218c92.chunk.js"
   ]
 }

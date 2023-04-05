@@ -21,7 +21,7 @@ function Navbar() {
   }
 
   return (
-    <div className="navouter">
+    <div className="navouter mb-5">
       <nav className="navbar navbar-expand-lg bg-body-tertiary bg-dark fs-5 ">
         <div className="container-fluid">
           <img className="navimg" alt="logo" src={cricketLogo} />
