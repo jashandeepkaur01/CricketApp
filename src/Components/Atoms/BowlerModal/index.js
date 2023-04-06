@@ -1,38 +1,26 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Select from 'react-select';
+import React from 'react'
+function SelectBowlerModal({title,setIsShowBowlerModal,onSubmit,...props}) {
+    const closeModal = () => {
+        setIsShowBowlerModal(false);
 
+    }
+    return (
+        <>
+            <div id='playerContainer' className="selectPlayerContainer shadow border rounded">
+                <div className="selectPlayerTitle">
+                    <h5>{title}</h5>
+                </div>
+                <hr />
+                <div className="selectPlayerBody">
+                    {props.children}
+                </div>
+                <div className="selectPlayerFooter text-end">
+                    <button className='btn btn-outline-primary' id='okBtn' onClick={()=>onSubmit()}>OK</button>
+                </div>
+            </div>
 
-function BowlerModal ({title,show,handleClose,oppTeamPlayers,handleBowler,bowler}) {
-
-  // function handleBowlerModal(){
-  //   console.log('bowler selected ')
-
-  //   handleClose();
-  // }
-  return (
-    <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>{title}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Choose bowler
-          <Select options={oppTeamPlayers} onChange={handleBowler} value={bowler} />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>OK</Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
+        </>
+    )
 }
 
-export default BowlerModal;
+export default SelectBowlerModal;

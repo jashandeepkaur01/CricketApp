@@ -9,14 +9,20 @@ function MatchScoreCard() {
 
     const currMatches = useSelector((state) => state.match.currMatch);
     // console.log(currMatchData);
-    console.log('current matches....',currMatches);
-    console.log('match score card......',matchUniqueKey)
+    console.log('current matches....', currMatches);
+    console.log('match scorecard......', matchUniqueKey)
+    const currMatch = currMatches.find(match => match.key === matchUniqueKey);
+    // console.log(currMatch);
+    const BatsmansData = currMatch?.firstInnings?.battingTeam.currBatters;
+    // console.log(BatsmansData);
+    // console.log(currMatch?.firstInnings.battingTeam.teamName);
+    console.log(currMatch?.firstInnings.bowlingTeam);
     return (
         <div>
             <div className="container bg-light border border-1 border-dark rounded">
                 <h3>Scorecard</h3>
                 <h5 className='teamPlaying'>India Innings</h5>
-                <h6 className='pt-2'>Batting Team </h6>
+                <h6 className='pt-2'>Batting Team ({currMatch?.firstInnings.battingTeam.teamName})</h6>
                 <Table>
                     <thead>
                         <tr>
@@ -29,7 +35,21 @@ function MatchScoreCard() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        {BatsmansData?.map(batsman => {
+                            return (
+                                <>
+                                    <tr>
+                                        <td>{batsman.name}</td>
+                                        <td>{batsman.runs}</td>
+                                        <td>{batsman.ballsPlayed}</td>
+                                        <td>{batsman.fours}</td>
+                                        <td>{batsman.sixes}</td>
+                                        <td>3.5</td>
+                                    </tr>
+                                </>
+                            )
+                        })}
+                        {/* <tr>
                             <td>Mark Twain</td>
                             <td>28</td>
                             <td>20</td>
@@ -44,7 +64,7 @@ function MatchScoreCard() {
                             <td>12</td>
                             <td>3</td>
                             <td>5.2</td>
-                        </tr>
+                        </tr> */}
                         {/* <tr>
                             <td>2</td>
                             <td>Rohit Sharma</td>
@@ -57,7 +77,7 @@ function MatchScoreCard() {
 
                     </tbody>
                 </Table>
-                <h6 className='pt-2'>Bowling Team </h6>
+                <h6 className='pt-2'>Bowling Team ({currMatch?.firstInnings.bowlingTeam.teamName})</h6>
                 <Table>
                     <thead>
                         <tr>

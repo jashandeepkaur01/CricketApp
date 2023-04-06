@@ -1,9 +1,5 @@
 import React from 'react'
 function NewBatsmanModal({title, playerOut, setIsShowPlayerModal,onSubmit,...props}) {
-    const closeModal = () => {
-        console.log('closing modal...');
-        setIsShowPlayerModal(false);
-    }
     return (
         <>
             <div id='playerContainer' className="selectPlayerContainer shadow border rounded text-center">

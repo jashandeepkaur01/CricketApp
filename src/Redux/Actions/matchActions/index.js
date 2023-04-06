@@ -1,7 +1,7 @@
 import { ADDMATCHDATA, GETMATCHDATA, MATCHTEAMS, SETMATCHDATA, UPDATECURRMATCHDATA } from "./actionStates";
 
 export const matchTeams = (data) => {
-    console.log('mydata....',data)
+    // console.log('mydata....',data)
     return {
         type: MATCHTEAMS,
         data,

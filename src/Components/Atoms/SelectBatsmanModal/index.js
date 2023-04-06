@@ -1,12 +1,13 @@
 import React from 'react'
 import './style.css'
-function SelectPlayerModal({title,setIsShowPlayerModal,openAnotherModal,...props}) {
+function SelectPlayerModal({title,setIsShowPlayerModal,openAnotherModal,onSubmit,...props}) {
     const closeModal = () => {
         setIsShowPlayerModal(false);
         if(openAnotherModal)
             openAnotherModal(true);
 
     }
+    console.log(props.children);
     return (
         <>
             <div id='playerContainer' className="selectPlayerContainer shadow border rounded">

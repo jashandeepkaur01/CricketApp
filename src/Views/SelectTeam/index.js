@@ -208,7 +208,13 @@ function SelectTeam() {
           teamName: oppTeam.label,
           currBowler: {
             name: '',
+            wkts: 0,
+            WB: 0,
+            NB: 0,
+            Econ: 0,
+            runsConceded: 0,
           },
+          bowlers: [],
           overs: [],
           currOver: 0,
           currOverBalls: [],
