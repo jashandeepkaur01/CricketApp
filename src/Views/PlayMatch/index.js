@@ -1,14 +1,13 @@
+import SelectBowlerModal from 'Components/Atoms/BowlerModal';
+import MatchControlBtn from 'Components/Atoms/MatchControlBtn';
+import NewBatsmanModal from 'Components/Atoms/NewBatsmanModal';
 import SelectPlayerModal from 'Components/Atoms/SelectBatsmanModal';
-import React, { useEffect, useState, useRef } from 'react'
+import { getMatchData, updateCurrMatchData } from 'Redux/Actions/matchActions';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Select from 'react-select';
-import { getMatchData, matchTeams, updateCurrMatchData } from 'Redux/Actions/matchActions';
-import { getData } from 'Redux/Actions/playerActions';
-import './style.css'
-import NewBatsmanModal from 'Components/Atoms/NewBatsmanModal';
-import MatchControlBtn from 'Components/Atoms/MatchControlBtn';
-import SelectBowlerModal from 'Components/Atoms/BowlerModal';
+import './style.css';
 
 function PlayMatch() {
     const [show, setShow] = useState(false);
@@ -104,6 +103,7 @@ function PlayMatch() {
                     fours: currentMatchData?.firstInnings?.battingTeam?.currBatters[1]?.fours,
                     sixes: currentMatchData?.firstInnings?.battingTeam?.currBatters[1]?.sixes,
                     halfCenturies: currentMatchData?.firstInnings?.battingTeam?.currBatters[1]?.halfCenturies,
+                    strikeRate: currentMatchData?.firstInnings?.battingTeam?.currBatters[1].strikeRate,
                 }
             }
             debugger;
@@ -112,7 +112,7 @@ function PlayMatch() {
                 label: currentMatchData?.firstInnings?.bowlingTeam?.currBowler?.label,
                 key: currentMatchData?.firstInnings?.bowlingTeam?.currBowler?.key,
                 currOverBalls: currentMatchData?.firstInnings?.bowlingTeam?.currBowler?.currOverBalls,
-                runsConceded :  currentMatchData?.firstInnings?.bowlingTeam?.currBowler?.runsConceded,
+                runsConceded: currentMatchData?.firstInnings?.bowlingTeam?.currBowler?.runsConceded,
                 wkts: currentMatchData?.firstInnings?.bowlingTeam?.currBowler?.wkts,
             }
             setBatsman1({
@@ -166,12 +166,6 @@ function PlayMatch() {
             setIsShowBowlerModal(true);
             isPlayersSelected = false;
             setIsOverCompleted(false);
-            // const overScore = currOver.reduce(
-            //     (accumulator, runs) => accumulator + runs
-            // );
-            // console.log('total score...',overScore);
-            // currentOverBalls = [];
-            // setCurrOver([]);
             if (onStrikeValue.current) {
                 onStrikeValue.current = 0;
                 setOnStrike(onStrikeValue.current);
@@ -241,7 +235,6 @@ function PlayMatch() {
                 setDisplayScore('OUT')
                 currentOverBalls.push('WC');
                 setCurrOver(currentOverBalls)
-                // setCurrOver([...currOver, 'WC'])
                 matchData.firstInnings.battingTeam.wkts += 1;
                 console.log(matchData.firstInnings.battingTeam.wkts);
                 matchData.firstInnings.bowlingTeam.currBowler = bowler;
@@ -249,7 +242,6 @@ function PlayMatch() {
                     matchData.firstInnings.bowlingTeam.currBowler.wkts = 1;
                 else
                     matchData.firstInnings.bowlingTeam.currBowler.wkts += 1;
-                // matchData.firstInnings.bowlingTeam.currBowler.wickets += 1;
 
                 matchData.firstInnings.battingTeam.currBatters[onStrike] = {
                     ...matchData.firstInnings.battingTeam.currBatters[onStrike],
@@ -272,7 +264,6 @@ function PlayMatch() {
                 setDisplayScore('Dead Ball')
                 currentOverBalls.push('DB');
                 setCurrOver(currentOverBalls)
-                // setCurrOver([...currOver, 'DB'])
             }
             setMyTeamPlayers(myTeamPlayers.filter(player => player !== playerOut));
             setRemainingTeamPlayers(myTeamPlayers.filter(player => player !== playerOut));
@@ -283,19 +274,18 @@ function PlayMatch() {
         else {
             btnValue = +btnValue;
             let currentScore = currScore + btnValue;
-            debugger;
+            // debugger;
             matchData.firstInnings.battingTeam.totalRuns = currentScore;
-            if(bowler.runsConceded === undefined)
+            if (bowler.runsConceded === undefined)
                 matchData.firstInnings.bowlingTeam.currBowler.runsConceded = btnValue;
             else
                 matchData.firstInnings.bowlingTeam.currBowler.runsConceded = bowler.runsConceded + btnValue;
-                
+
             setCurrScore(currentScore)
             setDisplayScore(btnValue)
             currentOverBalls.push(btnValue);
             console.log('currentOver Balls: ', currentOverBalls);
             setCurrOver(currentOverBalls)
-            // setCurrOver([...currOver, btnValue])
             if (btnValue === 1 || btnValue === 3) {
                 if (onStrikeValue.current) {
                     onStrikeValue.current = 0;
@@ -323,7 +313,7 @@ function PlayMatch() {
                 ...matchData.firstInnings.battingTeam.currBatters[onStrike],
                 runs: matchData.firstInnings.battingTeam.currBatters[onStrike].runs + btnValue,
                 ballsPlayed: matchData.firstInnings.battingTeam.currBatters[onStrike].ballsPlayed + 1,
-                strikeRate : parseFloat(((matchData.firstInnings.battingTeam.currBatters[onStrike].runs+ btnValue) / (matchData.firstInnings.battingTeam.currBatters[onStrike].ballsPlayed + 1)).toFixed(2))
+                strikeRate: parseFloat(((matchData.firstInnings.battingTeam.currBatters[onStrike].runs + btnValue) / (matchData.firstInnings.battingTeam.currBatters[onStrike].ballsPlayed + 1)).toFixed(2))
                 // out: {
                 //     outAtBall : matchData.firstInnings.bowlingTeam
                 // }
@@ -336,11 +326,11 @@ function PlayMatch() {
                         ...batsman2Data,
                         runs: batsman2Data.runs + btnValue,
                         ballsPlayed: batsman2Data.ballsPlayed + 1,
-                        // strikeRate: parseInt((batsman2Data.runs/batsman2Data.ballsPlayed).toFixed(2)),
+                        strikeRate: parseFloat(((batsman2Data.runs + btnValue) / (batsman2Data.ballsPlayed + 1)).toFixed(2)),
                         // strikeRate: Number(((batsman2Data.runs + btnValue)/(batsman2Data.ballsPlayed + 1 )).toFixed(2)),
 
                     })
-                }
+            }
             else {
                 console.log('first')
                 setBatsman1Data(
@@ -348,6 +338,7 @@ function PlayMatch() {
                         ...batsman1Data,
                         runs: batsman1Data.runs + btnValue,
                         ballsPlayed: batsman1Data.ballsPlayed + 1,
+                        strikeRate: parseFloat(((batsman1Data.runs + btnValue) / (batsman1Data.ballsPlayed + 1)).toFixed(2)),
                         // strikeRate: Number(((batsman1Data.runs + btnValue)/(batsman1Data.ballsPlayed + 1 )).toFixed(2)),
                     })
             }
@@ -360,10 +351,13 @@ function PlayMatch() {
     const handleBatsman1 = (selectedBatsman) => {
         setBatsman1(selectedBatsman);
         const matchInfo = currentGoingMatch;
+        debugger;
         matchInfo.firstInnings.battingTeam.currBatters[0] = {
             ...(matchInfo.firstInnings.battingTeam.currBatters[0] ?? {}),
             name: selectedBatsman.label,
             key: selectedBatsman.key,
+            strikeRate: 0,
+
         }
         matchInfo.firstInnings.battingTeam.teamPlayers = myTeamPlayers;
         dispatch(updateCurrMatchData(matchInfo))
@@ -377,7 +371,11 @@ function PlayMatch() {
             ...(matchInfo.firstInnings.battingTeam.currBatters[1] ?? {}),
             name: selectedBatsman.label,
             key: selectedBatsman.key,
+            strikeRate: 0,
         }
+        debugger;
+
+
         const remainingBatters = remainingTeamPlayers.filter(player => player !== selectedBatsman);
         setRemainingBatsmans(remainingBatters);
         matchInfo.firstInnings.battingTeam.yetToBat = remainingBatters;
@@ -407,11 +405,9 @@ function PlayMatch() {
     }
     const selectBowlerModal = (e) => {
         const matchInfo = currentGoingMatch;
-        console.log('e = ', e);
         matchInfo.firstInnings.bowlingTeam.currOverBalls = [];
         setIsShowBowlerModal(false);
         dispatch(updateCurrMatchData(matchInfo))
-        // setIsShowPlayerModal(false);
     }
     const selectNewBatsmanModal = () => {
         setNewBatsman('');

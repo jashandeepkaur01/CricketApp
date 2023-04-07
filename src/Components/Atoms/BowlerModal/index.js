@@ -1,9 +1,4 @@
-import React from 'react'
-function SelectBowlerModal({title,setIsShowBowlerModal,onSubmit,...props}) {
-    const closeModal = () => {
-        setIsShowBowlerModal(false);
-
-    }
+function SelectBowlerModal({ title, setIsShowBowlerModal, onSubmit, ...props }) {
     return (
         <>
             <div id='playerContainer' className="selectPlayerContainer shadow border rounded">
@@ -15,7 +10,7 @@ function SelectBowlerModal({title,setIsShowBowlerModal,onSubmit,...props}) {
                     {props.children}
                 </div>
                 <div className="selectPlayerFooter text-end">
-                    <button className='btn btn-outline-primary' id='okBtn' onClick={()=>onSubmit()}>OK</button>
+                    <button className='btn btn-outline-primary' id='okBtn' onClick={() => onSubmit()}>OK</button>
                 </div>
             </div>
 

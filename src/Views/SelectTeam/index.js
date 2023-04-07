@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import NewTeamAdded from "Components/Atoms/NewTeamAdded";
 import CustomModal from "Components/Atoms/customModal";
 import TeamForm from "Components/Cells/addTeamForm";
-import { Button } from "react-bootstrap";
+import { addMatchData } from "Redux/Actions/matchActions";
 import { getData } from "Redux/Actions/playerActions";
-import { updatePlayersTeam } from "Redux/Actions/updateTeamActions";
 import { addTeamData } from "Redux/Actions/teamActions";
-import Select from "react-select";
+import { updatePlayersTeam } from "Redux/Actions/updateTeamActions";
+import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { addMatchData, getMatchData, matchTeams } from "Redux/Actions/matchActions";
+import Select from "react-select";
 
 function SelectTeam() {
-  const [showModal, setShowModal] = useState(false);    // console.log('myMatchData....',myMatchData);
+  const [showModal, setShowModal] = useState(false);
   const [captain, setCaptain] = useState([]);
   const [uniqueTeams, setUniqueTeams] = useState([]);
   const [team, setTeam] = useState("");
@@ -26,37 +27,32 @@ function SelectTeam() {
   const [showErr3, setShowErr3] = useState(false);
   const [err4, setErr4] = useState("");
   const [showErr4, setShowErr4] = useState(false);
-
-  const dispatch = useDispatch();
-
-  const data = useSelector((state) => state.player.players);
-  let teamsData = useSelector((state) => state.team.teams);
-  const playerLoggedIn = useSelector((state) => state.login.loggedInPlayer);
-  // console.log('playerLoggedIn...',playerLoggedIn)
-  const playerLoggedInData = data.find(player => {
-    return player.key === playerLoggedIn.key;
-  })
-  // console.log('playerLoggedInData...',playerLoggedIn.key);
-  // console.log('players data...',data);
-  // console.log('playerLoggedIN teams....',playerLoggedInData?.Team)
-  const loggedInPlayer = {
-    label: playerLoggedInData?.Name,
-    value: playerLoggedInData?.Name,
-    key: playerLoggedInData?.key,
-  };
-  const [players, setPlayers] = useState([loggedInPlayer]);
+  const [isNewTeamAdded, setIsNewTeamAdded] = useState(false);
   const [teamData, setTeamData] = useState({
     teamName: "",
     teamType: "",
     teamPlayers: [],
     teamCaptain: "",
   });
-  // console.log("logged in player key....", playerLoggedInData);
-  const remainingPlayersData = data.filter((playerData) => {
-    if (playerLoggedInData.key !== playerData.key) return playerData;
-  });
-  // console.log("players...", players);
-  // console.log("remainingPlayersData...", remainingPlayersData);
+  const [newTeam, setNewTeam] = useState('');
+  const dispatch = useDispatch();
+
+  const data = useSelector((state) => state.player.players);
+  let teamsData = useSelector((state) => state.team.teams);
+  const playerLoggedIn = useSelector((state) => state.login.loggedInPlayer);
+  const playerLoggedInData = data.find(player => {
+    return player.key === playerLoggedIn.key;
+  })
+  const loggedInPlayer = {
+    label: playerLoggedIn?.Name,
+    value: playerLoggedIn?.Name,
+    key: playerLoggedIn?.key,
+  };
+  const [players, setPlayers] = useState([loggedInPlayer]);
+
+  // const remainingPlayersData = data.filter((playerData) => {
+  //   if (playerLoggedInData.key !== playerData.key) return playerData;
+  // });
   const handleShow = () => setShowModal(true);
 
   const submitModal = () => {
@@ -81,7 +77,7 @@ function SelectTeam() {
     }
     else {
       let playersInTeam = [playerLoggedInData.key];
-      playersInTeam = playersInTeam.concat(players.map((player) => player.key)); // selected players keys
+      playersInTeam = playersInTeam.concat(players.map((player) => player.key));
       const selectedPlayersData = playersInTeam.map((k) => {
         for (let playerData of data) {
           if (k === playerData.key) {
@@ -90,6 +86,7 @@ function SelectTeam() {
         }
       });
       const selectedTeam = teamData.teamName;
+      setNewTeam(selectedTeam);
       let playersInTeamObj = {};
       playersInTeamObj[selectedTeam] = selectedPlayersData;
       dispatch(updatePlayersTeam(playersInTeamObj));
@@ -97,9 +94,18 @@ function SelectTeam() {
       setTimeout(() => {
         dispatch(getData([]));
       }, 1000);
-      // console.log("playerLoggedinData...", playerLoggedInData.Team);
+      setIsNewTeamAdded(true);
       setShowModal(false);
+      setTeamData({
+        teamName: "",
+        teamType: "",
+        teamPlayers: [],
+        teamCaptain: "",
+      })
     }
+    setTimeout(() => {
+      setIsNewTeamAdded(false);
+    }, 3000);
   };
 
   useEffect(() => {
@@ -124,30 +130,15 @@ function SelectTeam() {
 
   const handleInputChange1 = (selectedValue) => {
     const teamNames = options;
-    console.log(selectedValue);
     setTeam(selectedValue);
-    // let teamNames = teamsData.map((e) => {
-    //   if(e.teamName)
-    //   return e.teamName;
-    // });
-    const filteredItems = teamNames.filter(
-      (e, index) => e.value.search(selectedValue.value) === -1
-    );
-    console.log('handleInputchange 1 called...');
-    console.log('filtered items....', filteredItems);
+    const filteredItems = teamNames.filter((e) => e.value.search(selectedValue.value) === -1);
     setUniqueTeams(filteredItems);
     setOppTeam('');
   };
   const handleInputChange2 = (selectedValue) => {
     setOppTeam(selectedValue);
   };
-  // const generateID = () => {
-  //   return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-  // };
   const startMatchNow = () => {
-    console.log('Team: ', team)
-    console.log('OppTeam: ', oppTeam);
-    // dispatch(matchTeams([team.label,oppTeam.label]));
     const matchData = {
       name: team.label + 'vs' + oppTeam.label,
       date: '30 March 2023',
@@ -282,72 +273,8 @@ function SelectTeam() {
           currOver: 0,
           currOverBalls: [],
         }
+      }
     }
-  }
-    // currBatsman = [{
-    //   name: '',
-    //   key: '',
-    //   runs: '',
-    //   ballsPlayed: 0,
-    //   sixes: 0,
-    //   fours: 0,
-    //   doubleCenturies: 0,
-    //   centuries: 0,
-    //   halfCenturies: 0,
-    //   out: {
-    //     outByBowler: '',
-    //     outAtBall: 0,
-    //   }
-    // },{}]
-    // const matchData = {
-    //   name: team.label + 'vs' + oppTeam.label,
-    //   date: '30 March 2023',
-    //   venue: 'Australia',
-    //   status: true,
-    //   isCompleted: false,
-    //   matchOrganiser : playerLoggedIn.key,
-    //   myTeam: team.label,
-    //   oppTeam: oppTeam.label,
-    //   wonBy: '',
-    //   myTeamData: {
-    //     name: team.label,
-    //     runs: 0,
-    //     sixes: 0,
-    //     fours: 0,
-    //     twos: 0,
-    //     twoHundreds: 0,
-    //     hundreds: 0,
-    //     fifties: 0,
-    //     overs: [{}],
-    //     batters: [{
-    //       name: '',
-    //       runs: 0,
-    //       balls: 0,
-    //       fours: 0,
-    //       sixes: 0,
-    //       strikeRate: 0,
-    //       outBy: '',
-    //     }],
-    //     bowlers: [{
-    //       name: '',
-    //       runsConceded: 0,
-    //       balls: '',
-    //       strikeRate: 0,
-    //       wkts: 0,
-    //     }]
-    //   },
-    // }
-    // overs: [{
-    //   bowler:
-    //   runs:
-    //   6s,
-    //   4s,
-    //   WB,
-    //   wkts,
-    // }]
-
-    // id: generateID(),
-    console.log('matchData...', matchData);
     dispatch(addMatchData({
       data: matchData,
       success: (response) => {
@@ -365,6 +292,11 @@ function SelectTeam() {
 
   return (
     <div>
+      <div className="position-absolute" style={{ top: '70px', width: '100%' }}>
+        {isNewTeamAdded ? <NewTeamAdded teamName={newTeam} /> : null}
+
+      </div>
+
       <div className="container selectTeamWrapper text-left bg-light rounded border-dark pb-5">
         <div className="d-flex justify-content-between mt-3 pt-4">
           <h3 className="">Select Your Team</h3>

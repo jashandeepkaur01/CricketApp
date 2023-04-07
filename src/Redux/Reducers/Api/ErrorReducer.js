@@ -8,10 +8,6 @@ const errorReducer = (state = { msg: "" }, action) => {
   const [requestState] = matches;
   return {
     ...state,
-    // Store errorMessage
-    // e.g. stores errorMessage when receiving GET_TODOS_FAILURE
-    //      else clear errorMessage when receiving GET_TODOS_REQUEST
-    //[requestName]: requestState === "FAILURE" ? payload.message : "",
     msg: requestState === "FAILURE" ? msg : "",
   };
 };

@@ -1,6 +1,7 @@
-.navouter{
-    box-shadow: 0px 10px 8px -6px rgba(0,0,0,.5);
+.navouter {
+  box-shadow: 0px 10px 8px -6px rgba(0, 0, 0, .5);
 }
+
 .navimg {
   margin-left: 10px;
   margin-right: 10px;
@@ -8,34 +9,26 @@
   height: 55px;
 }
 
-/* .navbar .navbar-nav .nav-link:active {
-  color: red;
-}
-
-.navbar .navbar-nav .nav-link {
-  color: white;
-  font-size: 1.1em;
-} */
-/* .navbar .navbar-nav .nav-link:hover {
-  background-color: black;
-  color: goldenrod;
-} */
 .nav-item {
   padding: 0px 5px;
 }
+
 .nav-NavLink.active {
   color: rgb(230, 175, 26);
 }
+
 .nav-NavLink {
   text-decoration: none;
   color: white;
   padding: 10px 5px;
   border-radius: 6px;
-  transition:0.3s all;
+  transition: 0.3s all;
 }
+
 .nav-NavLink:hover {
   color: rgb(230, 175, 26);
 }
-.logoutBtn{
+
+.logoutBtn {
   cursor: pointer;
 }

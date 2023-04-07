@@ -1,8 +1,8 @@
-.playMatchContainer{
-    /* background:aliceblue; */
+.playMatchContainer {
     background: linear-gradient(90deg, #a4d5ff, #f0f8ff);
     border-radius: 10px;
 }
-.scoredisplay{
+
+.scoredisplay {
     background-color: white;
 }

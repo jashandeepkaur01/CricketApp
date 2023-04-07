@@ -31,30 +31,6 @@ export const playerTableHeading = [
     label: "Country",
     key: "Country",
   },
-  // {
-  //   label: "Fours",
-  //   key: "Fours",
-  // },
-  // {
-  //   label: "Sixes",
-  //   key: "Sixes",
-  // },
-  // {
-  //   label: "Half Centuries",
-  //   key: "Fifties",
-  // },
-  // {
-  //   label: "Centuries",
-  //   key: "Hundreds",
-  // },
-  // {
-  //   label: "Total Score",
-  //   key: "Score",
-  // },
-  // {
-  //   label: "Avg score",
-  //   key: "AvgScore",
-  // },
   {
     label: "Matches Played",
     key: "MatchesPlayed",

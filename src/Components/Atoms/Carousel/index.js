@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function Carousel() {
   const images = [
@@ -51,9 +51,8 @@ function Carousel() {
               <div className="carousel-inner">
                 {images?.map((item, index) => (
                   <div
-                    className={`carousel-item ${
-                      active === index ? "active" : ""
-                    }`}
+                    className={`carousel-item ${active === index ? "active" : ""
+                      }`}
                   >
                     <img
                       className="d-block w-100"
@@ -74,7 +73,6 @@ function Carousel() {
                   className="carousel-control-prev-icon"
                   aria-hidden="true"
                 ></span>
-                {/* <span className="sr-only">Previous</span> */}
               </a>
               <a
                 className="carousel-control-next"
@@ -87,7 +85,6 @@ function Carousel() {
                   className="carousel-control-next-icon"
                   aria-hidden="true"
                 ></span>
-                {/* <span className="sr-only">Next</span> */}
               </a>
             </div>
           </div>

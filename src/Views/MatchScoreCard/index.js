@@ -13,7 +13,9 @@ function MatchScoreCard() {
     console.log('match scorecard......', matchUniqueKey)
     const currMatch = currMatches.find(match => match.key === matchUniqueKey);
     // console.log(currMatch);
+    // debugger;
     const BatsmansData = currMatch?.firstInnings?.battingTeam.currBatters;
+    // const BowlerData = currMatch?.firstInnings?.bowlingTeam?.currBowler;
     // console.log(BatsmansData);
     // console.log(currMatch?.firstInnings.battingTeam.teamName);
     console.log(currMatch?.firstInnings.bowlingTeam);
@@ -91,6 +93,20 @@ function MatchScoreCard() {
                         </tr>
                     </thead>
                     <tbody>
+                        {/* {BowlerData.map((bowler)=> {
+                            return (
+                                <>
+                                    <tr>
+                                        <td>{bowler.label}</td>
+                                        <td>{bowler.runsConceded}</td>
+                                        <td>{bowler.wkts}</td>
+                                        <td>{bowler.wb}</td>
+                                        <td>{bowler.nb}</td>
+                                        <td>{bowler.eco}</td>
+                                    </tr>
+                                </>
+                            )
+                        })} */}
                         <tr>
                             <td>Ravindra Jadeja</td>
                             <td>3</td>
@@ -109,7 +125,6 @@ function MatchScoreCard() {
                             <td>1</td>
                             <td>2.5</td>
                         </tr>
-
                     </tbody>
                 </Table>
             </div>

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Pagination from "../../Atoms/Pagination";
 
 import { Link } from "react-router-dom";
-import './style.css';
 import TableButton from "../../Atoms/TableButton";
+import './style.css';
 
 export default function CustomTable({
   tableContent,
@@ -11,7 +11,6 @@ export default function CustomTable({
   btnText,
   component,
 }) {
-  // const [showperpage, setShowperPage] = useState(11);
   const showperpage = 11;
   const [paginate, setPaginate] = useState({
     start: 0,
@@ -33,7 +32,6 @@ export default function CustomTable({
               {headingDetails.map((val) => (
                 <th>
                   {val.label}
-                  {/* <div className="d-flex ">{val.label}</div> */}
                 </th>
               ))}
             </tr>
@@ -45,11 +43,9 @@ export default function CustomTable({
                 .map((val, index) => (
                   <tr>
                     {headingDetails.map((heading) => (
-                      // {val[heading.key] == 'Score' ? <td>200</td>:
                       <td>{typeof val[heading.key] !== "object" ?
-                      // heading.key === headingDetails[0].key ?
                         heading.key === 'Name' ?
-                        <Link className='playerNameLink' to={'/playerInfo/'+val[heading.key]}>{val[heading.key]}</Link> :
+                          <Link className='playerNameLink' to={'/playerInfo/' + val[heading.key]}>{val[heading.key]}</Link> :
                           (val[heading.key]) :
                         (<TableButton
                           data={val[heading.key]}
@@ -58,17 +54,6 @@ export default function CustomTable({
                         />
                         )}
                       </td>
-                      // <td>
-                      //   {typeof val[heading.key] !== "object" ? (
-                      //     val[heading.key]
-                      //   ) : (
-                      //     <TableButton
-                      //       data={val[heading.key]}
-                      //       btnText={btnText}
-                      //       firstColumnValue={tableContent[index][component]}
-                      //     />
-                      //   )}
-                      // </td>
                     ))}
                   </tr>
                 ))}

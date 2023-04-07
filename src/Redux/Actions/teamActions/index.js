@@ -7,7 +7,6 @@ export const setTeamData = (data) => {
     };
 };
 export const addTeamData = (data) => {
-    // console.log("addteamdata called", data);
     return {
         type: ADDTEAM,
         data,

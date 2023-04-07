@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { setLogin } from 'Redux/Actions/loginActions';
 
-function LogoutModal ({title,show,handleClose}) {
+function LogoutModal({ handleClose }) {
   const dispatch = useDispatch();
   const navigate = useHistory();
 
-  function handleLogoutModal(){
+  function handleLogoutModal() {
     navigate.push("/");
     dispatch(setLogin(null));
     handleClose();

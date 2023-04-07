@@ -10,12 +10,9 @@ function PlayerInfo() {
     const params = useParams()
     const { name } = params
     const allPlayers = useSelector((state) => state.player.players)
-    console.log(allPlayers);
     const player = allPlayers.find(playerObj => playerObj.Name === name)
-    console.log('player : ', player)
     return (
         <div>
-            {/* <p>Player Name {name}</p> */}
             <div className="container playerContainer rounded shadow border border-2 border-secondary pb-4">
                 <div className="nameHeading text-center py-3">
                     <h2>{player.Name}</h2>

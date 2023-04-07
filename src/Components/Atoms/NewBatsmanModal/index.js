@@ -1,5 +1,4 @@
-import React from 'react'
-function NewBatsmanModal({title, playerOut, setIsShowPlayerModal,onSubmit,...props}) {
+function NewBatsmanModal({ title, playerOut, setIsShowPlayerModal, onSubmit, ...props }) {
     return (
         <>
             <div id='playerContainer' className="selectPlayerContainer shadow border rounded text-center">
@@ -15,8 +14,7 @@ function NewBatsmanModal({title, playerOut, setIsShowPlayerModal,onSubmit,...pro
                     {props.children}
                 </div>
                 <div className="selectPlayerFooter text-end">
-                    {/* <button className='btn btn-outline-primary' id='okBtn' onClick={()=>closeModal()}>OK</button> */}
-                    <button className='btn btn-outline-primary' id='okBtn' onClick={()=>onSubmit()}>OK</button>
+                    <button className='btn btn-outline-primary' id='okBtn' onClick={() => onSubmit()}>OK</button>
                 </div>
             </div>
 

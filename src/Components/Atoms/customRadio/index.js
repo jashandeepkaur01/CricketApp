@@ -16,6 +16,7 @@ function CreateRadio({ values, name, state, setState }) {
               checked={state === val}
               onChange={handleOptionChange}
               name={name}
+              className="me-2"
             />
             <label htmlFor={name}>{val}</label>
           </div>
