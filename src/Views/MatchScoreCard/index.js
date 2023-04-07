@@ -44,7 +44,7 @@ function MatchScoreCard() {
                                         <td>{batsman.ballsPlayed}</td>
                                         <td>{batsman.fours}</td>
                                         <td>{batsman.sixes}</td>
-                                        <td>3.5</td>
+                                        <td>{batsman.strikeRate}</td>
                                     </tr>
                                 </>
                             )
