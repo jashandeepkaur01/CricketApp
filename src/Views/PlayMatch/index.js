@@ -93,6 +93,7 @@ function PlayMatch() {
                     fours: currentMatchData?.firstInnings?.battingTeam?.currBatters[0]?.fours,
                     sixes: currentMatchData?.firstInnings?.battingTeam?.currBatters[0]?.sixes,
                     halfCenturies: currentMatchData?.firstInnings?.battingTeam?.currBatters[0]?.halfCenturies,
+                    strikeRate: currentMatchData?.firstInnings?.battingTeam?.currBatters[0].strikeRate,
                 },
                 currBatsman2: {
                     name: currentMatchData?.firstInnings?.battingTeam?.currBatters[1]?.name,
@@ -184,6 +185,7 @@ function PlayMatch() {
     function handleScoreClick(e) {
         const matchData = JSON.parse(JSON.stringify(currentGoingMatch));
         let currentOverBalls = (matchData.firstInnings.bowlingTeam.currOverBalls) ? matchData.firstInnings.bowlingTeam.currOverBalls : [];
+        // let strikeRate = matchData.firstInnings.battingTeam.currBatters[onStrike]
         let btnValue = e.target.innerText;
         if (btnValue !== 'WB' && btnValue !== 'NB') {
             let currentOver = 0;
@@ -321,6 +323,7 @@ function PlayMatch() {
                 ...matchData.firstInnings.battingTeam.currBatters[onStrike],
                 runs: matchData.firstInnings.battingTeam.currBatters[onStrike].runs + btnValue,
                 ballsPlayed: matchData.firstInnings.battingTeam.currBatters[onStrike].ballsPlayed + 1,
+                strikeRate : parseFloat(((matchData.firstInnings.battingTeam.currBatters[onStrike].runs+ btnValue) / (matchData.firstInnings.battingTeam.currBatters[onStrike].ballsPlayed + 1)).toFixed(2))
                 // out: {
                 //     outAtBall : matchData.firstInnings.bowlingTeam
                 // }
@@ -333,8 +336,11 @@ function PlayMatch() {
                         ...batsman2Data,
                         runs: batsman2Data.runs + btnValue,
                         ballsPlayed: batsman2Data.ballsPlayed + 1,
+                        // strikeRate: parseInt((batsman2Data.runs/batsman2Data.ballsPlayed).toFixed(2)),
+                        // strikeRate: Number(((batsman2Data.runs + btnValue)/(batsman2Data.ballsPlayed + 1 )).toFixed(2)),
+
                     })
-            }
+                }
             else {
                 console.log('first')
                 setBatsman1Data(
@@ -342,6 +348,7 @@ function PlayMatch() {
                         ...batsman1Data,
                         runs: batsman1Data.runs + btnValue,
                         ballsPlayed: batsman1Data.ballsPlayed + 1,
+                        // strikeRate: Number(((batsman1Data.runs + btnValue)/(batsman1Data.ballsPlayed + 1 )).toFixed(2)),
                     })
             }
 
@@ -463,7 +470,7 @@ function PlayMatch() {
             setBatsman1(selectedBatsman);
             setDisplayBatsman1(selectedBatsman);
             if (batsman1Data.runs >= 200) {
-                const doubleCenturies = parseInt(batsman1Data.runs / 20);
+                const doubleCenturies = parseInt(batsman1Data.runs / 200);
                 matchInfo.firstInnings.battingTeam.doubleCenturies += doubleCenturies;
                 setBatsman1Data({ ...batsman1Data, doubleCenturies: doubleCenturies });
             }

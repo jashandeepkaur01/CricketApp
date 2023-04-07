@@ -180,6 +180,7 @@ function SelectTeam() {
             doubleCenturies: 0,
             centuries: 0,
             halfCenturies: 0,
+            strikeRate: 0,
             out: {
               outStatus: false,
               outByBowler: '',
@@ -197,6 +198,7 @@ function SelectTeam() {
             doubleCenturies: 0,
             centuries: 0,
             halfCenturies: 0,
+            strikeRate: 0,
             out: {
               outStatus: false,
               outByBowler: '',
@@ -244,6 +246,7 @@ function SelectTeam() {
             doubleCenturies: 0,
             centuries: 0,
             halfCenturies: 0,
+            strikeRate: 0,
             out: {
               outStatus: false,
               outByBowler: '',
@@ -261,6 +264,7 @@ function SelectTeam() {
             doubleCenturies: 0,
             centuries: 0,
             halfCenturies: 0,
+            strikeRate: 0,
             out: {
               outStatus: false,
               outByBowler: '',
