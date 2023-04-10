@@ -1,7 +1,7 @@
-import { useState } from "react";
-import './style.css';
-import { useSelector, useDispatch } from "react-redux";
 import { setLogin } from "Redux/Actions/loginActions";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import './style.css';
 
 
 const Login = () => {
@@ -15,9 +15,9 @@ const Login = () => {
     e.preventDefault();
     let loggedInPlayerData = data.find((val) => val.PhoneNo === contact);
     if (loggedInPlayerData) dispatch(setLogin(loggedInPlayerData));
-    else setErrorMessage("Phone number is not valid");
+    else setErrorMessage("No Player Found");
   }
-  function checkPhoneNumber(e){
+  function checkPhoneNumber(e) {
     setContact(e);
     setErrorMessage(" ");
   }

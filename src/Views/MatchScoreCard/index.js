@@ -1,5 +1,4 @@
-import React from 'react'
-import { Table } from 'react-bootstrap'
+import { Table } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -14,17 +13,17 @@ function MatchScoreCard() {
     const currMatch = currMatches.find(match => match.key === matchUniqueKey);
     // console.log(currMatch);
     // debugger;
-    const BatsmansData = currMatch?.firstInnings?.battingTeam.currBatters;
+    const BatsmansData = currMatch?.innings[0]?.battingTeam.currBatters;
     // const BowlerData = currMatch?.firstInnings?.bowlingTeam?.currBowler;
     // console.log(BatsmansData);
     // console.log(currMatch?.firstInnings.battingTeam.teamName);
-    console.log(currMatch?.firstInnings.bowlingTeam);
+    console.log(currMatch?.innings[0]?.bowlingTeam);
     return (
         <div>
             <div className="container bg-light border border-1 border-dark rounded">
                 <h3>Scorecard</h3>
                 <h5 className='teamPlaying'>India Innings</h5>
-                <h6 className='pt-2'>Batting Team ({currMatch?.firstInnings.battingTeam.teamName})</h6>
+                <h6 className='pt-2'>Batting Team ({currMatch?.innings[0].battingTeam.teamName})</h6>
                 <Table>
                     <thead>
                         <tr>
@@ -79,7 +78,7 @@ function MatchScoreCard() {
 
                     </tbody>
                 </Table>
-                <h6 className='pt-2'>Bowling Team ({currMatch?.firstInnings.bowlingTeam.teamName})</h6>
+                <h6 className='pt-2'>Bowling Team ({currMatch?.innings[0].bowlingTeam.teamName})</h6>
                 <Table>
                     <thead>
                         <tr>

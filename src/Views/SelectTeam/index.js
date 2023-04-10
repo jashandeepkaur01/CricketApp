@@ -28,6 +28,10 @@ function SelectTeam() {
   const [err4, setErr4] = useState("");
   const [showErr4, setShowErr4] = useState(false);
   const [isNewTeamAdded, setIsNewTeamAdded] = useState(false);
+  const [team1Players, setTeam1Players] = useState([]);
+  const [team2Players, setTeam2Players] = useState([]);
+  const [selectedTeam1Players, setSelectedTeam1Players] = useState([]);
+  const [selectedTeam2Players, setSelectedTeam2Players] = useState([]);
   const [teamData, setTeamData] = useState({
     teamName: "",
     teamType: "",
@@ -56,12 +60,12 @@ function SelectTeam() {
   const handleShow = () => setShowModal(true);
 
   const submitModal = () => {
-    if (((teamData.teamName).length === 0) || ((teamData.teamType).length === 0) || ((teamData.teamPlayers).length < 3) || ((teamData.teamCaptain).length == 0)) {
-      if ((teamData.teamName).length == 0) {
+    if (((teamData.teamName).length === 0) || ((teamData.teamType).length === 0) || ((teamData.teamPlayers).length < 3) || ((teamData.teamCaptain).length === 0)) {
+      if ((teamData.teamName).length === 0) {
         setErr1("Field is required")
         setShowErr1(true);
       }
-      if ((teamData.teamType).length == 0) {
+      if ((teamData.teamType).length === 0) {
         setErr2("Field is required")
         setShowErr2(true);
       }
@@ -69,7 +73,7 @@ function SelectTeam() {
         setErr3("atleast 3 players required")
         setShowErr3(true);
       }
-      if ((teamData.teamCaptain).length == 0) {
+      if ((teamData.teamCaptain).length === 0) {
         setErr4("Field is required")
         setShowErr4(true);
       }
@@ -105,7 +109,7 @@ function SelectTeam() {
     }
     setTimeout(() => {
       setIsNewTeamAdded(false);
-    }, 3000);
+    }, 2000);
   };
 
   useEffect(() => {
@@ -129,7 +133,10 @@ function SelectTeam() {
   }, [teamsData]);
 
   const handleInputChange1 = (selectedValue) => {
+    debugger;
     const teamNames = options;
+    const selectedTeam = teamsData.find((e) => e.teamName === selectedValue.value);
+    setTeam1Players(selectedTeam.teamPlayers);
     setTeam(selectedValue);
     const filteredItems = teamNames.filter((e) => e.value.search(selectedValue.value) === -1);
     setUniqueTeams(filteredItems);
@@ -137,151 +144,273 @@ function SelectTeam() {
   };
   const handleInputChange2 = (selectedValue) => {
     setOppTeam(selectedValue);
+    const selectedTeam = teamsData.find((e) => e.teamName === selectedValue.value);
+    setTeam2Players(selectedTeam.teamPlayers);
+
   };
+  const handleSelectedPlayers = (players) => {
+    console.log(players);
+    setSelectedTeam1Players(players || []);
+  }
+  const handleSelectedPlayers2 = (players) => {
+    console.log(players);
+    setSelectedTeam2Players(players || []);
+  }
+  const dateObj = new Date();
+  const currentDate = dateObj.getDate() + '/' + (dateObj.getMonth() + 1) + '/' + dateObj.getFullYear();
+  const currBatsmanData = {
+    name: '',
+    key: '',
+    runs: 0,
+    ballsPlayed: 0,
+    sixes: 0,
+    fours: 0,
+    centuries: 0,
+    doubleCenturies: 0,
+    halfCenturies: 0,
+    strikeRate: 0,
+    out: {
+      outStatus: false,
+      outByBowler: '',
+      outAtBall: 0,
+    }
+  }
+  const inningData = {
+    battingTeam: {
+      teamName: '',
+      totalRuns: 0,
+      doubleCenturies: 0,
+      centuries: 0,
+      halfCenturies: 0,
+      sixes: 0,
+      fours: 0,
+      players: [],
+      wkts: 0,
+      yetToBat: [],
+      fallOfWickets: [],
+      currBatters: [currBatsmanData, currBatsmanData]
+    },
+    bowlingTeam: {
+      teamName: '',
+      currBowler: {
+        name: '',
+        wkts: 0,
+        WB: 0,
+        NB: 0,
+        Econ: 0,
+        runsConceded: 0,
+      },
+      bowler: [],
+      overs: [],
+      currOver: 0,
+      currOverBalls: [],
+    }
+  }
   const startMatchNow = () => {
     const matchData = {
       name: team.label + 'vs' + oppTeam.label,
-      date: '30 March 2023',
-      venue: 'Australia',
+      date: currentDate,
       status: true,
       isCompleted: false,
       matchOrganiser: playerLoggedIn.key,
       wonBy: '',
       onStrike: 0,
-      firstInnings: {
-        battingTeam: {
-          teamName: team.label,
-          totalRuns: 0,
-          doubleCenturies: 0,
-          centuries: 0,
-          halfCenturies: 0,
-          sixes: 0,
-          fours: 0,
-          players: [],
-          wkts: 0,
-          yetToBat: [],
-          currBatters: [{
-            name: '',
-            key: '',
-            runs: 0,
-            ballsPlayed: 0,
-            sixes: 0,
-            fours: 0,
-            hundreds: 0,
-            doubleCenturies: 0,
-            centuries: 0,
-            halfCenturies: 0,
-            strikeRate: 0,
-            out: {
-              outStatus: false,
-              outByBowler: '',
-              outAtBall: 0,
-            }
-          },
-          {
-            name: '',
-            key: '',
-            runs: 0,
-            ballsPlayed: 0,
-            sixes: 0,
-            fours: 0,
-            hundreds: 0,
-            doubleCenturies: 0,
-            centuries: 0,
-            halfCenturies: 0,
-            strikeRate: 0,
-            out: {
-              outStatus: false,
-              outByBowler: '',
-              outAtBall: 0,
-            }
-          }],
-        },
-        bowlingTeam: {
-          teamName: oppTeam.label,
-          currBowler: {
-            name: '',
-            wkts: 0,
-            WB: 0,
-            NB: 0,
-            Econ: 0,
-            runsConceded: 0,
-          },
-          bowlers: [],
-          overs: [],
-          currOver: 0,
-          currOverBalls: [],
-        }
-      },
-      secondInnings: {
-        battingTeam: {
-          teamName: oppTeam.label,
-          totalRuns: 0,
-          // totalBalls: '',
-          doubleCenturies: 0,
-          centuries: 0,
-          halfCenturies: 0,
-          sixes: 0,
-          fours: 0,
-          players: [],
-          wkts: 0,
-          yetToBat: [],
-          currBatters: [{
-            name: '',
-            key: '',
-            runs: 0,
-            ballsPlayed: 0,
-            sixes: 0,
-            fours: 0,
-            hundreds: 0,
-            doubleCenturies: 0,
-            centuries: 0,
-            halfCenturies: 0,
-            strikeRate: 0,
-            out: {
-              outStatus: false,
-              outByBowler: '',
-              outAtBall: 0,
-            }
-          },
-          {
-            name: '',
-            key: '',
-            runs: 0,
-            ballsPlayed: 0,
-            sixes: 0,
-            fours: 0,
-            hundreds: 0,
-            doubleCenturies: 0,
-            centuries: 0,
-            halfCenturies: 0,
-            strikeRate: 0,
-            out: {
-              outStatus: false,
-              outByBowler: '',
-              outAtBall: 0,
-            }
-          }],
-        },
-        bowlingTeam: {
-          teamName: team.label,
-          currBowler: {
-            name: '',
-            balls: 0,
-          },
-          overs: [],
-          currOver: 0,
-          currOverBalls: [],
-        }
-      }
+      team1Players: selectedTeam1Players,
+      team2Players: selectedTeam2Players,
+      inningCount: 0,
+      innings: [inningData, inningData],
     }
+    // {
+    //   battingTeam: {
+    //     teamName: '',
+    //     totalRuns: 0,
+    //     doubleCenturies: 0,
+    //     centuries: 0,
+    //     halfCenturies: 0,
+    //     sixes: 0,
+    //     fours: 0,
+    //     players: [],
+    //     wkts: 0,
+    //     yetToBat: [],
+    //     fallOfWickets: [],
+    //     currBatters: [{
+    //       name: '',
+    //       key: '',
+    //       runs: 0,
+    //       ballsPlayed: 0,
+    //       sixes: 0,
+    //       fours: 0,
+    //       hundreds: 0,
+    //       doubleCenturies: 0,
+    //       halfCenturies: 0,
+    //       strikeRate: 0,
+    //       out: {
+    //         outStatus: false,
+    //         outByBowler: '',
+    //         outAtBall: 0,
+    //       }
+    //     }]
+
+    //   },
+    //   bowlingTeam: {
+    //     teamName: '',
+    //     currBowler: {
+    //       name: '',
+    //       wkts: 0,
+    //       WB: 0,
+    //       NB: 0,
+    //       Econ: 0,
+    //       runsConceded: 0,
+    //     },
+    //     bowler: [],
+    //     overs: [],
+    //     currOver: 0,
+    //     currOverBalls: [],
+    //   }
+    // }
+
+
+    // const matchData = {
+    //   name: team.label + 'vs' + oppTeam.label,
+    //   date: currentDate,
+    //   venue: 'Australia',
+    //   status: true,
+    //   isCompleted: false,
+    //   matchOrganiser: playerLoggedIn.key,
+    //   wonBy: '',
+    //   onStrike: 0,
+    //   firstInnings: {
+    //     battingTeam: {
+    //       teamName: team.label,
+    //       totalRuns: 0,
+    //       doubleCenturies: 0,
+    //       centuries: 0,
+    //       halfCenturies: 0,
+    //       sixes: 0,
+    //       fours: 0,
+    //       players: [],
+    //       wkts: 0,
+    //       yetToBat: [],
+    //       fallOfWickets: [],
+    //       currBatters: [{
+    //         name: '',
+    //         key: '',
+    //         runs: 0,
+    //         ballsPlayed: 0,
+    //         sixes: 0,
+    //         fours: 0,
+    //         hundreds: 0,
+    //         doubleCenturies: 0,
+    //         centuries: 0,
+    //         halfCenturies: 0,
+    //         strikeRate: 0,
+    //         out: {
+    //           outStatus: false,
+    //           outByBowler: '',
+    //           outAtBall: 0,
+    //         }
+    //       },
+    //       {
+    //         name: '',
+    //         key: '',
+    //         runs: 0,
+    //         ballsPlayed: 0,
+    //         sixes: 0,
+    //         fours: 0,
+    //         hundreds: 0,
+    //         doubleCenturies: 0,
+    //         centuries: 0,
+    //         halfCenturies: 0,
+    //         strikeRate: 0,
+    //         out: {
+    //           outStatus: false,
+    //           outByBowler: '',
+    //           outAtBall: 0,
+    //         }
+    //       }],
+    //     },
+    //     bowlingTeam: {
+    //       teamName: oppTeam.label,
+    //       currBowler: {
+    //         name: '',
+    //         wkts: 0,
+    //         WB: 0,
+    //         NB: 0,
+    //         Econ: 0,
+    //         runsConceded: 0,
+    //       },
+    //       bowlers: [],
+    //       overs: [],
+    //       currOver: 0,
+    //       currOverBalls: [],
+    //     }
+    //   },
+    //   secondInnings: {
+    //     battingTeam: {
+    //       teamName: oppTeam.label,
+    //       totalRuns: 0,
+    //       // totalBalls: '',
+    //       doubleCenturies: 0,
+    //       centuries: 0,
+    //       halfCenturies: 0,
+    //       sixes: 0,
+    //       fours: 0,
+    //       players: [],
+    //       wkts: 0,
+    //       yetToBat: [],
+    //       currBatters: [{
+    //         name: '',
+    //         key: '',
+    //         runs: 0,
+    //         ballsPlayed: 0,
+    //         sixes: 0,
+    //         fours: 0,
+    //         hundreds: 0,
+    //         doubleCenturies: 0,
+    //         centuries: 0,
+    //         halfCenturies: 0,
+    //         strikeRate: 0,
+    //         out: {
+    //           outStatus: false,
+    //           outByBowler: '',
+    //           outAtBall: 0,
+    //         }
+    //       },
+    //       {
+    //         name: '',
+    //         key: '',
+    //         runs: 0,
+    //         ballsPlayed: 0,
+    //         sixes: 0,
+    //         fours: 0,
+    //         hundreds: 0,
+    //         doubleCenturies: 0,
+    //         centuries: 0,
+    //         halfCenturies: 0,
+    //         strikeRate: 0,
+    //         out: {
+    //           outStatus: false,
+    //           outByBowler: '',
+    //           outAtBall: 0,
+    //         }
+    //       }],
+    //     },
+    //     bowlingTeam: {
+    //       teamName: team.label,
+    //       currBowler: {
+    //         name: '',
+    //         balls: 0,
+    //       },
+    //       overs: [],
+    //       currOver: 0,
+    //       currOverBalls: [],
+    //     }
+    //   }
+    // }
     dispatch(addMatchData({
       data: matchData,
       success: (response) => {
-        console.log('response..', response);
-        console.log('current match key .....', response.data.name);
         navigate.push("/match/" + response.data.name)
-        // navigate.push("/match/" + playerLoggedIn.key)
       },
       fail: () => {
         console.warn('Cannot find page...')
@@ -342,6 +471,15 @@ function SelectTeam() {
           options={playerLoggedInData?.Team}
           onChange={handleInputChange1}
           value={team}
+        /><br />
+        <Select
+          options={team1Players}
+          onChange={handleSelectedPlayers}
+          name="selectedTeamPlayers"
+          value={selectedTeam1Players}
+          closeMenuOnSelect={false}
+          noOptionsMessage={() => 'Player not Found'}
+          isMulti
         />
         <br />
         <p className="text-center">VS</p>
@@ -352,6 +490,15 @@ function SelectTeam() {
           options={uniqueTeams}
           onChange={handleInputChange2}
           value={oppTeam}
+        /><br />
+        <Select
+          options={team2Players}
+          onChange={handleSelectedPlayers2}
+          name="selectedTeamPlayers"
+          value={selectedTeam2Players}
+          closeMenuOnSelect={false}
+          noOptionsMessage={() => 'Player not Found'}
+          isMulti
         />
         <div className="text-center mt-5">
           <Button

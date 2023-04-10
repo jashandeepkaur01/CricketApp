@@ -8,6 +8,7 @@ function TeamForm({ teamData, setTeamData, players, setPlayers, captain, setCapt
   const [Err2, setErr2] = useState("");
   const [Err3, setErr3] = useState("");
 
+  debugger;
   const handleInput = (data) => {
     setTeamData({
       ...teamData,
@@ -21,7 +22,7 @@ function TeamForm({ teamData, setTeamData, players, setPlayers, captain, setCapt
       setTeamErr(false);
     }
   };
-  const handleChange = (e) => {
+  const handleCaptain = (e) => {
     setCaptain(e);
     setTeamData({
       ...teamData,
@@ -63,7 +64,7 @@ function TeamForm({ teamData, setTeamData, players, setPlayers, captain, setCapt
 
   return (
     <div>
-      <form>
+      <form autoComplete="off">
         <InputField name="teamName" type="text" label="Team Name" placeholder="Enter the Team Name" value={teamData["teamName"]} onChange={handleInput} />
         <span className="text-danger">{teamNameErr ? Error1 : Err1}</span>
         <br />
@@ -104,7 +105,7 @@ function TeamForm({ teamData, setTeamData, players, setPlayers, captain, setCapt
             label: val.label,
             value: val.value,
           }))}
-          onChange={handleChange}
+          onChange={handleCaptain}
           name="teamCaptain"
           value={captain}
         />
