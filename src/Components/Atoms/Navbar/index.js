@@ -11,11 +11,10 @@ function Navbar() {
     (state) => state.login.loggedInPlayer
   );
 
-  console.log(loggedInPlayer, 'loggedInPlayer')
   const dispatch = useDispatch();
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-  
+
   function handleLogout() {
     handleShow();
   }
@@ -82,10 +81,10 @@ function Navbar() {
           </div>
         </div>
       </nav>
-      {show?
-      <LogoutModal handleClose={handleClose} title='Logout'/>
-        :null
-    }
+      {show ?
+        <LogoutModal handleClose={handleClose} title='Logout' />
+        : null
+      }
     </div>
   );
 }

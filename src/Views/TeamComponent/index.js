@@ -18,15 +18,9 @@ function SelectTeam() {
     axios.get("https://customcricketmatch-default-rtdb.firebaseio.com/Playerrecord.json").then(val => {
       for (let key in val.data) {
         s.push(val.data[key]);
-        console.log(s);
       }
       setAllPlayers(s)
     })
-
-    let playerHeading = [];
-    for (let heading of allplayers) {
-      console.log(heading, 'heading');
-    }
   }, [])
 
   const [teamData, setTeamData] = useState({

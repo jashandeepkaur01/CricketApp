@@ -7,23 +7,17 @@ function MatchScoreCard() {
     const { matchUniqueKey } = params;
 
     const currMatches = useSelector((state) => state.match.currMatch);
-    // console.log(currMatchData);
-    console.log('current matches....', currMatches);
-    console.log('match scorecard......', matchUniqueKey)
     const currMatch = currMatches.find(match => match.key === matchUniqueKey);
-    // console.log(currMatch);
-    // debugger;
-    const BatsmansData = currMatch?.innings[0]?.battingTeam.currBatters;
-    // const BowlerData = currMatch?.firstInnings?.bowlingTeam?.currBowler;
-    // console.log(BatsmansData);
-    // console.log(currMatch?.firstInnings.battingTeam.teamName);
-    console.log(currMatch?.innings[0]?.bowlingTeam);
+    const BatsmansData = currMatch?.innings[0]?.battingTeam?.currBatters;
+    const bowler = currMatch?.innings[0]?.bowlingTeam?.currBowler;
+    console.log(bowler);
+    // console.log(currMatch?.innings[0]?.bowlingTeam);
     return (
         <div>
             <div className="container bg-light border border-1 border-dark rounded">
                 <h3>Scorecard</h3>
                 <h5 className='teamPlaying'>India Innings</h5>
-                <h6 className='pt-2'>Batting Team ({currMatch?.innings[0].battingTeam.teamName})</h6>
+                <h6 className='pt-2'>Batting Team ({currMatch?.teams[0]})</h6>
                 <Table>
                     <thead>
                         <tr>
@@ -50,35 +44,10 @@ function MatchScoreCard() {
                                 </>
                             )
                         })}
-                        {/* <tr>
-                            <td>Mark Twain</td>
-                            <td>28</td>
-                            <td>20</td>
-                            <td>4</td>
-                            <td>1</td>
-                            <td>3.5</td>
-                        </tr>
-                        <tr>
-                            <td>Virat Kohli</td>
-                            <td>52</td>
-                            <td>29</td>
-                            <td>12</td>
-                            <td>3</td>
-                            <td>5.2</td>
-                        </tr> */}
-                        {/* <tr>
-                            <td>2</td>
-                            <td>Rohit Sharma</td>
-                            <td>52</td>
-                            <td>29</td>
-                            <td>12</td>
-                            <td>3</td>
-                            <td>5.2</td>
-                        </tr> */}
 
                     </tbody>
                 </Table>
-                <h6 className='pt-2'>Bowling Team ({currMatch?.innings[0].bowlingTeam.teamName})</h6>
+                <h6 className='pt-2'>Bowling Team ({currMatch?.teams[1]})</h6>
                 <Table>
                     <thead>
                         <tr>
@@ -86,44 +55,21 @@ function MatchScoreCard() {
                             <th>O</th>
                             <th>R</th>
                             <th>W</th>
+                            <th>WB</th>
                             <th>NB</th>
-                            <th>WD</th>
                             <th>ECO</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {BowlerData.map((bowler)=> {
-                            return (
-                                <>
-                                    <tr>
-                                        <td>{bowler.label}</td>
-                                        <td>{bowler.runsConceded}</td>
-                                        <td>{bowler.wkts}</td>
-                                        <td>{bowler.wb}</td>
-                                        <td>{bowler.nb}</td>
-                                        <td>{bowler.eco}</td>
-                                    </tr>
-                                </>
-                            )
-                        })} */}
-                        <tr>
-                            <td>Ravindra Jadeja</td>
-                            <td>3</td>
-                            <td>23</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>3.3</td>
-                        </tr>
-                        <tr>
-                            <td>Hardik Pandeya</td>
-                            <td>1</td>
-                            <td>12</td>
+                        {<tr>
+                            <td>{bowler?.label}</td>
                             <td>0</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>2.5</td>
-                        </tr>
+                            <td>{bowler?.runsConceded}</td>
+                            <td>{bowler?.wkts}</td>
+                            <td>{bowler?.WB}</td>
+                            <td>{bowler?.NB}</td>
+                            <td>{bowler?.Econ}</td>
+                        </tr>}
                     </tbody>
                 </Table>
             </div>

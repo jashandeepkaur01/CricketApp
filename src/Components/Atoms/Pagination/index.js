@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Pagination = ({ showperPage, onPaginationChanges, total }) => {
   const [counter, setCounter] = useState(1);
@@ -37,7 +37,7 @@ const Pagination = ({ showperPage, onPaginationChanges, total }) => {
           </button>
         ) : null}
         <label className="mx-5 my-2 ">{counter}</label>
-        {total > 4 && Math.ceil(total / 11) !== counter ? (
+        {Math.ceil(total / 11) !== counter ? (
           <button
             className="btn btn-outline-primary px-5"
             onClick={() => {

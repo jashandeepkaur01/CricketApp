@@ -1,13 +1,11 @@
-import React from 'react'
-import './style.css'
-function SelectPlayerModal({title,setIsShowPlayerModal,openAnotherModal,onSubmit,...props}) {
+import './style.css';
+function SelectPlayerModal({ title, setIsShowPlayerModal, openAnotherModal, onSubmit, ...props }) {
     const closeModal = () => {
         setIsShowPlayerModal(false);
-        if(openAnotherModal)
+        if (openAnotherModal)
             openAnotherModal(true);
 
     }
-    console.log(props.children);
     return (
         <>
             <div id='playerContainer' className="selectPlayerContainer shadow border rounded">
@@ -19,7 +17,7 @@ function SelectPlayerModal({title,setIsShowPlayerModal,openAnotherModal,onSubmit
                     {props.children}
                 </div>
                 <div className="selectPlayerFooter text-end">
-                    <button className='btn btn-outline-primary' id='okBtn' onClick={()=>closeModal()}>OK</button>
+                    <button className='btn btn-outline-primary' id='okBtn' onClick={() => closeModal()}>OK</button>
                 </div>
             </div>
 

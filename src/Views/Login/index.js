@@ -9,7 +9,6 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState(" ");
   const dispatch = useDispatch();
   const data = useSelector((state) => state.player.players);
-  // 6127963022
 
   function handleClick(e) {
     e.preventDefault();
