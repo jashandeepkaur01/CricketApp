@@ -1,4 +1,5 @@
 import { setLogin } from "Redux/Actions/loginActions";
+import { validPhoneNumber } from "Shared/Constants";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import './style.css';
@@ -9,16 +10,21 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState(" ");
   const dispatch = useDispatch();
   const data = useSelector((state) => state.player.players);
-
   function handleClick(e) {
     e.preventDefault();
+    const isNumberValid = validPhoneNumber.test(contact)
     let loggedInPlayerData = data.find((val) => val.PhoneNo === contact);
-    if (loggedInPlayerData) dispatch(setLogin(loggedInPlayerData));
-    else setErrorMessage("No Player Found");
+    if (isNumberValid) {
+      if (loggedInPlayerData) dispatch(setLogin(loggedInPlayerData));
+      else setErrorMessage("No Player Found");
+    }
+    else {
+      setErrorMessage('Phone number is not correct')
+    }
   }
   function checkPhoneNumber(e) {
     setContact(e);
-    setErrorMessage(" ");
+    setErrorMessage(' ');
   }
   return (
     <>

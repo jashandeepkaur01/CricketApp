@@ -1,4 +1,4 @@
-import { GETDATA, SETDATA } from "Redux/Actions/playerActions/actionStates";
+import { GET_DATA, SET_DATA } from "Redux/Actions/playerActions/actionStates";
 
 const initialData = {
   players: [],
@@ -6,9 +6,9 @@ const initialData = {
 
 const playerReducer = (data = initialData, action) => {
   switch (action.type) {
-    case GETDATA:
+    case GET_DATA:
       return data;
-    case SETDATA:
+    case SET_DATA:
       return { ...data, players: action.data.map((data) => ({ ...data })) };
 
     default:

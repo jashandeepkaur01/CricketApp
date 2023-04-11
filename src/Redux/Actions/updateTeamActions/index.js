@@ -1,7 +1,7 @@
-import { UPDATETEAM } from "./actionStates";
+import { UPDATE_TEAM } from "./actionStates";
 export const updatePlayersTeam = (data) => {
   return {
-    type: UPDATETEAM,
+    type: UPDATE_TEAM,
     data,
   };
 };

@@ -8,7 +8,6 @@ function TeamForm({ teamData, setTeamData, players, setPlayers, captain, setCapt
   const [Err2, setErr2] = useState("");
   const [Err3, setErr3] = useState("");
 
-  debugger;
   const handleInput = (data) => {
     setTeamData({
       ...teamData,
@@ -37,21 +36,23 @@ function TeamForm({ teamData, setTeamData, players, setPlayers, captain, setCapt
     }
   };
 
-  const handlePlayers = (players) => {
-    if (players.length <= 11) {
-      setPlayers(players || []);
-      setTeamData({
-        ...teamData,
-        teamPlayers: players,
-      });
+  const handlePlayers = (playersSelected) => {
+    if (playersSelected.length <= 11) {
+      setPlayers(playersSelected || []);
     }
-    if (players.length < 3) {
+    if (playersSelected.length < 3) {
       setErr2("atleast 3 players required");
       setPlayerErr(false);
     } else {
       setErr2("");
       setPlayerErr(false);
     }
+    setCaptain('');
+    setTeamData({
+      ...teamData,
+      teamPlayers: playersSelected,
+      teamCaptain: '',
+    })
   };
   const handleRadio = (event) => {
     setTeamData({

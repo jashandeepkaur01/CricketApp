@@ -1,4 +1,4 @@
-import { SETTEAMDATA } from "Redux/Actions/teamActions/actionStates";
+import { SET_TEAM_DATA } from "Redux/Actions/teamActions/actionStates";
 
 const initialData = {
   teams: [],
@@ -6,7 +6,7 @@ const initialData = {
 
 const teamReducer = (data = initialData, action) => {
   switch (action.type) {
-    case SETTEAMDATA:
+    case SET_TEAM_DATA:
       return { ...data, teams: action.data.map((data) => ({ ...data })) };
     default:
       return data;

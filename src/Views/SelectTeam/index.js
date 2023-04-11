@@ -5,6 +5,7 @@ import { addMatchData } from "Redux/Actions/matchActions";
 import { getData } from "Redux/Actions/playerActions";
 import { addTeamData } from "Redux/Actions/teamActions";
 import { updatePlayersTeam } from "Redux/Actions/updateTeamActions";
+import { inningData } from "Shared/Constants";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -155,54 +156,7 @@ function SelectTeam() {
   }
   const dateObj = new Date();
   const currentDate = dateObj.getDate() + '/' + (dateObj.getMonth() + 1) + '/' + dateObj.getFullYear();
-  const currBatsmanData = {
-    name: '',
-    key: '',
-    runs: 0,
-    ballsPlayed: 0,
-    sixes: 0,
-    fours: 0,
-    centuries: 0,
-    doubleCenturies: 0,
-    halfCenturies: 0,
-    strikeRate: 0,
-    out: {
-      outStatus: false,
-      outByBowler: '',
-      outAtBall: 0,
-    }
-  }
-  const inningData = {
-    battingTeam: {
-      teamName: '',
-      totalRuns: 0,
-      doubleCenturies: 0,
-      centuries: 0,
-      halfCenturies: 0,
-      sixes: 0,
-      fours: 0,
-      players: [],
-      wkts: 0,
-      yetToBat: [],
-      fallOfWickets: [],
-      currBatters: [currBatsmanData, currBatsmanData]
-    },
-    bowlingTeam: {
-      teamName: '',
-      currBowler: {
-        name: '',
-        wkts: 0,
-        WB: 0,
-        NB: 0,
-        Econ: 0,
-        runsConceded: 0,
-      },
-      bowler: [],
-      overs: [],
-      currOver: 0,
-      currOverBalls: [],
-    }
-  }
+
   const startMatch = () => {
     const matchData = {
       name: team.label + 'vs' + oppTeam.label,

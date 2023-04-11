@@ -3,6 +3,7 @@ import MatchControlBtn from 'Components/Atoms/MatchControlBtn';
 import NewBatsmanModal from 'Components/Atoms/NewBatsmanModal';
 import SelectPlayerModal from 'Components/Atoms/SelectBatsmanModal';
 import { getMatchData, updateCurrMatchData } from 'Redux/Actions/matchActions';
+import { controlButtons } from 'Shared/Constants';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -10,7 +11,7 @@ import Select from 'react-select';
 import './style.css';
 
 function PlayMatch() {
-    const [show, setShow] = useState(false);
+    const [isPlayersSelected, setIsPlayersSelected] = useState(false);
     const [inningCount, setInningCount] = useState(0);
     const [currScore, setCurrScore] = useState(0);
     const [displayScore, setDisplayScore] = useState(0);
@@ -41,7 +42,6 @@ function PlayMatch() {
 
     const onStrikeValue = useRef(0);
 
-    const controlButtons = [0, 1, 2, 3, 4, 6, 'NB', 'WB', 'WC', 'DB', 'Undo'];
 
     const params = useParams()
     const { matchUniqueKey } = params;
@@ -50,10 +50,8 @@ function PlayMatch() {
     const teamsData = useSelector((state) => state.team.teams);
     const currMatchData = useSelector((state) => state.match.currMatch);
 
-
     const currentGoingMatch = currMatchData.find(match => match.key === matchUniqueKey);
 
-    let isPlayersSelected = batsman1.value && batsman2.value && bowler.value;
     useEffect(() => {
         dispatch(getMatchData([]))
     }, [])
@@ -123,6 +121,7 @@ function PlayMatch() {
                 label: currentBatsmans.currBatsman2.name,
                 key: currentBatsmans.currBatsman2.key,
             })
+            setIsPlayersSelected(currentBatsmans.currBatsman1.value && currentBatsmans.currBatsman2.value && currentBowler.value)
             setDisplayBatsman1(currentBatsmans.currBatsman1);
             setDisplayBatsman2(currentBatsmans.currBatsman2);
             setBowler(currentBowler);
@@ -160,7 +159,6 @@ function PlayMatch() {
         if (isOverCompleted) {
             setTimeout(() => {
                 setIsShowBowlerModal(true);
-                isPlayersSelected = false;
                 setIsOverCompleted(false);
                 if (onStrikeValue.current) {
                     onStrikeValue.current = 0;
@@ -233,6 +231,7 @@ function PlayMatch() {
                     matchData.innings[inningCount].bowlingTeam.currBowler.wkts = 1;
                 else
                     matchData.innings[inningCount].bowlingTeam.currBowler.wkts += 1;
+
 
                 let playerOutRuns = matchData.innings[inningCount].battingTeam.currBatters[onStrike].runs;
 
@@ -376,7 +375,6 @@ function PlayMatch() {
     }
     const handleBowler = (selectedBowler) => {
         setBowler(selectedBowler);
-        isPlayersSelected = true;
     }
     const selectPlayerModal = () => {
         if (batsman1.value === '' || batsman2.value === '') {
@@ -386,6 +384,28 @@ function PlayMatch() {
     const selectBowlerModal = (e) => {
         setDisplayBowler(bowler);
         const matchInfo = currentGoingMatch;
+        debugger;
+        if (matchInfo.innings[inningCount].bowlingTeam.bowlers) {
+            const bowlerIndex = matchInfo.innings[inningCount].bowlingTeam.bowlers.findIndex((bowler) => bowler.key === matchInfo.innings[inningCount].bowlingTeam.currBowler.key)
+            if (bowlerIndex) {
+                // matchInfo.innings[inningCount].bowlingTeam = {
+                //     ...matchInfo.innings[inningCount].bowlingTeam,
+                //     bowlers: [...matchInfo.innings[inningCount].bowlingTeam.bowlers, matchInfo.innings[inningCount].bowlingTeam.currBowler]
+                // }
+                matchInfo.innings[inningCount].bowlingTeam.bowlers.push(matchInfo.innings[inningCount].bowlingTeam.currBowler)
+
+            }
+            else {
+                matchInfo.innings[inningCount].bowlingTeam.bowlers.push(matchInfo.innings[inningCount].bowlingTeam.currBowler)
+
+            }
+            console.log(matchInfo.innings[inningCount].bowlingTeam.currBowler.label + ' ' + bowlerIndex);
+        }
+        else {
+            matchInfo.innings[inningCount].bowlingTeam = {
+                bowlers: [matchInfo.innings[inningCount].bowlingTeam.currBowler]
+            }
+        }
         matchInfo.innings[inningCount].bowlingTeam.currBowler = {
             ...matchInfo.innings[inningCount].bowlingTeam.currBowler,
             label: bowler.label,
@@ -393,9 +413,14 @@ function PlayMatch() {
             value: bowler.value,
             runsConceded: 0,
             wkts: 0,
+            WB: 0,
+            NB: 0,
+            Econ: 0,
         }
+
         matchInfo.innings[inningCount].bowlingTeam.currOverBalls = [];
         dispatch(updateCurrMatchData(matchInfo))
+        setIsPlayersSelected(true);
         setCurrOver([]);
         setIsShowBowlerModal(false);
         setDisplayScore('');

@@ -1,17 +1,16 @@
 import { setMatchData } from "Redux/Actions/matchActions";
-import { ADDMATCHDATA, GETMATCHDATA, UPDATECURRMATCHDATA } from "Redux/Actions/matchActions/actionStates";
+import { ADD_MATCH_DATA, GET_MATCH_DATA, UPDATE_CURR_MATCH_DATA } from "Redux/Actions/matchActions/actionStates";
 import { setData } from "Redux/Actions/playerActions";
-import { GETDATA } from "Redux/Actions/playerActions/actionStates";
+import { GET_DATA } from "Redux/Actions/playerActions/actionStates";
 import { setTeamData } from "Redux/Actions/teamActions";
-import { ADDTEAM } from "Redux/Actions/teamActions/actionStates";
-import { UPDATETEAM } from "Redux/Actions/updateTeamActions/actionStates";
+import { ADD_TEAM } from "Redux/Actions/teamActions/actionStates";
+import { UPDATE_TEAM } from "Redux/Actions/updateTeamActions/actionStates";
+import { API, BASE_URL } from "Shared/Constants";
 import axios from "axios";
 import { all, put, takeLatest } from "redux-saga/effects";
 function* players(payload) {
   try {
-    const response = yield axios.get(
-      "https://customcricketmatch-default-rtdb.firebaseio.com/playerData.json"
-    );
+    const response = yield axios.get(BASE_URL + API.PLAYER_DATA);
     const playersDataWithKey = [];
     for (let key in response.data) {
       playersDataWithKey.push({ ...response.data[key], key: key });
@@ -26,9 +25,7 @@ function* players(payload) {
 
 function* teams(payload) {
   try {
-    const response = yield axios.get(
-      "https://customcricketmatch-default-rtdb.firebaseio.com/teamData.json"
-    );
+    const response = yield axios.get(BASE_URL + API.TEAM_DATA);
     const teamsDataWithKey = [];
     for (let key in response.data) {
       teamsDataWithKey.push({ ...response.data[key], key: key });
@@ -43,8 +40,7 @@ function* teams(payload) {
 
 function* addTeam(payload) {
   try {
-    yield axios.post(
-      "https://customcricketmatch-default-rtdb.firebaseio.com/teamData.json",
+    yield axios.post(BASE_URL + API.TEAM_DATA,
       payload.data
     );
   } catch (error) {
@@ -66,7 +62,7 @@ function* updatePlayersTeam(payload) {
       teamArr = [...playerData.Team, { ...teamObj }];
 
       return axios.patch(
-        `https://customcricketmatch-default-rtdb.firebaseio.com/playerData/${playerData.key}.json`,
+        BASE_URL + API.UPDATE_PLAYER_DATA.replace('<key>', playerData.key),
         { Team: teamArr }
       );
     });
@@ -79,8 +75,7 @@ function* updatePlayersTeam(payload) {
 }
 function* addMatch({ payload }) {
   try {
-    const response = yield axios.post(
-      "https://customcricketmatch-default-rtdb.firebaseio.com/matchData.json",
+    const response = yield axios.post(BASE_URL + API.MATCH_DATA,
       payload.data
     );
     if (payload.success) {
@@ -94,9 +89,7 @@ function* addMatch({ payload }) {
 }
 function* matchData(payload) {
   try {
-    const response = yield axios.get(
-      "https://customcricketmatch-default-rtdb.firebaseio.com/matchData.json"
-    );
+    const response = yield axios.get(BASE_URL + API.MATCH_DATA);
     const matchDataWithKey = [];
     for (let key in response.data) {
       matchDataWithKey.push({ ...response.data[key], key: key });
@@ -110,8 +103,7 @@ function* matchData(payload) {
 }
 function* updateMatchData(payload) {
   try {
-    return axios.patch(
-      `https://customcricketmatch-default-rtdb.firebaseio.com/matchData/${payload.data.key}.json`,
+    return axios.patch(BASE_URL + API.UPDATE_MATCH_DATA.replace('<key>', payload.data.key),
       payload.data
     );
   } catch (error) {
@@ -122,13 +114,13 @@ function* updateMatchData(payload) {
 }
 function* Sagaa() {
   yield all([
-    takeLatest(GETDATA, players),
-    takeLatest(GETDATA, teams),
-    takeLatest(ADDTEAM, addTeam),
-    takeLatest(UPDATETEAM, updatePlayersTeam),
-    takeLatest(ADDMATCHDATA, addMatch),
-    takeLatest(GETMATCHDATA, matchData),
-    takeLatest(UPDATECURRMATCHDATA, updateMatchData),
+    takeLatest(GET_DATA, players),
+    takeLatest(GET_DATA, teams),
+    takeLatest(ADD_TEAM, addTeam),
+    takeLatest(UPDATE_TEAM, updatePlayersTeam),
+    takeLatest(ADD_MATCH_DATA, addMatch),
+    takeLatest(GET_MATCH_DATA, matchData),
+    takeLatest(UPDATE_CURR_MATCH_DATA, updateMatchData),
   ]);
 }
 

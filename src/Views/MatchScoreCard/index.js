@@ -1,23 +1,31 @@
+import { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 function MatchScoreCard() {
+    const [inningCount, setInningCount] = useState(0);
     const params = useParams()
     const { matchUniqueKey } = params;
 
+
     const currMatches = useSelector((state) => state.match.currMatch);
     const currMatch = currMatches.find(match => match.key === matchUniqueKey);
-    const BatsmansData = currMatch?.innings[0]?.battingTeam?.currBatters;
-    const bowler = currMatch?.innings[0]?.bowlingTeam?.currBowler;
-    console.log(bowler);
-    // console.log(currMatch?.innings[0]?.bowlingTeam);
+    debugger;
+    const BatsmansData = currMatch?.innings[inningCount]?.battingTeam?.currBatters;
+    const bowler = currMatch?.innings[inningCount]?.bowlingTeam?.currBowler;
+
+    useEffect(() => {
+        if (currMatch)
+            setInningCount(currMatch.inningCount);
+    }, [currMatch])
+
     return (
         <div>
             <div className="container bg-light border border-1 border-dark rounded">
                 <h3>Scorecard</h3>
                 <h5 className='teamPlaying'>India Innings</h5>
-                <h6 className='pt-2'>Batting Team ({currMatch?.teams[0]})</h6>
+                <h6 className='pt-2'>Batting Team ({currMatch?.teams[inningCount]})</h6>
                 <Table>
                     <thead>
                         <tr>
@@ -47,7 +55,7 @@ function MatchScoreCard() {
 
                     </tbody>
                 </Table>
-                <h6 className='pt-2'>Bowling Team ({currMatch?.teams[1]})</h6>
+                <h6 className='pt-2'>Bowling Team ({currMatch?.teams[inningCount]})</h6>
                 <Table>
                     <thead>
                         <tr>

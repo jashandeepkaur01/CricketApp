@@ -1,14 +1,14 @@
-import { ADDTEAM, SETTEAMDATA } from "./actionStates";
+import { ADD_TEAM, SET_TEAM_DATA } from "./actionStates";
 
 export const setTeamData = (data) => {
     return {
-        type: SETTEAMDATA,
+        type: SET_TEAM_DATA,
         data,
     };
 };
 export const addTeamData = (data) => {
     return {
-        type: ADDTEAM,
+        type: ADD_TEAM,
         data,
     };
 };

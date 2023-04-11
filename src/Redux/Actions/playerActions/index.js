@@ -1,15 +1,15 @@
-import { GETDATA, SETDATA } from "./actionStates"
+import { GET_DATA, SET_DATA } from "./actionStates";
 
 export const getData = (data) => {
     return {
-        type: GETDATA,
+        type: GET_DATA,
         data,
     };
 };
 
 export const setData = (data) => {
     return {
-        type: SETDATA,
+        type: SET_DATA,
         data,
     };
 };
