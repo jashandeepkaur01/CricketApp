@@ -1,27 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.40811e37.chunk.css",
-    "main.js": "/static/js/main.1e0e85dc.chunk.js",
-    "main.js.map": "/static/js/main.1e0e85dc.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.b99fa094.js",
-    "runtime-main.js.map": "/static/js/runtime-main.b99fa094.js.map",
-    "static/css/2.c44a97c6.chunk.css": "/static/css/2.c44a97c6.chunk.css",
-    "static/js/2.a56f0e00.chunk.js": "/static/js/2.a56f0e00.chunk.js",
-    "static/js/2.a56f0e00.chunk.js.map": "/static/js/2.a56f0e00.chunk.js.map",
-    "static/js/3.f8315572.chunk.js": "/static/js/3.f8315572.chunk.js",
-    "static/js/3.f8315572.chunk.js.map": "/static/js/3.f8315572.chunk.js.map",
+    "main.css": "/static/css/main.7e47533e.css",
+    "main.js": "/static/js/main.fab54e7a.js",
+    "static/js/377.fadcaf1f.chunk.js": "/static/js/377.fadcaf1f.chunk.js",
+    "static/media/bootstrap-icons.woff?": "/static/media/bootstrap-icons.4753c5ba57962b4d7bf8.woff",
+    "static/media/cricketLogo.png": "/static/media/cricketLogo.ae0aab276a8e2ebd81c4.png",
+    "static/media/bootstrap-icons.woff2?": "/static/media/bootstrap-icons.6d63d0501e5ed7b79dab.woff2",
     "index.html": "/index.html",
-    "static/css/2.c44a97c6.chunk.css.map": "/static/css/2.c44a97c6.chunk.css.map",
-    "static/css/main.40811e37.chunk.css.map": "/static/css/main.40811e37.chunk.css.map",
-    "static/js/2.a56f0e00.chunk.js.LICENSE.txt": "/static/js/2.a56f0e00.chunk.js.LICENSE.txt",
-    "static/media/bootstrap-icons.css": "/static/media/bootstrap-icons.b2e5aab6.woff2",
-    "static/media/cricketLogo.ae0aab27.png": "/static/media/cricketLogo.ae0aab27.png"
+    "main.7e47533e.css.map": "/static/css/main.7e47533e.css.map",
+    "main.fab54e7a.js.map": "/static/js/main.fab54e7a.js.map",
+    "377.fadcaf1f.chunk.js.map": "/static/js/377.fadcaf1f.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.b99fa094.js",
-    "static/css/2.c44a97c6.chunk.css",
-    "static/js/2.a56f0e00.chunk.js",
-    "static/css/main.40811e37.chunk.css",
-    "static/js/main.1e0e85dc.chunk.js"
+    "static/css/main.7e47533e.css",
+    "static/js/main.fab54e7a.js"
   ]
 }

@@ -4,7 +4,6 @@ function SelectPlayerModal({ title, setIsShowPlayerModal, openAnotherModal, onSu
         setIsShowPlayerModal(false);
         if (openAnotherModal)
             openAnotherModal(true);
-
     }
     return (
         <>

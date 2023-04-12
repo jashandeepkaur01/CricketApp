@@ -71,7 +71,7 @@ function MatchScoreCard() {
                     <tbody>
                         {<tr>
                             <td>{bowler?.label}</td>
-                            <td>0</td>
+                            <td>{bowler?.oversThrown}</td>
                             <td>{bowler?.runsConceded}</td>
                             <td>{bowler?.wkts}</td>
                             <td>{bowler?.WB}</td>

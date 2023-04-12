@@ -86,6 +86,8 @@ function PlayMatch() {
                     fours: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0]?.fours,
                     sixes: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0]?.sixes,
                     halfCenturies: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0]?.halfCenturies,
+                    doubleCenturies: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0]?.doubleCenturies,
+                    centuries: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0]?.centuries,
                     strikeRate: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0].strikeRate,
                 },
                 currBatsman2: {
@@ -97,6 +99,8 @@ function PlayMatch() {
                     fours: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[1]?.fours,
                     sixes: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[1]?.sixes,
                     halfCenturies: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[1]?.halfCenturies,
+                    doubleCenturies: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0]?.doubleCenturies,
+                    centuries: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0]?.centuries,
                     strikeRate: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[1].strikeRate,
                 }
             }
@@ -110,6 +114,7 @@ function PlayMatch() {
                 WB: currentMatchData?.innings[inningCount]?.bowlingTeam?.currBowler?.WB,
                 NB: currentMatchData?.innings[inningCount]?.bowlingTeam?.currBowler?.NB,
                 Econ: currentMatchData?.innings[inningCount]?.bowlingTeam?.currBowler?.Econ,
+                oversThrown: currentMatchData?.innings[inningCount]?.bowlingTeam?.currBowler?.oversThrown,
             }
             setBatsman1({
                 value: currentBatsmans.currBatsman1.name,
@@ -183,6 +188,7 @@ function PlayMatch() {
                     setIsOverCompleted(true);
                 currentOver = parseFloat((overs + 0.5).toFixed(1))
                 setOvers(currentOver)
+                matchData.innings[inningCount].bowlingTeam.currBowler.oversThrown += 1;
             }
             else {
                 currentOver = parseFloat((overs + 0.1).toFixed(1))
@@ -220,6 +226,7 @@ function PlayMatch() {
                     setBatsman1('');
                     setIsShowNewBatsmanModal(true);
                 }
+                // on OUT , Over becomes NaN, solve that...
                 let totalWickets = wickets + 1;
                 setWickets(totalWickets)
                 setDisplayScore('OUT')
@@ -315,7 +322,7 @@ function PlayMatch() {
                 ...matchData.innings[inningCount].battingTeam.currBatters[onStrike],
                 runs: playerOnStrike.runs + btnValue,
                 ballsPlayed: playerOnStrike.ballsPlayed + 1,
-                strikeRate: parseFloat(((playerOnStrike.runs + btnValue) / (playerOnStrike.ballsPlayed + 1)).toFixed(2))
+                strikeRate: parseFloat((((playerOnStrike.runs + btnValue) * 100) / (playerOnStrike.ballsPlayed + 1)).toFixed(2))
             }
 
             if (onStrike) {
@@ -387,35 +394,82 @@ function PlayMatch() {
         debugger;
         if (matchInfo.innings[inningCount].bowlingTeam.bowlers) {
             const bowlerIndex = matchInfo.innings[inningCount].bowlingTeam.bowlers.findIndex((bowler) => bowler.key === matchInfo.innings[inningCount].bowlingTeam.currBowler.key)
-            if (bowlerIndex) {
-                // matchInfo.innings[inningCount].bowlingTeam = {
-                //     ...matchInfo.innings[inningCount].bowlingTeam,
-                //     bowlers: [...matchInfo.innings[inningCount].bowlingTeam.bowlers, matchInfo.innings[inningCount].bowlingTeam.currBowler]
-                // }
-                matchInfo.innings[inningCount].bowlingTeam.bowlers.push(matchInfo.innings[inningCount].bowlingTeam.currBowler)
-
+            if (bowlerIndex !== -1) {
+                debugger;
+                matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex] = {
+                    ...matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex],
+                    runsConceded: matchInfo.innings[inningCount].bowlingTeam.currBowler.runsConceded,
+                    wkts: matchInfo.innings[inningCount].bowlingTeam.currBowler.wkts,
+                    WB: matchInfo.innings[inningCount].bowlingTeam.currBowler.WB,
+                    NB: matchInfo.innings[inningCount].bowlingTeam.currBowler.NB,
+                    oversThrown: matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex].oversThrown + 1,
+                }
+                matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex] = {
+                    ...matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex],
+                    Econ: parseFloat((matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex].runsConceded / matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex].oversThrown).toFixed(2)),
+                }
             }
             else {
+                matchInfo.innings[inningCount].bowlingTeam.currBowler = {
+                    ...matchInfo.innings[inningCount].bowlingTeam.currBowler,
+                    Econ: parseFloat((matchInfo.innings[inningCount].bowlingTeam.currBowler.runsConceded / matchInfo.innings[inningCount].bowlingTeam.currBowler.oversThrown).toFixed(2)),
+                }
                 matchInfo.innings[inningCount].bowlingTeam.bowlers.push(matchInfo.innings[inningCount].bowlingTeam.currBowler)
-
             }
             console.log(matchInfo.innings[inningCount].bowlingTeam.currBowler.label + ' ' + bowlerIndex);
-        }
-        else {
-            matchInfo.innings[inningCount].bowlingTeam = {
-                bowlers: [matchInfo.innings[inningCount].bowlingTeam.currBowler]
+
+            let index = matchInfo.innings[inningCount].bowlingTeam.bowlers.findIndex(bowl => bowl.key === bowler.key)
+            if (index !== -1)
+                matchInfo.innings[inningCount].bowlingTeam.currBowler = {
+                    ...matchInfo.innings[inningCount].bowlingTeam.currBowler,
+                    label: bowler.label,
+                    key: bowler.key,
+                    value: bowler.value,
+                    runsConceded: matchInfo.innings[inningCount].bowlingTeam.bowlers[index].runsConceded,
+                    wkts: matchInfo.innings[inningCount].bowlingTeam.bowlers[index].wkts,
+                    WB: matchInfo.innings[inningCount].bowlingTeam.bowlers[index].WB,
+                    NB: matchInfo.innings[inningCount].bowlingTeam.bowlers[index].NB,
+                    Econ: matchInfo.innings[inningCount].bowlingTeam.bowlers[index].Econ,
+                    oversThrown: matchInfo.innings[inningCount].bowlingTeam.bowlers[index].oversThrown,
+                }
+            else {
+                matchInfo.innings[inningCount].bowlingTeam.currBowler = {
+                    ...matchInfo.innings[inningCount].bowlingTeam.currBowler,
+                    label: bowler.label,
+                    key: bowler.key,
+                    value: bowler.value,
+                    runsConceded: 0,
+                    wkts: 0,
+                    WB: 0,
+                    NB: 0,
+                    Econ: 0.00,
+                    oversThrown: 0,
+                }
             }
         }
-        matchInfo.innings[inningCount].bowlingTeam.currBowler = {
-            ...matchInfo.innings[inningCount].bowlingTeam.currBowler,
-            label: bowler.label,
-            key: bowler.key,
-            value: bowler.value,
-            runsConceded: 0,
-            wkts: 0,
-            WB: 0,
-            NB: 0,
-            Econ: 0,
+        else {
+            if (matchInfo.innings[inningCount].bowlingTeam.currBowler.label)
+                matchInfo.innings[inningCount].bowlingTeam.currBowler = {
+                    ...matchInfo.innings[inningCount].bowlingTeam.currBowler,
+                    Econ: (parseFloat(matchInfo.innings[inningCount].bowlingTeam.currBowler.runsConceded / matchInfo.innings[inningCount].bowlingTeam.currBowler.oversThrown).toFixed(2))
+                }
+            matchInfo.innings[inningCount].bowlingTeam = {
+                ...matchInfo.innings[inningCount].bowlingTeam,
+                bowlers: [matchInfo.innings[inningCount].bowlingTeam.currBowler]
+            }
+
+            matchInfo.innings[inningCount].bowlingTeam.currBowler = {
+                ...matchInfo.innings[inningCount].bowlingTeam.currBowler,
+                label: bowler.label,
+                key: bowler.key,
+                value: bowler.value,
+                runsConceded: 0,
+                wkts: 0,
+                WB: 0,
+                NB: 0,
+                Econ: 0.00,
+                oversThrown: 0,
+            }
         }
 
         matchInfo.innings[inningCount].bowlingTeam.currOverBalls = [];

@@ -1,17 +1,14 @@
-import { getMatchData } from "Redux/Actions/matchActions";
-import { getData } from "Redux/Actions/playerActions";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import AppLayout from "../Components/Core/AppLayout";
 import { AUTH_ROUTES } from "./AuthRoutes";
 import { PRIVATE_ROUTES } from "./PrivateRoutes";
 import { PUBLIC_ROUTES } from "./PublicRoutes";
 
-const DEFAULT_AUTHENTICATED_ROUTE = "/selectTeam";
+const DEFAULT_AUTHENTICATED_ROUTE = "/";
 const DEFAULT_GUEST_ROUTE = "/authmessage";
 
-const GuestRoutes = ({ token }) => {
+const GuestRoutes = () => {
   return (
     <Switch>
       {[...PUBLIC_ROUTES, ...AUTH_ROUTES].map((route, routeIdx) => (
@@ -34,21 +31,15 @@ const AuthenticatedRoutes = () => {
 };
 
 const RootRouter = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getData([]));
-    dispatch(getMatchData({}));
-  }, []);
 
   const token = useSelector((state) => state.login.loggedInPlayer);
-  const baseName = process.env.REACT_APP_BASE_NAME;
 
   return (
-    <HashRouter basename={baseName}>
+    <BrowserRouter>
       <AppLayout>
-        {token ? <AuthenticatedRoutes /> : <GuestRoutes token={token} />}
+        {token ? <AuthenticatedRoutes /> : <GuestRoutes />}
       </AppLayout>
-    </HashRouter>
+    </BrowserRouter >
   );
 };
 

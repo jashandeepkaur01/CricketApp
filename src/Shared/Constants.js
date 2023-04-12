@@ -14,8 +14,8 @@ export const API = {
 
 }
 
-export const validCharacters = /^[a-zA-Z]*$/;
-export const validPhoneNumber = /^\d{9,15}$/;
+export const validCharacters = /^[a-zA-Z]+$/;
+export const validPhoneNumber = /^\d{10}$/;
 
 export const error = "field is required";
 
@@ -186,8 +186,9 @@ export const inningData = {
       wkts: 0,
       WB: 0,
       NB: 0,
-      Econ: 0,
+      Econ: 0.00,
       runsConceded: 0,
+      oversThrown: 0,
     },
     bowlers: [],
     overs: [],

@@ -6,8 +6,8 @@ import requestSaga from "Shared/RequestSaga";
 
 function* watchAuth() {
   yield all([
-    takeLatest(LOGIN, requestSaga, login),
-    takeLatest(LOGOUT, requestSaga, logout),
+    takeLatest(LOGIN, requestSaga),
+    takeLatest(LOGOUT, requestSaga),
   ]);
 }
 

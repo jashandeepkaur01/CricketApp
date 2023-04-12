@@ -80,7 +80,7 @@ function TeamForm({ teamData, setTeamData, players, setPlayers, captain, setCapt
           <b>Select the Players</b>
         </label>
         {players.length > 10 ? (
-          <div className="text-success">11 players selected</div>
+          <div className="text-success ms-2 d-inline-block">(11 players selected)</div>
         ) : null}
         <div><span className="text-danger">{playerErr ? Error3 : Err2}</span></div>
         <br />
