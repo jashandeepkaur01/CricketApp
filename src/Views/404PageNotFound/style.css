@@ -6,12 +6,11 @@
     width: 100vw;
     margin-top: -48px;
     padding-top: 48px;
-    /* background: rgb(39, 37, 72); */
     background: linear-gradient(45deg, rgba(39, 37, 72, 1) 0%, rgba(71, 70, 186, 1) 29%, rgba(85, 85, 255, 1) 59%, rgba(92, 167, 255, 1) 100%);
 }
 
 .pageNotFoundBox {
-    height: 400px;
+    height: 450px;
     width: 700px;
     border-radius: 8px;
     background-color: white;

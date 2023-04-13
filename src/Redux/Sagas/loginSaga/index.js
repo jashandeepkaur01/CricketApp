@@ -82,7 +82,7 @@ function* addMatch({ payload }) {
       payload.success(response);
     }
   } catch (error) {
-    if (payload && payload?.fail) {
+    if (payload?.fail) {
       payload.fail(error);
     }
   }

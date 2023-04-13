@@ -28,13 +28,13 @@ export const PUBLIC_ROUTES = [
     title: "Show Team",
   },
   {
-    path: "/pageNotFound",
-    component: PageNotFound,
-    title: "Page Not"
-  },
-  {
     path: "/matchDetails",
     component: ShowAllMatches,
     title: "All Matches"
+  },
+  {
+    path: "/pageNotFound",
+    component: PageNotFound,
+    title: "Page Not Found"
   }
 ];

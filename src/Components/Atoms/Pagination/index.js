@@ -37,7 +37,7 @@ const Pagination = ({ showperPage, onPaginationChanges, total }) => {
           </button>
         ) : null}
         <label className="mx-5 my-2 ">{counter}</label>
-        {Math.ceil(total / 11) !== counter ? (
+        {Math.ceil(total / showperPage) !== counter ? (
           <button
             className="btn btn-outline-primary px-5"
             onClick={() => {

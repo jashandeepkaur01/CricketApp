@@ -55,9 +55,6 @@ function SelectTeam() {
   };
   const [players, setPlayers] = useState([loggedInPlayer]);
 
-  // const remainingPlayersData = data.filter((playerData) => {
-  //   if (playerLoggedInData.key !== playerData.key) return playerData;
-  // });
   const handleShow = () => setShowModal(true);
 
   const submitModal = () => {
@@ -178,7 +175,7 @@ function SelectTeam() {
         navigate.push("/match/" + response.data.name)
       },
       fail: () => {
-        console.warn('Cannot find page...')
+        console.warn('Cannot add matchData now. Please try sometime later...')
       }
     }))
 

@@ -1,4 +1,4 @@
-function NewBatsmanModal({ title, playerOut, setIsShowPlayerModal, onSubmit, ...props }) {
+function NewBatsmanModal({ playerOut, onSubmit, ...props }) {
     return (
         <>
             <div id='playerContainer' className="selectPlayerContainer shadow border rounded text-center">
@@ -9,7 +9,6 @@ function NewBatsmanModal({ title, playerOut, setIsShowPlayerModal, onSubmit, ...
                 <div>
                     <h5>Select Next Batsman</h5>
                 </div>
-                {/* <hr /> */}
                 <div className="selectPlayerBody">
                     {props.children}
                 </div>

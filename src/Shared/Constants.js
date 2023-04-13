@@ -12,6 +12,7 @@ export const API = {
   UPDATE_PLAYER_DATA: "playerData/<key>.json",
   UPDATE_MATCH_DATA: "matchData/<key>.json"
 }
+export const TOTAL_OVERS = 3;
 
 export const validCharacters = /^[a-zA-Z]+$/;
 export const validPhoneNumber = /^\d{10}$/;

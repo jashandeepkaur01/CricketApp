@@ -11,10 +11,11 @@ function MatchScoreCard() {
 
     const currMatches = useSelector((state) => state.match.currMatch);
     const currMatch = currMatches.find(match => match.key === matchUniqueKey);
-    debugger;
+    // debugger;
     const BatsmansData = currMatch?.innings[inningCount]?.battingTeam?.currBatters;
     const bowler = currMatch?.innings[inningCount]?.bowlingTeam?.currBowler;
-
+    // debugger;
+    console.log(inningCount)
     useEffect(() => {
         if (currMatch)
             setInningCount(currMatch.inningCount);
@@ -55,7 +56,7 @@ function MatchScoreCard() {
 
                     </tbody>
                 </Table>
-                <h6 className='pt-2'>Bowling Team ({currMatch?.teams[inningCount]})</h6>
+                <h6 className='pt-2'>Bowling Team ({currMatch?.teams[+!inningCount]})</h6>
                 <Table>
                     <thead>
                         <tr>
