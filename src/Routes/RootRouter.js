@@ -5,8 +5,8 @@ import { AUTH_ROUTES } from "./AuthRoutes";
 import { PRIVATE_ROUTES } from "./PrivateRoutes";
 import { PUBLIC_ROUTES } from "./PublicRoutes";
 
-const DEFAULT_AUTHENTICATED_ROUTE = "/";
-const DEFAULT_GUEST_ROUTE = "/authmessage";
+const DEFAULT_AUTHENTICATED_ROUTE = "/pageNotFound";
+const DEFAULT_GUEST_ROUTE = "/pageNotFound";
 
 const GuestRoutes = () => {
   return (

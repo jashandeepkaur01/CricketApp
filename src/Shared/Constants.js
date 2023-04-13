@@ -11,7 +11,6 @@ export const API = {
   MATCH_DATA: "matchData.json",
   UPDATE_PLAYER_DATA: "playerData/<key>.json",
   UPDATE_MATCH_DATA: "matchData/<key>.json"
-
 }
 
 export const validCharacters = /^[a-zA-Z]+$/;

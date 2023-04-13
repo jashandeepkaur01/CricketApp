@@ -1,5 +1,5 @@
 import './style.css';
-function SelectPlayerModal({ title, setIsShowPlayerModal, openAnotherModal, onSubmit, ...props }) {
+function SelectBatsmanModal({ title, setIsShowPlayerModal, openAnotherModal, onSubmit, ...props }) {
     const closeModal = () => {
         setIsShowPlayerModal(false);
         if (openAnotherModal)
@@ -24,4 +24,4 @@ function SelectPlayerModal({ title, setIsShowPlayerModal, openAnotherModal, onSu
     )
 }
 
-export default SelectPlayerModal;
+export default SelectBatsmanModal;

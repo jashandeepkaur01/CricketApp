@@ -1,7 +1,7 @@
-import SelectBowlerModal from 'Components/Atoms/BowlerModal';
 import MatchControlBtn from 'Components/Atoms/MatchControlBtn';
 import NewBatsmanModal from 'Components/Atoms/NewBatsmanModal';
-import SelectPlayerModal from 'Components/Atoms/SelectBatsmanModal';
+import SelectBatsmanModal from 'Components/Atoms/SelectBatsmanModal';
+import SelectBowlerModal from 'Components/Atoms/SelectBowlerModal';
 import { getMatchData, updateCurrMatchData } from 'Redux/Actions/matchActions';
 import { controlButtons } from 'Shared/Constants';
 import { useEffect, useRef, useState } from 'react';
@@ -495,7 +495,6 @@ function PlayMatch() {
             fours: 0,
             centuries: 0,
             doubleCenturies: 0,
-            centuries: 0,
             halfCenturies: 0,
             strikeRate: 0,
             out: {
@@ -534,7 +533,7 @@ function PlayMatch() {
                 </div>
                 <div className="controls d-flex justify-content-around">
                     {isShowBatsmanModal ?
-                        <SelectPlayerModal
+                        <SelectBatsmanModal
                             title='Select Batsman' setIsShowPlayerModal={setIsShowBatsmanModal} openAnotherModal={setIsShowBowlerModal} onSubmit={(e) => selectPlayerModal()}>
                             <div className="batting  w-50 mx-auto text-center">
                                 <label>Select Batsman 1</label>
@@ -543,7 +542,7 @@ function PlayMatch() {
                                 <Select options={remainingTeamPlayers} onChange={handleBatsman2} value={batsman2} />
                                 <span className="text-danger mt-2 mb-0">{errMsg}</span>
                             </div>
-                        </SelectPlayerModal> : null}
+                        </SelectBatsmanModal> : null}
                     {isShowBowlerModal ? <SelectBowlerModal title='Select Bowler' setIsShowBowlerModal={setIsShowBowlerModal} onSubmit={(e) => selectBowlerModal()}>
                         <div className="bowling w-50 mx-auto text-center">
                             <label>Select Bowler {isShowBowlerModal}</label>
