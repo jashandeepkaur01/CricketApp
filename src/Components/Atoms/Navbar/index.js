@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import "./style.css";
 import cricketLogo from "../../../Assets/Images/cricketLogo.png";
-import { useDispatch, useSelector } from "react-redux";
 import LogoutModal from "../LogoutModal";
+import "./style.css";
 
 function Navbar() {
   const [show, setShow] = useState(false);
@@ -11,7 +11,6 @@ function Navbar() {
     (state) => state.login.loggedInPlayer
   );
 
-  const dispatch = useDispatch();
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
@@ -49,30 +48,27 @@ function Navbar() {
                     </NavLink>
                   </li>
                 ) : null}
-
-
               </ul>
             </div>
             <div className="nav-rightSide">
               <ul className="navbar-nav ">
-
                 {loggedInPlayer ? (
-                  <li className="nav-item">
-                    <NavLink className="nav-NavLink " activeClassName="active" to={'/playerInfo/' + loggedInPlayer.Name}>
-                      {loggedInPlayer.Name}
-                    </NavLink>
-                  </li>
+                  <>
+                    <li className="nav-item">
+                      <NavLink className="nav-NavLink " activeClassName="active" to={'/playerInfo/' + loggedInPlayer.Name}>
+                        {loggedInPlayer.Name}
+                      </NavLink>
+                    </li>
+                    <li className="nav-item nav-login">
+                      <span className="nav-NavLink logoutBtn" onClick={handleLogout}>Logout</span>
+                    </li>
+                  </>
                 ) : null}
                 {!loggedInPlayer ? (
                   <li className="nav-item nav-login">
                     <NavLink className="nav-NavLink " to="/login">
                       Login
                     </NavLink>
-                  </li>
-                ) : null}
-                {loggedInPlayer ? (
-                  <li className="nav-item nav-login">
-                    <span className="nav-NavLink logoutBtn" onClick={handleLogout}>Logout</span>
                   </li>
                 ) : null}
 

@@ -27,7 +27,7 @@ function Carousel() {
     <div>
       <div className="main-carousel">
         <div className="d-flex justify-content-center m-5 ">
-          <div className="  m-5 w-75">
+          <div className="m-5 w-75">
             <div
               id="carouselExampleControls"
               className="carousel slide"

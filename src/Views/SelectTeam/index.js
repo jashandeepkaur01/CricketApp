@@ -1,5 +1,5 @@
+import CustomModal from "Components/Atoms/CustomModal";
 import NewTeamAdded from "Components/Atoms/NewTeamAdded";
-import CustomModal from "Components/Atoms/customModal";
 import TeamForm from "Components/Cells/addTeamForm";
 import { addMatchData } from "Redux/Actions/matchActions";
 import { getData } from "Redux/Actions/playerActions";

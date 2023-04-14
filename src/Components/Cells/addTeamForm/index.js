@@ -1,5 +1,5 @@
-import { InputField } from "Components/Atoms/customInput";
-import CreateRadio from "Components/Atoms/customRadio";
+import { InputField } from "Components/Atoms/InputField";
+import CustomRadio from "Components/Atoms/CustomRadio";
 import { useState } from "react";
 import Select from "react-select";
 
@@ -73,7 +73,7 @@ function TeamForm({ teamData, setTeamData, players, setPlayers, captain, setCapt
           <b>Select the type of team</b>
         </label>
         <br />
-        <CreateRadio values={[" IPL", " International"]} name={"Type of team"} state={teamData.teamType} setState={handleRadio} />
+        <CustomRadio values={[" IPL", " International"]} name={"Type of team"} state={teamData.teamType} setState={handleRadio} />
         <span className="text-danger">{teamTypeErr ? Error2 : null}</span>
         <br />
         <label>

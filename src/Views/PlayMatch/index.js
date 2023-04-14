@@ -3,7 +3,7 @@ import NewBatsmanModal from 'Components/Atoms/NewBatsmanModal';
 import SelectBatsmanModal from 'Components/Atoms/SelectBatsmanModal';
 import SelectBowlerModal from 'Components/Atoms/SelectBowlerModal';
 import { getMatchData, updateCurrMatchData } from 'Redux/Actions/matchActions';
-import { controlButtons } from 'Shared/Constants';
+import { TOTAL_OVERS, controlButtons } from 'Shared/Constants';
 import { UPDATE_BOWLER_DATA } from 'Shared/Utilities';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -56,19 +56,35 @@ function PlayMatch() {
     useEffect(() => {
         dispatch(getMatchData([]))
     }, [])
+
     function InningCompleted(currentMatchData) {
-        alert('First Inning Completed...');
+        setTimeout(() => {
+            alert('First Inning Completed...');
+        }, 200);
         setInningCount(1);
         currentMatchData.inningCount = 1;
-
+        UPDATE_BOWLER_DATA(inningCount, currentMatchData, bowler);
         dispatch(updateCurrMatchData(currentMatchData));
     }
+
     function MatchCompleted(currentMatchData) {
-        alert("match completed...")
+        debugger;
+        currentMatchData.isCompleted = true;
+        UPDATE_BOWLER_DATA(inningCount, currentMatchData, bowler);
+
+        if (currentMatchData.innings[0].battingTeam.totalRuns > currentMatchData.innings[1].battingTeam.totalRuns)
+            currentMatchData.wonBy = currentMatchData.teams[0];
+        else if (currentMatchData.innings[0].battingTeam.totalRuns < currentMatchData.innings[1].battingTeam.totalRuns)
+            currentMatchData.wonBy = currentMatchData.teams[1];
+        else {
+            console.log("it's a draw...");
+        }
+        alert("match completed... team " + currentMatchData.wonBy + " wins...!!!")
+
     }
+
     useEffect(() => {
         if (currentGoingMatch) {
-            console.log('currentGoingMatch...', currentGoingMatch);
             setInningCount(currentGoingMatch?.inningCount);
             debugger;
 
@@ -167,12 +183,16 @@ function PlayMatch() {
                 sixes: currentBatsmans.currBatsman2.sixes,
                 halfCenturies: currentBatsmans.currBatsman2.halfCenturies,
             })
-            if (currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0].out.outStatus) {
-                setIsShowNewBatsmanModal(true);
-                setPlayerOut(currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0].name)
-            }
-            if (currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[1].out.outStatus) {
-                setPlayerOut(currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[1].name)
+            console.log('remainingBatsmans...', remainingBatsmans);
+            if (remainingBatsmans?.length) {
+                if (currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0].out.outStatus) {
+                    setIsShowNewBatsmanModal(true);
+                    setPlayerOut(currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0].name)
+                }
+                if (currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[1].out.outStatus) {
+                    setIsShowNewBatsmanModal(true);
+                    setPlayerOut(currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[1].name)
+                }
             }
         }
     }, [currMatchData])
@@ -180,7 +200,6 @@ function PlayMatch() {
     useEffect(() => {
         if (isOverCompleted) {
             console.log(overs);
-            debugger;
             setTimeout(() => {
                 setIsShowBowlerModal(true);
                 setIsOverCompleted(false);
@@ -207,13 +226,28 @@ function PlayMatch() {
                     setIsOverCompleted(true);
                 currentOver = parseFloat((overs + 0.5).toFixed(1))
                 setOvers(currentOver)
-                matchData.innings[inningCount].bowlingTeam.currBowler.oversThrown += 1;
+                matchData.innings[inningCount].bowlingTeam.currBowler.oversThrown = parseFloat((matchData.innings[inningCount].bowlingTeam.currBowler.oversThrown + 0.5).toFixed(1));
             }
             else {
                 currentOver = parseFloat((overs + 0.1).toFixed(1))
                 setOvers(currentOver)
+                matchData.innings[inningCount].bowlingTeam.currBowler.oversThrown = parseFloat((matchData.innings[inningCount].bowlingTeam.currBowler.oversThrown + 0.1).toFixed(1));
             }
+            setBowler({
+                ...bowler,
+                oversThrown: matchData.innings[inningCount].bowlingTeam.currBowler.oversThrown,
+            })
             matchData.innings[inningCount].bowlingTeam.currOver = currentOver;
+            if (currentOver === TOTAL_OVERS) {
+                if (inningCount === 0) {
+                    InningCompleted(matchData);
+                }
+                else {
+                    MatchCompleted(matchData);
+                }
+                setIsOverCompleted(false);
+                // alert('Overs Completed...Inning Over...');
+            }
         }
         if (btnValue === 'WB' || btnValue === 'NB') {
             let currentScore = currScore + 1;
@@ -234,7 +268,6 @@ function PlayMatch() {
         }
         else if (btnValue === 'WC' || btnValue === 'DB') {
             if (btnValue === 'WC') {
-                // debugger;
                 if (onStrike) {
                     setPlayerOut(batsman2.label)
                     setBatsman2('');
@@ -242,7 +275,6 @@ function PlayMatch() {
                 else {
                     setPlayerOut(batsman1.label)
                     setBatsman1('');
-                    // setIsShowNewBatsmanModal(true);
                 }
                 if (remainingBatsmans.length !== 0) {
                     setIsShowNewBatsmanModal(true);
@@ -253,11 +285,12 @@ function PlayMatch() {
                 currentOverBalls.push('WC');
                 setCurrOver(currentOverBalls);
                 matchData.innings[inningCount].battingTeam.wkts += 1;
-                matchData.innings[inningCount].bowlingTeam.currBowler = bowler;
+                // matchData.innings[inningCount].bowlingTeam.currBowler = bowler;
                 if (matchData.innings[inningCount].bowlingTeam.currBowler.wkts === undefined)
                     matchData.innings[inningCount].bowlingTeam.currBowler.wkts = 1;
-                else
+                else {
                     matchData.innings[inningCount].bowlingTeam.currBowler.wkts += 1;
+                }
 
 
                 let playerOutRuns = matchData.innings[inningCount].battingTeam.currBatters[onStrike].runs;
@@ -292,7 +325,9 @@ function PlayMatch() {
                     ]
                 }
                 // debugger;
+                console.log(matchData);
                 if (remainingBatsmans.length === 0) {
+                    debugger;
                     if (inningCount === 0) {
                         debugger;
                         matchData.innings[inningCount].bowlingTeam.currOverBalls = currentOverBalls;
@@ -374,6 +409,12 @@ function PlayMatch() {
             }
 
         }
+        if (matchData.innings[1].battingTeam.totalRuns > matchData.innings[0].battingTeam.totalRuns) {
+            setTimeout(() => {
+                alert('Team ' + matchData.teams[inningCount] + ' wins...');
+            }, 200);
+        }
+
         matchData.innings[inningCount].bowlingTeam.currOverBalls = currentOverBalls;
         dispatch(updateCurrMatchData(matchData));
     }

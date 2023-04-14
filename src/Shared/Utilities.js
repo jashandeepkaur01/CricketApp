@@ -11,7 +11,8 @@ export const UPDATE_BOWLER_DATA = (inningCount, matchInfo, bowler) => {
                 wkts: matchInfo.innings[inningCount].bowlingTeam.currBowler.wkts,
                 WB: matchInfo.innings[inningCount].bowlingTeam.currBowler.WB,
                 NB: matchInfo.innings[inningCount].bowlingTeam.currBowler.NB,
-                oversThrown: matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex].oversThrown + 1,
+                oversThrown: matchInfo.innings[inningCount].bowlingTeam.currBowler.oversThrown,
+                // oversThrown: matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex].oversThrown + 1,
             }
             matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex] = {
                 ...matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex],

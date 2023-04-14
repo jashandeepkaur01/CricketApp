@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ListGroup } from "react-bootstrap";
-import CustomModal from "../customModal";
+import CustomModal from "../CustomModal";
 
 function TableButton(props) {
   const [showModal, setShowModal] = useState(false);

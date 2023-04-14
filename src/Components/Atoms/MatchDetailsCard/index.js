@@ -1,4 +1,3 @@
-
 function MatchDetailsCard() {
     return (
         <div className='matchDetailsCard bg-light'>

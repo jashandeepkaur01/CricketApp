@@ -1,6 +1,5 @@
-import React from "react";
+function CustomRadio({ values, name, state, setState }) {
 
-function CreateRadio({ values, name, state, setState }) {
   const handleOptionChange = (e) => {
     setState(e.target.value);
   };
@@ -26,4 +25,4 @@ function CreateRadio({ values, name, state, setState }) {
   );
 }
 
-export default CreateRadio;
+export default CustomRadio;
