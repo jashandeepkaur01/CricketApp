@@ -1,9 +1,10 @@
+import InningModal from 'Components/Atoms/InningsModal';
 import MatchControlBtn from 'Components/Atoms/MatchControlBtn';
 import NewBatsmanModal from 'Components/Atoms/NewBatsmanModal';
 import SelectBatsmanModal from 'Components/Atoms/SelectBatsmanModal';
 import SelectBowlerModal from 'Components/Atoms/SelectBowlerModal';
 import { getMatchData, updateCurrMatchData } from 'Redux/Actions/matchActions';
-import { TOTAL_OVERS, controlButtons } from 'Shared/Constants';
+import { INNING_COMPLETED, MATCH_COMPLETED, TOTAL_OVERS, controlButtons } from 'Shared/Constants';
 import { UPDATE_BOWLER_DATA } from 'Shared/Utilities';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,7 +40,9 @@ function PlayMatch() {
     const [newBatsman, setNewBatsman] = useState('');
     const [isShowNewBatsmanModal, setIsShowNewBatsmanModal] = useState(false);
     const [errMsg, setErrMsg] = useState(' ');
-
+    const [isInningCompleted, setIsInningCompleted] = useState(false);
+    const [isMatchCompleted, setIsMatchCompleted] = useState(false);
+    const [winningData, setWinningData] = useState({});
 
     const onStrikeValue = useRef(0);
 
@@ -48,7 +51,7 @@ function PlayMatch() {
     const { matchUniqueKey } = params;
 
     const dispatch = useDispatch();
-    const teamsData = useSelector((state) => state.team.teams);
+    // const teamsData = useSelector((state) => state.team.teams);
     const currMatchData = useSelector((state) => state.match.currMatch);
 
     const currentGoingMatch = currMatchData.find(match => match.key === matchUniqueKey);
@@ -58,11 +61,12 @@ function PlayMatch() {
     }, [])
 
     function InningCompleted(currentMatchData) {
-        setTimeout(() => {
-            alert('First Inning Completed...');
-        }, 200);
-        setInningCount(1);
-        currentMatchData.inningCount = 1;
+        // setTimeout(() => {
+        //     alert('First Inning Completed...');
+        // }, 200);
+        setIsInningCompleted(true);
+        // setInningCount(1);
+        // currentMatchData.inningCount = 1;
         UPDATE_BOWLER_DATA(inningCount, currentMatchData, bowler);
         dispatch(updateCurrMatchData(currentMatchData));
     }
@@ -72,15 +76,24 @@ function PlayMatch() {
         currentMatchData.isCompleted = true;
         UPDATE_BOWLER_DATA(inningCount, currentMatchData, bowler);
 
-        if (currentMatchData.innings[0].battingTeam.totalRuns > currentMatchData.innings[1].battingTeam.totalRuns)
+        if (currentMatchData.innings[0].battingTeam.totalRuns > currentMatchData.innings[1].battingTeam.totalRuns) {
             currentMatchData.wonBy = currentMatchData.teams[0];
-        else if (currentMatchData.innings[0].battingTeam.totalRuns < currentMatchData.innings[1].battingTeam.totalRuns)
+            setWinningData({
+                winningTeam: currentMatchData.teams[0],
+                winningDifference: ((currentMatchData.innings[0].battingTeam.totalRuns - currentMatchData.innings[1].battingTeam.totalRuns) + ' runs ')
+            })
+        }
+        else if (currentMatchData.innings[0].battingTeam.totalRuns < currentMatchData.innings[1].battingTeam.totalRuns) {
             currentMatchData.wonBy = currentMatchData.teams[1];
+            setWinningData({
+                winningTeam: currentMatchData.teams[1],
+                winningDifference: ((currentMatchData.innings[1].battingTeam.teamPlayers.length - currentMatchData.innings[1].battingTeam.wkts - 1) + ' wickets '),
+            })
+        }
         else {
             console.log("it's a draw...");
         }
-        alert("match completed... team " + currentMatchData.wonBy + " wins...!!!")
-
+        setIsMatchCompleted(true);
     }
 
     useEffect(() => {
@@ -238,16 +251,7 @@ function PlayMatch() {
                 oversThrown: matchData.innings[inningCount].bowlingTeam.currBowler.oversThrown,
             })
             matchData.innings[inningCount].bowlingTeam.currOver = currentOver;
-            if (currentOver === TOTAL_OVERS) {
-                if (inningCount === 0) {
-                    InningCompleted(matchData);
-                }
-                else {
-                    MatchCompleted(matchData);
-                }
-                setIsOverCompleted(false);
-                // alert('Overs Completed...Inning Over...');
-            }
+
         }
         if (btnValue === 'WB' || btnValue === 'NB') {
             let currentScore = currScore + 1;
@@ -409,10 +413,21 @@ function PlayMatch() {
             }
 
         }
+        if (matchData.innings[inningCount].bowlingTeam.currOver === TOTAL_OVERS) {
+            if (inningCount === 0) {
+                InningCompleted(matchData);
+            }
+            else {
+                MatchCompleted(matchData);
+            }
+            setIsOverCompleted(false);
+        }
         if (matchData.innings[1].battingTeam.totalRuns > matchData.innings[0].battingTeam.totalRuns) {
-            setTimeout(() => {
-                alert('Team ' + matchData.teams[inningCount] + ' wins...');
-            }, 200);
+            // setTimeout(() => {
+            //     alert('Team ' + matchData.teams[inningCount] + ' wins...');
+            // }, 200);
+            // winningDifference = 10 - matchData.innings[1].battingTeam.wkts;
+            MatchCompleted(matchData);
         }
 
         matchData.innings[inningCount].bowlingTeam.currOverBalls = currentOverBalls;
@@ -521,6 +536,7 @@ function PlayMatch() {
                     <div className="displayRight">
                         <p>{(displayBowler.value) ? 'Bowler: ' + displayBowler.value : '(Select Bowler)'}</p>
                         <p>Over: {currOver.map(currBall => currBall + ' ')}</p>
+                        {inningCount ? <p>Target : {currentGoingMatch.innings[0].battingTeam.totalRuns + 1}</p> : null}
                     </div>
                 </div>
                 <div className="controls d-flex justify-content-around">
@@ -548,6 +564,12 @@ function PlayMatch() {
                                 <Select options={remainingBatsmans} onChange={handleNewBatsman} value={newBatsman} />
                             </div>
                         </NewBatsmanModal> : null}
+                    {isInningCompleted ?
+                        <InningModal title={INNING_COMPLETED} currentMatchData={currentGoingMatch} setIsShowInningModal={setIsInningCompleted} inningCount={inningCount} setInningCount={setInningCount} setCurrOver={setCurrOver} />
+                        : null}
+                    {isMatchCompleted ?
+                        <InningModal title={MATCH_COMPLETED} data={currentGoingMatch} setIsShowInningModal={setIsMatchCompleted} inningCount={inningCount} setInningCount={setInningCount} setCurrOver={setCurrOver} winningData={winningData} />
+                        : null}
                     {isPlayersSelected ?
                         <div className="control-box text-center">
                             {controlButtons.map(controlButton => {

@@ -1,5 +1,5 @@
 import { setMatchData } from "Redux/Actions/matchActions";
-import { ADD_MATCH_DATA, GET_MATCH_DATA, UPDATE_CURR_MATCH_DATA } from "Redux/Actions/matchActions/actionStates";
+import { ADD_MATCH_DATA, GET_MATCH_DATA, SAVE_CURR_MATCH_DATA, UPDATE_CURR_MATCH_DATA } from "Redux/Actions/matchActions/actionStates";
 import { setData } from "Redux/Actions/playerActions";
 import { GET_DATA } from "Redux/Actions/playerActions/actionStates";
 import { setTeamData } from "Redux/Actions/teamActions";
@@ -112,6 +112,17 @@ function* updateMatchData(payload) {
     }
   }
 }
+function* saveMatchData(payload) {
+  try {
+    yield axios.post(BASE_URL + API.MATCHES,
+      payload.data
+    );
+  } catch (error) {
+    if (payload && payload?.fail) {
+      payload.fail(error);
+    }
+  }
+}
 function* Sagaa() {
   yield all([
     takeLatest(GET_DATA, players),
@@ -121,6 +132,7 @@ function* Sagaa() {
     takeLatest(ADD_MATCH_DATA, addMatch),
     takeLatest(GET_MATCH_DATA, matchData),
     takeLatest(UPDATE_CURR_MATCH_DATA, updateMatchData),
+    takeLatest(SAVE_CURR_MATCH_DATA, saveMatchData),
   ]);
 }
 

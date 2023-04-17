@@ -10,9 +10,12 @@ export const API = {
   TEAM_DATA: "teamData.json",
   MATCH_DATA: "matchData.json",
   UPDATE_PLAYER_DATA: "playerData/<key>.json",
-  UPDATE_MATCH_DATA: "matchData/<key>.json"
+  UPDATE_MATCH_DATA: "matchData/<key>.json",
+  MATCHES: "matches.json"
 }
-export const TOTAL_OVERS = 3;
+export const TOTAL_OVERS = 2;
+export const INNING_COMPLETED = "Inning 1 is Completed....!!!";
+export const MATCH_COMPLETED = "Match is Completed...!!!";
 
 export const validCharacters = /^[a-zA-Z]+$/;
 export const validPhoneNumber = /^\d{10}$/;

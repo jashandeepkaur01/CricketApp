@@ -1,4 +1,3 @@
-import PageNotFound from "Views/404PageNotFound";
 import AuthMessage from "Views/AuthMessage";
 import Login from "Views/Login";
 
