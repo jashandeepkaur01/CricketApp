@@ -2,7 +2,7 @@ import { saveMatchData, updateCurrMatchData } from "Redux/Actions/matchActions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-function InningModal({ title, currentMatchData, inningCount, setInningCount, setCurrOver, winningData, setIsShowInningModal }) {
+function InningModal({ title, currentMatchData, inningCount, setInningCount, setCurrOver, winningData, setIsShowInningModal, isMatchCompleted }) {
     const dispatch = useDispatch();
     const ButtonText = inningCount ? 'Back' : 'Start';
     const navigate = useHistory();
@@ -21,6 +21,12 @@ function InningModal({ title, currentMatchData, inningCount, setInningCount, set
             currentMatchData.innings[inningCount].bowlingTeam.currOverBalls = [];
             dispatch(updateCurrMatchData(currentMatchData));
         }
+    }
+    function showMatchDetails() {
+        console.log('match is finally over now');
+        console.log(currentMatchData.name + currentMatchData.key)
+        navigate.push("/matchInfo/" + currentMatchData.name + "/" + currentMatchData.key);
+        dispatch(updateCurrMatchData(currentMatchData));
     }
     return (
         <>
@@ -45,6 +51,7 @@ function InningModal({ title, currentMatchData, inningCount, setInningCount, set
                     </div>
                 }
                 <div className="selectPlayerFooter text-end">
+                    {isMatchCompleted ? <button className="btn btn-primary me-2" onClick={() => showMatchDetails()}>View Match Details</button> : null}
                     <button className='btn btn-outline-primary' id='okBtn' onClick={() => closeModal()}>{ButtonText}</button>
                 </div>
             </div>

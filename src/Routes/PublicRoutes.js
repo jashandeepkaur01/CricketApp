@@ -1,4 +1,5 @@
 import PageNotFound from "Views/404PageNotFound";
+import MatchInfo from "Views/MatchInfo";
 import PlayerInfo from "Views/PlayerInfo";
 import ShowAllMatches from "Views/ShowAllMatches";
 import Home from "../Views/Home";
@@ -28,9 +29,14 @@ export const PUBLIC_ROUTES = [
     title: "Show Team",
   },
   {
-    path: "/matchDetails",
+    path: "/allMatchDetails/",
     component: ShowAllMatches,
     title: "All Matches"
+  },
+  {
+    path: "/matchInfo/:matchName/:matchKey",
+    component: MatchInfo,
+    title: "MatchInfo"
   },
   {
     path: "/pageNotFound",

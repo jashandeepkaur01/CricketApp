@@ -82,3 +82,70 @@ export const UPDATE_BOWLER_DATA = (inningCount, matchInfo, bowler) => {
     }
     return matchInfo;
 }
+
+export const CALC_PARTNERSHIP = (currBatters, onStrike, previousData) => {
+    let player1Runs = currBatters[0].runs;
+    let player2Runs = currBatters[1].runs;
+    let player1Balls = currBatters[0].ballsPlayed;
+    let player2Balls = currBatters[1].ballsPlayed;
+    let prevRuns = previousData.runs;
+    let prevBalls = previousData.balls;
+    let totalRuns = player1Runs + player2Runs - prevRuns;
+    let totalBalls = player1Balls + player2Balls - prevBalls;
+
+    if (previousData.strike) {
+        player1Runs = player1Runs - previousData.runs;
+        player1Balls = player1Balls - previousData.balls;
+    }
+    else {
+        player2Runs = player2Runs - previousData.runs;
+        player2Balls = player2Runs - previousData.balls;
+    }
+
+    let partnershipObj = {
+        totalRuns: totalRuns,
+        totalBalls: totalBalls,
+        player1: {
+            name: currBatters[0].name,
+            runs: player1Runs,
+            ballsPlayed: player1Balls,
+        },
+        player2: {
+            name: currBatters[1].name,
+            runs: player2Runs,
+            ballsPlayed: player2Balls,
+        }
+    }
+    return partnershipObj;
+}
+export const PARTNERSHIP = (matchData, onStrike, inningCount, previousData, setPreviousData) => {
+    let currPartnership = CALC_PARTNERSHIP(matchData.innings[inningCount].battingTeam.currBatters, onStrike, previousData);
+    // setPreviousRuns(matchData.innings[inningCount].battingTeam.currBatters[+!onStrike].runs);
+    setPreviousData({
+        runs: matchData.innings[inningCount].battingTeam.currBatters[+!onStrike].runs,
+        balls: matchData.innings[inningCount].battingTeam.currBatters[+!onStrike].ballsPlayed,
+        strike: onStrike,
+    })
+    matchData.innings[inningCount].battingTeam = {
+        ...matchData.innings[inningCount].battingTeam,
+        partnership: matchData.innings[inningCount].battingTeam.partnership ?
+            [...matchData.innings[inningCount].battingTeam.partnership, currPartnership] :
+            [currPartnership]
+    }
+    console.log(currPartnership);
+    console.log(previousData);
+}
+export const addPlayersPlayed = (matchData, inningCount, onStrike) => {
+    if (matchData.innings[inningCount].battingTeam.playersPlayed === undefined)
+        matchData.innings[inningCount].battingTeam.playersPlayed = [matchData.innings[inningCount].battingTeam.currBatters[onStrike]];
+    else {
+        matchData.innings[inningCount].battingTeam.playersPlayed = [
+            ...matchData.innings[inningCount].battingTeam.playersPlayed,
+            matchData.innings[inningCount].battingTeam.currBatters[onStrike]
+        ]
+    }
+}
+export const addCurrentPlayers = (matchData, inningCount) => {
+    addPlayersPlayed(matchData, inningCount, 0);
+    addPlayersPlayed(matchData, inningCount, 1);
+}

@@ -13,7 +13,7 @@ export const API = {
   UPDATE_MATCH_DATA: "matchData/<key>.json",
   MATCHES: "matches.json"
 }
-export const TOTAL_OVERS = 5;
+export const TOTAL_OVERS = 4;
 export const INNING_COMPLETED = "Inning 1 is Completed....!!!";
 export const MATCH_COMPLETED = "Match is Completed...!!!";
 

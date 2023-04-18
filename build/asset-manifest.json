@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.6b1da16b.css",
-    "main.js": "/static/js/main.549c88a4.js",
+    "main.css": "/static/css/main.6f37760b.css",
+    "main.js": "/static/js/main.f36ab4d3.js",
     "static/js/377.fadcaf1f.chunk.js": "/static/js/377.fadcaf1f.chunk.js",
     "static/media/bootstrap-icons.woff?": "/static/media/bootstrap-icons.4753c5ba57962b4d7bf8.woff",
     "static/media/cricketLogo.png": "/static/media/cricketLogo.ae0aab276a8e2ebd81c4.png",
     "static/media/bootstrap-icons.woff2?": "/static/media/bootstrap-icons.6d63d0501e5ed7b79dab.woff2",
     "index.html": "/index.html",
-    "main.6b1da16b.css.map": "/static/css/main.6b1da16b.css.map",
-    "main.549c88a4.js.map": "/static/js/main.549c88a4.js.map",
+    "main.6f37760b.css.map": "/static/css/main.6f37760b.css.map",
+    "main.f36ab4d3.js.map": "/static/js/main.f36ab4d3.js.map",
     "377.fadcaf1f.chunk.js.map": "/static/js/377.fadcaf1f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6b1da16b.css",
-    "static/js/main.549c88a4.js"
+    "static/css/main.6f37760b.css",
+    "static/js/main.f36ab4d3.js"
   ]
 }

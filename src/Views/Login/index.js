@@ -18,7 +18,7 @@ const Login = () => {
     let loggedInPlayerData = data.find((val) => val.PhoneNo === contact);
     if (isNumberValid) {
       if (loggedInPlayerData) {
-        navigate.push('/selectTeam');
+        navigate.replace('/selectTeam');
         dispatch(setLogin(loggedInPlayerData));
 
       }
