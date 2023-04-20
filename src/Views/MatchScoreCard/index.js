@@ -1,3 +1,4 @@
+import { bowlingScoreCardHeading } from 'Shared/Constants';
 import { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
@@ -11,11 +12,8 @@ function MatchScoreCard() {
 
     const currMatches = useSelector((state) => state.match.currMatch);
     const currMatch = currMatches.find(match => match.key === matchUniqueKey);
-    // debugger;
     const BatsmansData = currMatch?.innings[inningCount]?.battingTeam?.currBatters;
     const bowler = currMatch?.innings[inningCount]?.bowlingTeam?.currBowler;
-    // debugger;
-    console.log(inningCount)
     useEffect(() => {
         if (currMatch)
             setInningCount(currMatch.inningCount);
@@ -60,13 +58,14 @@ function MatchScoreCard() {
                 <Table>
                     <thead>
                         <tr>
-                            <th>Bowler</th>
+                            {bowlingScoreCardHeading.map(heading => <th>{heading}</th>)}
+                            {/* <th>Bowler</th>
                             <th>O</th>
                             <th>R</th>
                             <th>W</th>
                             <th>WB</th>
                             <th>NB</th>
-                            <th>ECO</th>
+                            <th>ECO</th> */}
                         </tr>
                     </thead>
                     <tbody>

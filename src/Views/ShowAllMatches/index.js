@@ -1,10 +1,9 @@
-import MatchDetails from 'Views/MatchDetails'
-import React from 'react'
+import PastMatchDetails from 'Views/PastMatchDetails'
 
 function ShowAllMatches() {
     return (
         <div>
-            <MatchDetails></MatchDetails>
+            <PastMatchDetails></PastMatchDetails>
         </div>
     )
 }

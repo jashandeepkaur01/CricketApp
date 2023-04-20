@@ -148,7 +148,8 @@ export const bowlingSummaryHeading = [
     key: "econ",
   },
 ]
-
+export const battingScoreCardHeading = ['Batter', '', 'R', 'B', '4s', '6s', 'SR'];
+export const bowlingScoreCardHeading = ['Bowler', 'O', 'R', 'W', 'NB', 'WB', 'Eco'];
 export const controlButtons = [0, 1, 2, 3, 4, 6, 'NB', 'WB', 'WC', 'DB', 'Undo'];
 
 const currBatsmanData = {
@@ -158,6 +159,8 @@ const currBatsmanData = {
   ballsPlayed: 0,
   sixes: 0,
   fours: 0,
+  threes: 0,
+  twos: 0,
   centuries: 0,
   doubleCenturies: 0,
   halfCenturies: 0,
@@ -177,6 +180,8 @@ export const inningData = {
     halfCenturies: 0,
     sixes: 0,
     fours: 0,
+    threes: 0,
+    twos: 0,
     players: [],
     wkts: 0,
     yetToBat: [],

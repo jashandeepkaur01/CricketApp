@@ -88,10 +88,9 @@ function PlayMatch() {
             balls: 0,
             strike: 0
         })
-        // PARTNERSHIP(currentMatchData, onStrike, inningCount, previousData, setPreviousData)
-
 
         if (currentMatchData.innings[0].battingTeam.totalRuns > currentMatchData.innings[1].battingTeam.totalRuns) {
+            currentMatchData.status = currentMatchData.teams[0] + ' won by ' + (currentMatchData.innings[0].battingTeam.totalRuns - currentMatchData.innings[1].battingTeam.totalRuns) + ' runs.'
             currentMatchData.wonBy = currentMatchData.teams[0];
             setWinningData({
                 winningTeam: currentMatchData.teams[0],
@@ -99,6 +98,7 @@ function PlayMatch() {
             })
         }
         else if (currentMatchData.innings[0].battingTeam.totalRuns < currentMatchData.innings[1].battingTeam.totalRuns) {
+            currentMatchData.status = currentMatchData.teams[1] + ' won by ' + (currentMatchData.innings[1].battingTeam.teamPlayers.length - 1 - currentMatchData.innings[1].battingTeam.wkts) + ' wickets.'
             currentMatchData.wonBy = currentMatchData.teams[1];
             setWinningData({
                 winningTeam: currentMatchData.teams[1],
@@ -106,7 +106,7 @@ function PlayMatch() {
             })
         }
         else {
-            console.log("it's a draw...");
+            alert('It is a draw.')
         }
         setIsMatchCompleted(true);
     }
@@ -160,9 +160,10 @@ function PlayMatch() {
                     fours: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[1]?.fours,
                     sixes: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[1]?.sixes,
                     halfCenturies: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[1]?.halfCenturies,
-                    doubleCenturies: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0]?.doubleCenturies,
-                    centuries: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0]?.centuries,
+                    doubleCenturies: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[1]?.doubleCenturies,
+                    centuries: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[1]?.centuries,
                     strikeRate: currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[1].strikeRate,
+
                 }
             }
             const currentBowler = {
@@ -211,7 +212,6 @@ function PlayMatch() {
                 sixes: currentBatsmans.currBatsman2.sixes,
                 halfCenturies: currentBatsmans.currBatsman2.halfCenturies,
             })
-            console.log('remainingBatsmans...', remainingBatsmans);
             if (remainingBatsmans?.length) {
                 if (currentMatchData?.innings[inningCount]?.battingTeam?.currBatters[0].out.outStatus) {
                     setIsShowNewBatsmanModal(true);
@@ -321,7 +321,9 @@ function PlayMatch() {
                 setCurrOver(currentOverBalls);
                 matchData.innings[inningCount].battingTeam.wkts += 1;
                 matchData.innings[inningCount].battingTeam.currBatters[onStrike].ballsPlayed += 1;
-                // matchData.innings[inningCount].bowlingTeam.currBowler = bowler;
+                matchData.innings[inningCount].battingTeam.currBatters[onStrike].teamRuns = matchData.innings[inningCount].battingTeam.totalRuns;
+                matchData.innings[inningCount].battingTeam.currBatters[onStrike].wktCount = matchData.innings[inningCount].battingTeam.wkts;
+
                 if (matchData.innings[inningCount].bowlingTeam.currBowler.wkts === undefined)
                     matchData.innings[inningCount].bowlingTeam.currBowler.wkts = 1;
                 else {
@@ -489,13 +491,14 @@ function PlayMatch() {
                 shot = 'threes';
             }
 
-            if (btnValue === 4 || btnValue === 6) {
+            if (btnValue === 4 || btnValue === 6 || btnValue === 2 || btnValue === 3) {
+                matchData.innings[inningCount].battingTeam[shot] += 1;
                 matchData.innings[inningCount].battingTeam.currBatters[onStrike][shot] += 1;
                 matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)][shot] += 1;
             }
-            else if (btnValue === 2 || btnValue === 3) {
-                matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)][shot] += 1;
-            }
+            // else if (btnValue === 2 || btnValue === 3) {
+            //     matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)][shot] += 1;
+            // }
 
             let playerOnStrike = matchData.innings[inningCount].battingTeam.currBatters[onStrike];
             matchData.innings[inningCount].battingTeam.currBatters[onStrike] = {

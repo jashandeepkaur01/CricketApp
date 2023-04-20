@@ -132,8 +132,6 @@ export const PARTNERSHIP = (matchData, onStrike, inningCount, previousData, setP
             [...matchData.innings[inningCount].battingTeam.partnership, currPartnership] :
             [currPartnership]
     }
-    console.log(currPartnership);
-    console.log(previousData);
 }
 export const addPlayersPlayed = (matchData, inningCount, onStrike) => {
     if (matchData.innings[inningCount].battingTeam.playersPlayed === undefined)

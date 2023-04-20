@@ -1,4 +1,4 @@
-function MatchDetailsCard() {
+function PastMatchDetailsCard() {
     return (
         <div className='matchDetailsCard bg-light'>
             <h3>MI vs CSK</h3>
@@ -8,4 +8,4 @@ function MatchDetailsCard() {
     )
 }
 
-export default MatchDetailsCard;
+export default PastMatchDetailsCard;
