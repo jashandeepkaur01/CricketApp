@@ -13,7 +13,7 @@ export const API = {
   UPDATE_MATCH_DATA: "matchData/<key>.json",
   MATCHES: "matches.json"
 }
-export const TOTAL_OVERS = 4;
+export const TOTAL_OVERS = 12;
 export const INNING_COMPLETED = "Inning 1 is Completed....!!!";
 export const MATCH_COMPLETED = "Match is Completed...!!!";
 
@@ -150,7 +150,7 @@ export const bowlingSummaryHeading = [
 ]
 export const battingScoreCardHeading = ['Batter', '', 'R', 'B', '4s', '6s', 'SR'];
 export const bowlingScoreCardHeading = ['Bowler', 'O', 'R', 'W', 'NB', 'WB', 'Eco'];
-export const controlButtons = [0, 1, 2, 3, 4, 6, 'NB', 'WB', 'WC', 'DB', 'Undo'];
+export const controlButtons = [0, 1, 2, 3, 4, 6, 'NB', 'WB', 'WC', 'DB'];
 
 const currBatsmanData = {
   name: '',

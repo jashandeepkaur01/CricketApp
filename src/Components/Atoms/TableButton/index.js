@@ -25,8 +25,8 @@ function TableButton(props) {
         onSubmitModal={submitModal}
       >
         <ListGroup as="ol" numbered>
-          {props.data.map((element) => (
-            <ListGroup.Item as="li">{element.value}</ListGroup.Item>
+          {props.data.map((element, index) => (
+            <ListGroup.Item as="li" key={index}>{element.value}</ListGroup.Item>
           ))}
         </ListGroup>
       </CustomModal>

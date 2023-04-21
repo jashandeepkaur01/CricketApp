@@ -43,6 +43,8 @@ function PlayMatch() {
     const [isInningCompleted, setIsInningCompleted] = useState(false);
     const [isMatchCompleted, setIsMatchCompleted] = useState(false);
     const [winningData, setWinningData] = useState({});
+    const [isBowlerSelected, setIsBowlerSelected] = useState(false);
+    const [bowlerNotSelectedErr, setBowlerNotSelectedErr] = useState('');
     const onStrikeValue = useRef(0);
     // const [previousRuns, setPreviousRuns] = useState(0);
 
@@ -57,7 +59,6 @@ function PlayMatch() {
     const { matchUniqueKey } = params;
 
     const dispatch = useDispatch();
-    // const teamsData = useSelector((state) => state.team.teams);
     const currMatchData = useSelector((state) => state.match.currMatch);
 
     const currentGoingMatch = currMatchData.find(match => match.key === matchUniqueKey);
@@ -70,16 +71,10 @@ function PlayMatch() {
         setIsInningCompleted(true);
         addCurrentPlayers(currentMatchData, inningCount);
         UPDATE_BOWLER_DATA(inningCount, currentMatchData, bowler);
-        setPreviousData({
-            runs: 0,
-            balls: 0,
-            strike: 0
-        })
         dispatch(updateCurrMatchData(currentMatchData));
     }
 
     function MatchCompleted(currentMatchData) {
-        // debugger;
         currentMatchData.isCompleted = true;
         addCurrentPlayers(currentMatchData, inningCount);
         UPDATE_BOWLER_DATA(inningCount, currentMatchData, bowler);
@@ -228,6 +223,11 @@ function PlayMatch() {
     useEffect(() => {
         if (isOverCompleted) {
             console.log(overs);
+            console.log(bowler);
+            console.log(oppTeamPlayers);
+            setBowler('');
+            setOppTeamPlayers(oppTeamPlayers.filter(players => players.key !== bowler.key));
+            debugger;
             setTimeout(() => {
                 setIsShowBowlerModal(true);
                 setIsOverCompleted(false);
@@ -274,18 +274,6 @@ function PlayMatch() {
             if (btnValue === 'WB') {
                 setDisplayScore('Wide Ball')
                 currentOverBalls.push('WB');
-                // matchData.innings[inningCount].bowlingTeam.totalOvers[overs] = {
-                //     ...matchData.innings[inningCount].bowlingTeam.totalOvers[overs],
-                //     runs: matchData.innings[inningCount].bowlingTeam.totalOvers[overs] + 1,
-                //     // balls: matchData.innings[inningCount].bowlingTeam.totalOvers[overs].balls.push('WB'),
-                // }
-
-                // [
-                //     ...matchData.innings[inningCount].bowlingTeam.balls,
-                //     matchData.innings[inningCount].bowlingTeam.balls[overs] = {
-
-                //     }
-                // ]
                 setCurrOver(currentOverBalls)
                 matchData.innings[inningCount].bowlingTeam.currBowler.WB += 1;
             }
@@ -295,10 +283,6 @@ function PlayMatch() {
                 setCurrOver(currentOverBalls)
                 matchData.innings[inningCount].bowlingTeam.currBowler.NB += 1;
             }
-            // matchData.innings[inningCount].bowlingTeam.totalOvers[overs] = {
-            //     ...matchData.innings[inningCount].bowlingTeam.totalOvers[overs],
-            //     runs: matchData.innings[inningCount].bowlingTeam.totalOvers[overs] + 1,
-            // }
             matchData.innings[inningCount].battingTeam.totalRuns = currentScore;
         }
         else if (btnValue === 'WC' || btnValue === 'DB') {
@@ -355,82 +339,10 @@ function PlayMatch() {
                     }
                 }
                 addPlayersPlayed(matchData, inningCount, onStrike)
-                // if (matchData.innings[inningCount].battingTeam.playersPlayed === undefined)
-                //     matchData.innings[inningCount].battingTeam.playersPlayed = [matchData.innings[inningCount].battingTeam.currBatters[onStrike]];
-                // else {
-                //     matchData.innings[inningCount].battingTeam.playersPlayed = [
-                //         ...matchData.innings[inningCount].battingTeam.playersPlayed,
-                //         matchData.innings[inningCount].battingTeam.currBatters[onStrike]
-                //     ]
-                // }
 
                 console.log(matchData.innings[inningCount].battingTeam.currBatters[onStrike])
                 debugger;
-                // let partnership = {
-                //     totalRuns: 0,
-                //     prevRuns: matchData.innings[inningCount].battingTeam.currBatters[+!onStrike].runs,
-                // }
                 PARTNERSHIP(matchData, onStrike, inningCount, previousData, setPreviousData)
-                // let currPartnership = CALC_PARTNERSHIP(matchData.innings[inningCount].battingTeam.currBatters, onStrike, previousData);
-                // // setPreviousRuns(matchData.innings[inningCount].battingTeam.currBatters[+!onStrike].runs);
-                // setPreviousData({
-                //     runs: matchData.innings[inningCount].battingTeam.currBatters[+!onStrike].runs,
-                //     balls: matchData.innings[inningCount].battingTeam.currBatters[+!onStrike].ballsPlayed,
-                //     strike: onStrike,
-                // })
-                // matchData.innings[inningCount].battingTeam = {
-                //     ...matchData.innings[inningCount].battingTeam,
-                //     partnership: matchData.innings[inningCount].battingTeam.partnership ?
-                //         [...matchData.innings[inningCount].battingTeam.partnership, currPartnership] :
-                //         [currPartnership]
-                // }
-                // console.log(currPartnership);
-                // console.log(previousData);
-
-                // matchData.innings[inningCount].battingTeam = {
-                //     ...matchData.innings[inningCount].battingTeam,
-                //     partnership: matchData.innings[inningCount].battingTeam.partnership ?
-                //         matchData.innings[inningCount].battingTeam.partnership = [
-                //             ...matchData.innings[inningCount].battingTeam.partnership,
-                //             {
-                //                 // playerOutRuns: matchData.innings[inningCount].battingTeam.currBatters[onStrike].runs,
-                //                 // // playerOutBalls: matchData.innings[inningCount].battingTeam.currBatters[onStrike].ballsPlayed,
-                //                 // anotherPlayerRuns: matchData.innings[inningCount].battingTeam.currBatters[+!onStrike].runs,
-                //                 // // anotherPlayerBalls: matchData.innings[inningCount].battingTeam.currBatters[+!onStrike].ballsPlayed,
-                //                 // tempRuns: 0,
-                //                 // // tempBalls: 0,
-                //                 // totalRuns: 0,
-                //                 // // totalBalls: 0,
-                //                 // currentRuns: [matchData.innings[inningCount].battingTeam.currBatters[0].runs, matchData.innings[inningCount].battingTeam.currBatters[1].runs],
-                //                 // previousRuns: [0, 0],
-                //                 // partnership: [(matchData.innings[inningCount].battingTeam.currBatters[0].runs)]
-
-
-
-                //                 firstPlayerCurrentRuns: matchData.innings[inningCount].battingTeam.currBatters[0].runs,
-                //                 secondPlayerCurrentRuns: matchData.innings[inningCount].battingTeam.currBatter[1].runs,
-                //                 firstPlayerPreviousRuns: [onStrike] ? matchData.innings[inningCount].battingTeam.currBatters[0].runs : 0,
-                //                 secondPlayerPreviousRuns: [onStrike] ? 0 : matchData.innings[inningCount].battingTeam.currBatters[1].runs,
-                //                 totalRuns: matchData.innings[inningCount].battingTeam.currBatters[0].runs + matchData.innings[inningCount].battingTeam.currBatters[1].runs,
-                //             }
-                //         ] :
-                //         matchData.innings[inningCount].battingTeam.partnership = [{
-                //             playerOutRuns: matchData.innings[inningCount].battingTeam.currBatters[onStrike].runs,
-                //             // playerOutBalls: matchData.innings[inningCount].battingTeam.currBatters[onStrike].ballsPlayed,
-                //             anotherPlayerRuns: matchData.innings[inningCount].battingTeam.currBatters[+!onStrike].runs,
-                //             // anotherPlayerBalls: matchData.innings[inningCount].battingTeam.currBatters[+!onStrike].ballsPlayed,
-                //             tempRuns: 0,
-                //             // tempBalls: 0,
-                //             totalRuns: 0,
-                //             // totalBalls: 0,
-                //             firstPlayerCurrentRuns: matchData.innings[inningCount].battingTeam.currBatters[0].runs,
-                //             secondPlayerCurrentRuns: matchData.innings[inningCount].battingTeam.currBatter[1].runs,
-                //             firstPlayerPreviousRuns: [onStrike] ? matchData.innings[inningCount].battingTeam.currBatters[0].runs : 0,
-                //             secondPlayerPreviousRuns: [onStrike] ? 0 : matchData.innings[inningCount].battingTeam.currBatters[1].runs,
-                //             totalRuns: matchData.innings[inningCount].battingTeam.currBatters[0].runs + matchData.innings[inningCount].battingTeam.currBatters[1].runs,
-                //         }]
-                // }
-                // debugger;
                 console.log(matchData);
                 if (remainingBatsmans.length === 0) {
                     if (inningCount === 0) {
@@ -495,10 +407,11 @@ function PlayMatch() {
                 matchData.innings[inningCount].battingTeam[shot] += 1;
                 matchData.innings[inningCount].battingTeam.currBatters[onStrike][shot] += 1;
                 matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)][shot] += 1;
+                // matchData.innings[inningCount].bowlingTeam = {
+                //     ...matchData.innings[inningCount].bowlingTeam,
+                //     totalOvers: 
+                // }
             }
-            // else if (btnValue === 2 || btnValue === 3) {
-            //     matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)][shot] += 1;
-            // }
 
             let playerOnStrike = matchData.innings[inningCount].battingTeam.currBatters[onStrike];
             matchData.innings[inningCount].battingTeam.currBatters[onStrike] = {
@@ -507,25 +420,6 @@ function PlayMatch() {
                 ballsPlayed: playerOnStrike.ballsPlayed + 1,
                 strikeRate: parseFloat((((playerOnStrike.runs + btnValue) * 100) / (playerOnStrike.ballsPlayed + 1)).toFixed(2))
             }
-            // debugger;
-            // matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)] = {
-            //     ...matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)],
-            //     runs: matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)].runs + btnValue,
-            //     // balls: matchData.innings[inningCount].bowlingTeam.totalOvers[overs].balls.push('WB'),
-
-            //     balls: matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)].balls ?
-            //         matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)].balls = [
-            //             ...matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)].balls,
-            //             {
-            //                 event: btnValue,
-            //                 batsmanPlayed: matchData.innings[inningCount].battingTeam.currBatters[onStrike].name,
-            //             }
-            //         ] :
-            //         matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)].balls = [{
-            //             event: btnValue,
-            //             batsmanPlayed: matchData.innings[inningCount].battingTeam.currBatters[onStrike].name,
-            //         }]
-            // }
 
             if (onStrike) {
                 setBatsman2Data(
@@ -619,7 +513,10 @@ function PlayMatch() {
         setDisplayBatsman2(selectedBatsman);
     }
     const handleBowler = (selectedBowler) => {
+        debugger;
         setBowler(selectedBowler);
+        setBowlerNotSelectedErr('');
+        console.log(bowler);
     }
     const selectPlayerModal = () => {
         if (batsman1.value === '' || batsman2.value === '') {
@@ -627,26 +524,15 @@ function PlayMatch() {
         }
     }
     const selectBowlerModal = (e) => {
-        setDisplayBowler(bowler);
-        const matchInfo = currentGoingMatch;
-        UPDATE_BOWLER_DATA(inningCount, matchInfo, bowler);
         debugger;
-        matchInfo.innings[inningCount].bowlingTeam.currOverBalls = [];
-        if (matchInfo.innings[inningCount].bowlingTeam.totalOvers === undefined)
-            matchInfo.innings[inningCount].bowlingTeam.totalOvers = [{
-                overNum: overs + 1,
-                bowler: bowler,
-                runs: 0,
-                sixes: 0,
-                fours: 0,
-                twos: 0,
-                threes: 0,
-                balls: [],
-            }]
-        else
-            matchInfo.innings[inningCount].bowlingTeam.totalOvers = [
-                ...matchInfo.innings[inningCount].bowlingTeam.totalOvers,
-                matchInfo.innings[inningCount].bowlingTeam.totalOvers[overs] = {
+        if (bowler) {
+            setDisplayBowler(bowler);
+            const matchInfo = currentGoingMatch;
+            UPDATE_BOWLER_DATA(inningCount, matchInfo, bowler);
+            debugger;
+            matchInfo.innings[inningCount].bowlingTeam.currOverBalls = [];
+            if (matchInfo.innings[inningCount].bowlingTeam.totalOvers === undefined)
+                matchInfo.innings[inningCount].bowlingTeam.totalOvers = [{
                     overNum: overs + 1,
                     bowler: bowler,
                     runs: 0,
@@ -654,13 +540,31 @@ function PlayMatch() {
                     fours: 0,
                     twos: 0,
                     threes: 0,
-                }
-            ]
-        dispatch(updateCurrMatchData(matchInfo))
-        setIsPlayersSelected(true);
-        setCurrOver([]);
-        setIsShowBowlerModal(false);
-        setDisplayScore('');
+                    balls: [],
+                }]
+            else
+                matchInfo.innings[inningCount].bowlingTeam.totalOvers = [
+                    ...matchInfo.innings[inningCount].bowlingTeam.totalOvers,
+                    matchInfo.innings[inningCount].bowlingTeam.totalOvers[overs] = {
+                        overNum: overs + 1,
+                        bowler: bowler,
+                        runs: 0,
+                        sixes: 0,
+                        fours: 0,
+                        twos: 0,
+                        threes: 0,
+                    }
+                ]
+            dispatch(updateCurrMatchData(matchInfo))
+            setIsPlayersSelected(true);
+            setCurrOver([]);
+            setIsShowBowlerModal(false);
+            setDisplayScore('');
+            setBowlerNotSelectedErr('')
+        }
+        else {
+            setBowlerNotSelectedErr('Select the bowler')
+        }
     }
     const selectNewBatsmanModal = () => {
         if ((overs * 10) % 10 === 0) {
@@ -729,8 +633,9 @@ function PlayMatch() {
                         </SelectBatsmanModal> : null}
                     {isShowBowlerModal ? <SelectBowlerModal title='Select Bowler' setIsShowBowlerModal={setIsShowBowlerModal} onSubmit={(e) => selectBowlerModal()}>
                         <div className="bowling w-50 mx-auto text-center">
-                            <label>Select Bowler {isShowBowlerModal}</label>
+                            <label>Select Bowler</label>
                             <Select options={oppTeamPlayers} onChange={handleBowler} value={bowler} />
+                            {bowlerNotSelectedErr ? <p className='text-danger'>{bowlerNotSelectedErr}</p> : null}
                         </div>
                     </SelectBowlerModal> : null}
                     {isShowNewBatsmanModal ?
@@ -748,17 +653,17 @@ function PlayMatch() {
                         : null}
                     {isPlayersSelected ?
                         <div className="control-box text-center">
-                            {controlButtons.map(controlButton => {
+                            {controlButtons.map((controlButton, index) => {
                                 if (controlButton === 2 || controlButton === 6 || controlButton === 'WC') {
                                     if (controlButton === 'WC')
-                                        return <><MatchControlBtn paddingVal='px-3' control={handleScoreClick} label={controlButton} /><br /></>
-                                    return <><MatchControlBtn paddingVal='px-4' control={handleScoreClick} label={controlButton} /><br /></>
+                                        return <><MatchControlBtn key={index} paddingVal='px-3' control={handleScoreClick} label={controlButton} /><br /></>
+                                    return <><MatchControlBtn key={index} paddingVal='px-4' control={handleScoreClick} label={controlButton} /><br /></>
                                 }
                                 else {
                                     if (controlButton === 'NB' || controlButton === 'WB')
-                                        return <MatchControlBtn paddingVal='px-3' control={handleScoreClick} label={controlButton} />
+                                        return <MatchControlBtn key={index} paddingVal='px-3' control={handleScoreClick} label={controlButton} />
                                 }
-                                return <MatchControlBtn paddingVal='px-4' control={handleScoreClick} label={controlButton} />
+                                return <MatchControlBtn key={index} paddingVal='px-4' control={handleScoreClick} label={controlButton} />
                             })}
                         </div> : null}
                 </div>

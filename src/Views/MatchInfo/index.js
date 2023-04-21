@@ -1,4 +1,5 @@
 import { getMatchData } from 'Redux/Actions/matchActions';
+import { getData } from 'Redux/Actions/playerActions';
 import Analysis from 'Views/Analysis';
 import ScoreCard from 'Views/ScoreCard';
 import { useEffect } from 'react';
@@ -13,6 +14,7 @@ function MatchInfo() {
     const dispatch = useDispatch();
     console.log(match);
     useEffect(() => {
+        dispatch(getData([]));
         dispatch(getMatchData([]));
 
     }, [])
@@ -33,3 +35,4 @@ function MatchInfo() {
 }
 
 export default MatchInfo
+

@@ -1,5 +1,5 @@
-import { InputField } from "Components/Atoms/InputField";
 import CustomRadio from "Components/Atoms/CustomRadio";
+import { InputField } from "Components/Atoms/InputField";
 import { useState } from "react";
 import Select from "react-select";
 
@@ -37,7 +37,7 @@ function TeamForm({ teamData, setTeamData, players, setPlayers, captain, setCapt
   };
 
   const handlePlayers = (playersSelected) => {
-    if (playersSelected.length <= 11) {
+    if (playersSelected.length <= 13) {
       setPlayers(playersSelected || []);
     }
     if (playersSelected.length < 3) {
@@ -79,8 +79,8 @@ function TeamForm({ teamData, setTeamData, players, setPlayers, captain, setCapt
         <label>
           <b>Select the Players</b>
         </label>
-        {players.length > 10 ? (
-          <div className="text-success ms-2 d-inline-block">(11 players selected)</div>
+        {players.length > 12 ? (
+          <div className="text-success ms-2 d-inline-block">(Maximum 13 players allowed)</div>
         ) : null}
         <div><span className="text-danger">{playerErr ? Error3 : Err2}</span></div>
         <br />

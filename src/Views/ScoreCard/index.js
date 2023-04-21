@@ -1,4 +1,5 @@
 import { battingScoreCardHeading, bowlingScoreCardHeading } from "Shared/Constants"
+import { Link } from "react-router-dom"
 
 function ScoreCard({ match }) {
     return (
@@ -23,7 +24,7 @@ function ScoreCard({ match }) {
                                     {inning.battingTeam.playersPlayed.map(player => {
                                         return (
                                             <tr>
-                                                <td>{player.name}</td>
+                                                <td><Link to={'/playerInfo/' + player.name} className="playerNameLink">{player.name}</Link></td>
                                                 {player.out.outByBowler ?
                                                     <td className='text-secondary'>b {player.out.outByBowler}</td> :
                                                     <td className='text-secondary'>not out</td>

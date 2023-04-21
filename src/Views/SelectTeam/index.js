@@ -28,6 +28,9 @@ function SelectTeam() {
   const [showErr3, setShowErr3] = useState(false);
   const [err4, setErr4] = useState("");
   const [showErr4, setShowErr4] = useState(false);
+  const [firstTeamSelectedPlayerErr, setFirstTeamSelectedPlayerErr] = useState('');
+  const [secondTeamSelectedPlayerErr, setSecondTeamSelectedPlayerErr] = useState('');
+  const [selectPlayerErr, setSelectedPlayerErr] = useState(false);
   const [isNewTeamAdded, setIsNewTeamAdded] = useState(false);
   const [team1Players, setTeam1Players] = useState([]);
   const [team2Players, setTeam2Players] = useState([]);
@@ -138,47 +141,68 @@ function SelectTeam() {
     const filteredItems = teamNames.filter((e) => e.value.search(selectedValue.value) === -1);
     setUniqueTeams(filteredItems);
     setOppTeam('');
+    setSelectedTeam1Players([]);
+    setSelectedTeam2Players([]);
+    setSelectedPlayerErr(true)
   };
   const handleInputChange2 = (selectedValue) => {
     setOppTeam(selectedValue);
     const selectedTeam = teamsData.find((e) => e.teamName === selectedValue.value);
     setTeam2Players(selectedTeam.teamPlayers);
-
+    setSelectedTeam2Players([]);
+    setSelectedPlayerErr(true)
   };
   const handleSelectedPlayers = (players) => {
+    if (players.length < 5) {
+      setSelectedPlayerErr(true)
+      setFirstTeamSelectedPlayerErr('Select atleast 5 players')
+    }
+    else {
+      setFirstTeamSelectedPlayerErr('');
+    }
     setSelectedTeam1Players(players || []);
   }
   const handleSelectedPlayers2 = (players) => {
+    if (players.length < 5) {
+      setSelectedPlayerErr(true)
+      setSecondTeamSelectedPlayerErr('Select atleast 5 players')
+    }
+    else {
+      setSelectedPlayerErr(false)
+      setSecondTeamSelectedPlayerErr('');
+    }
+
     setSelectedTeam2Players(players || []);
   }
   const dateObj = new Date();
   const currentDate = dateObj.getDate() + '/' + (dateObj.getMonth() + 1) + '/' + dateObj.getFullYear();
 
   const startMatch = () => {
-    const matchData = {
-      name: team.label + 'vs' + oppTeam.label,
-      teams: [team.label, oppTeam.label],
-      date: currentDate,
-      status: true,
-      isCompleted: false,
-      matchOrganiser: playerLoggedIn.key,
-      wonBy: '',
-      onStrike: 0,
-      team1Players: selectedTeam1Players,
-      team2Players: selectedTeam2Players,
-      inningCount: 0,
-      innings: [inningData, inningData],
-    }
-    dispatch(addMatchData({
-      data: matchData,
-      success: (response) => {
-        navigate.push("/match/" + response.data.name)
-      },
-      fail: () => {
-        console.warn('Cannot add matchData now. Please try sometime later...')
+    if (!selectPlayerErr) {
+      const matchData = {
+        name: team.label + 'vs' + oppTeam.label,
+        teams: [team.label, oppTeam.label],
+        date: currentDate,
+        status: true,
+        isCompleted: false,
+        matchOrganiser: playerLoggedIn.key,
+        wonBy: '',
+        onStrike: 0,
+        team1Players: selectedTeam1Players,
+        team2Players: selectedTeam2Players,
+        inningCount: 0,
+        innings: [inningData, inningData],
       }
-    }))
-
+      dispatch(addMatchData({
+        data: matchData,
+        success: (response) => {
+          navigate.push("/match/" + response.data.name)
+        },
+        fail: () => {
+          alert('Cannot add matchData now. Please try sometime later...')
+        }
+      }))
+    }
   }
 
   return (
@@ -240,9 +264,10 @@ function SelectTeam() {
           name="selectedTeamPlayers"
           value={selectedTeam1Players}
           closeMenuOnSelect={false}
-          noOptionsMessage={() => 'Player not Found'}
+          noOptionsMessage={() => 'All Players Selected'}
           isMulti
         />
+        <p className="mt-2 ms-2 text-danger">{firstTeamSelectedPlayerErr}</p>
         <br />
         <p className="text-center">VS</p>
         <h3 className="pt-3">Select Your Opponent's Team</h3>
@@ -259,9 +284,10 @@ function SelectTeam() {
           name="selectedTeamPlayers"
           value={selectedTeam2Players}
           closeMenuOnSelect={false}
-          noOptionsMessage={() => 'Player not Found'}
+          noOptionsMessage={() => 'All Players Selected'}
           isMulti
         />
+        <p className="mt-2 ms-2 text-danger">{secondTeamSelectedPlayerErr}</p>
         <div className="text-center mt-5">
           <Button
             variant="info"

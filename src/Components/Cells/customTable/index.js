@@ -29,8 +29,8 @@ export default function CustomTable({
         <table className="table table-success table-bordered table-hover table-sm text-center">
           <thead className="table table-dark">
             <tr>
-              {headingDetails.map((val) => (
-                <th>
+              {headingDetails.map((val, indx) => (
+                <th key={indx}>
                   {val.label}
                 </th>
               ))}
@@ -41,9 +41,9 @@ export default function CustomTable({
               {tableContent
                 .slice(paginate.start, paginate.end)
                 .map((val, index) => (
-                  <tr>
-                    {headingDetails.map((heading) => (
-                      <td>{typeof val[heading.key] !== "object" ?
+                  <tr key={index}>
+                    {headingDetails.map((heading, idx) => (
+                      <td key={idx}>{typeof val[heading.key] !== "object" ?
                         heading.key === 'Name' ?
                           <Link className='playerNameLink' to={'/playerInfo/' + val[heading.key]}>{val[heading.key]}</Link> :
                           (val[heading.key]) :
@@ -59,9 +59,15 @@ export default function CustomTable({
                 ))}
             </tbody>
           ) : (
-            <div className="d-flex justify-content-center w-100 p-5">
-              <h1 className=" text-danger ">Loading Data Please Wait.....</h1>
-            </div>
+            <tbody>
+              <tr>
+                <td colSpan={headingDetails.length}>
+                  <div className="d-flex justify-content-center w-100 p-5">
+                    <h1 className=" text-danger ">Loading Data Please Wait.....</h1>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
           )}
         </table>
       </div>

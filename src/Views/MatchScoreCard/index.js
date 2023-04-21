@@ -37,10 +37,10 @@ function MatchScoreCard() {
                         </tr>
                     </thead>
                     <tbody>
-                        {BatsmansData?.map(batsman => {
+                        {BatsmansData?.map((batsman, index) => {
                             return (
                                 <>
-                                    <tr>
+                                    <tr key={index}>
                                         <td>{batsman.name}</td>
                                         <td>{batsman.runs}</td>
                                         <td>{batsman.ballsPlayed}</td>
@@ -58,14 +58,7 @@ function MatchScoreCard() {
                 <Table>
                     <thead>
                         <tr>
-                            {bowlingScoreCardHeading.map(heading => <th>{heading}</th>)}
-                            {/* <th>Bowler</th>
-                            <th>O</th>
-                            <th>R</th>
-                            <th>W</th>
-                            <th>WB</th>
-                            <th>NB</th>
-                            <th>ECO</th> */}
+                            {bowlingScoreCardHeading.map((heading, index) => <th key={index}>{heading}</th>)}
                         </tr>
                     </thead>
                     <tbody>
