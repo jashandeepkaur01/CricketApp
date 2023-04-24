@@ -16,7 +16,7 @@ function SelectBatsmanModal({ title, setIsShowPlayerModal, openAnotherModal, onS
                     {props.children}
                 </div>
                 <div className="selectPlayerFooter text-end">
-                    <button className='btn btn-outline-primary' id='okBtn' onClick={() => closeModal()}>OK</button>
+                    <button className='btn btn-outline-primary' id='okBtn' onClick={() => onSubmit()}>OK</button>
                 </div>
             </div>
 
