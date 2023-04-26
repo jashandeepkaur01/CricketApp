@@ -2,8 +2,8 @@
 const { MATCH_TEAMS, SET_MATCH_DATA, UPDATE_CURR_MATCH_DATA } = require("Redux/Actions/matchActions/actionStates");
 
 const initialData = {
-    matches: [],
-    currMatch: []
+    currMatch: [],
+    liveMatch: null,
 };
 
 const matchReducer = (data = initialData, action) => {
@@ -11,7 +11,10 @@ const matchReducer = (data = initialData, action) => {
         case MATCH_TEAMS:
             return { ...data, currMatch: { ...data.matches, myTeam: action.data[0], oppTeam: action.data[1] } };
         case SET_MATCH_DATA:
-            return { ...data, currMatch: action.data.map((data) => ({ ...data })) };
+            return {
+                ...data, currMatch: action.data.map((data) => ({ ...data })),
+                liveMatch: action.data[action.data.length - 1].isCompleted ? null : action.data[action.data.length - 1].key
+            };
         case UPDATE_CURR_MATCH_DATA:
             const finalCurrentMatch = data.currMatch.map(currentMatch => {
                 if (currentMatch.matchOrganiser === action.data.matchOrganiser) {

@@ -25,7 +25,7 @@ function InningModal({ title, currentMatchData, inningCount, setInningCount, set
     function showMatchDetails() {
         console.log('match is finally over now');
         console.log(currentMatchData.name + currentMatchData.key)
-        navigate.push("/matchInfo/" + currentMatchData.name + "/" + currentMatchData.key);
+        navigate.replace("/matchInfo/" + currentMatchData.name + "/" + currentMatchData.key);
         dispatch(updateCurrMatchData(currentMatchData));
     }
     return (

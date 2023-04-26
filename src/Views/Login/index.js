@@ -20,7 +20,6 @@ const Login = () => {
       if (loggedInPlayerData) {
         navigate.replace('/selectTeam');
         dispatch(setLogin(loggedInPlayerData));
-
       }
       else setErrorMessage("No Player Found");
     }

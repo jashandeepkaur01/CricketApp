@@ -80,7 +80,8 @@ function ScoreCard({ match }) {
                                     {inning.bowlingTeam.bowlers.map(bowler => {
                                         return (
                                             <tr>
-                                                <td>{bowler.label}</td>
+                                                <td><Link to={'/playerInfo/' + bowler.label} className="playerNameLink">{bowler.label}</Link></td>
+
                                                 <td>{bowler.oversThrown}</td>
                                                 <td>{bowler.runsConceded}</td>
                                                 <td>{bowler.wkts}</td>

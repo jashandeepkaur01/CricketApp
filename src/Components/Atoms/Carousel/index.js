@@ -62,7 +62,7 @@ function Carousel() {
                   </div>
                 ))}
               </div>
-              <a
+              {/* <a
                 className="carousel-control-prev"
                 href="/j"
                 role="button"
@@ -85,7 +85,7 @@ function Carousel() {
                   className="carousel-control-next-icon"
                   aria-hidden="true"
                 ></span>
-              </a>
+              </a> */}
             </div>
           </div>
         </div>

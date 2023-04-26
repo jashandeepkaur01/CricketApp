@@ -1,15 +1,18 @@
+import { getMatchData } from "Redux/Actions/matchActions";
 import { getData } from "Redux/Actions/playerActions";
+import AllMatches from "Views/AllMatches";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import Carousel from "../../Components/Atoms/Carousel";
 import "./style.css";
 
 function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getData([]));
+    dispatch(getMatchData());
   }, []);
-  return <Carousel />;
+  // return <Carousel />;
+  return <AllMatches />;
 }
 
 export default Home;

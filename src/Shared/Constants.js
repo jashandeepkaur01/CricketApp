@@ -8,9 +8,9 @@ export const BASE_URL = "https://customcricketmatch-default-rtdb.firebaseio.com/
 export const API = {
   PLAYER_DATA: "playerData.json",
   TEAM_DATA: "teamData.json",
-  MATCH_DATA: "matchData.json",
+  MATCH_DATA: "match.json",
   UPDATE_PLAYER_DATA: "playerData/<key>.json",
-  UPDATE_MATCH_DATA: "matchData/<key>.json",
+  UPDATE_MATCH_DATA: "match/<key>.json",
   MATCHES: "matches.json"
 }
 export const TOTAL_OVERS = 12;
