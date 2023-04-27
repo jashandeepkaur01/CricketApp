@@ -11,13 +11,13 @@ function Navbar() {
     (state) => state.login.loggedInPlayer
   );
   const matchesGoingOn = useSelector((state) => state.match);
-  console.log(matchesGoingOn);
+  // console.log(matchesGoingOn);
   const myMatch = matchesGoingOn.currMatch.findLast((match) => match.matchOrganiser === loggedInPlayer?.key)
-  console.log(myMatch);
+  // console.log(myMatch);
   // const matchKey = useSelector((state) => state.match.liveMatch);
   const matchKey = myMatch?.key;
-  console.log(matchKey);
-  console.log(myMatch.isCompleted);
+  // console.log(matchKey);
+  // console.log(myMatch?.isCompleted);
   // console.log(loggedInPlayer);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -56,7 +56,7 @@ function Navbar() {
                         Select Team
                       </NavLink>
                     </li>
-                    {(matchKey) && !(myMatch.isCompleted) ? (
+                    {(matchKey) && !(myMatch?.isCompleted) ? (
                       <li className="nav-item">
                         <NavLink className="nav-NavLink " activeClassName="active" to={'/match/' + matchKey}>
                           Match
@@ -65,6 +65,9 @@ function Navbar() {
                     ) : null}
                   </>
                 ) : null}
+                <li className="nav-item">
+                  <NavLink className="nav-NavLink" activeClassName="active" to='/viewMatch'>View Match</NavLink>
+                </li>
 
 
               </ul>

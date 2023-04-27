@@ -9,11 +9,11 @@ function MatchScoreCard() {
     const params = useParams()
     const { matchUniqueKey } = params;
 
-
     const currMatches = useSelector((state) => state.match.currMatch);
     const currMatch = currMatches.find(match => match.key === matchUniqueKey);
     const BatsmansData = currMatch?.innings[inningCount]?.battingTeam?.currBatters;
     const bowler = currMatch?.innings[inningCount]?.bowlingTeam?.currBowler;
+    // console.log(currMatch);
     useEffect(() => {
         if (currMatch)
             setInningCount(currMatch.inningCount);

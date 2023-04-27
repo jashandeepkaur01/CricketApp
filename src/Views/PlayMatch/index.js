@@ -47,7 +47,7 @@ function PlayMatch() {
     const [isBowlerSelected, setIsBowlerSelected] = useState(false);
     const [batsmanNotSelectedErr, setBatsmanNotSelectedErr] = useState('');
     const [bowlerNotSelectedErr, setBowlerNotSelectedErr] = useState('');
-    const onStrikeValue = useRef(0);
+    const onStrikeValue = useRef(1);
     const overCompleted = useRef(true);
     const isBothBatsmanSelected = useRef(false);
     // const [isBothBatsmanSelected, setIsBothBatsmanSelected] = useState(false);
@@ -58,7 +58,6 @@ function PlayMatch() {
         balls: 0,
         strike: 0,
     });
-
 
     const params = useParams()
     const { matchUniqueKey } = params;
@@ -76,6 +75,8 @@ function PlayMatch() {
         setIsInningCompleted(true);
         addCurrentPlayers(currentMatchData, inningCount);
         UPDATE_BOWLER_DATA(inningCount, currentMatchData, bowler);
+        currentMatchData.onStrike = 0;
+        onStrikeValue.current = 0;
         dispatch(updateCurrMatchData(currentMatchData));
     }
 
@@ -121,6 +122,8 @@ function PlayMatch() {
             console.log(overCompleted);
             console.log(batsman1);
             console.log(batsman1Data);
+            onStrikeValue.current = currentGoingMatch?.onStrike;
+            setOnStrike(onStrikeValue.current);
             debugger;
             let bothBatsmanSelected = currentGoingMatch.innings[inningNum].battingTeam.currBatters[0].name && currentGoingMatch.innings[inningNum].battingTeam.currBatters[1].name;
             console.log(bothBatsmanSelected);
@@ -253,9 +256,6 @@ function PlayMatch() {
         //     console.log(overs, 'over was completed...');
         // }
         if (isOverCompleted) {
-            // console.log(overs);
-            // console.log(bowler);
-            // console.log(oppTeamPlayers);
             setBowler('');
             setOppTeamPlayers(oppTeamPlayers.filter(players => players.key !== bowler.key));
             debugger;
@@ -263,13 +263,15 @@ function PlayMatch() {
                 setIsShowBowlerModal(true);
                 overCompleted.current = false;
                 setIsOverCompleted(false);
-                if (onStrikeValue.current) {
-                    onStrikeValue.current = 0;
-                    setOnStrike(onStrikeValue.current);
-                }
-                else {
-                    onStrikeValue.current = 1;
-                    setOnStrike(onStrikeValue.current);
+                if (overs) {
+                    if (onStrikeValue.current) {
+                        onStrikeValue.current = 0;
+                        setOnStrike(onStrikeValue.current);
+                    }
+                    else {
+                        onStrikeValue.current = 1;
+                        setOnStrike(onStrikeValue.current);
+                    }
                 }
             }, 20)
         }
@@ -510,7 +512,8 @@ function PlayMatch() {
                 }]
         }
 
-
+        matchData.onStrike = onStrikeValue.current;
+        debugger;
         matchData.innings[inningCount].bowlingTeam.currOverBalls = currentOverBalls;
         dispatch(updateCurrMatchData(matchData));
     }
@@ -536,6 +539,7 @@ function PlayMatch() {
         setBatsman2(selectedBatsman);
         // setErrMsg(' ');
         setBatsmanNotSelectedErr('');
+        debugger;
         // const matchInfo = currentGoingMatch;
         // matchInfo.innings[inningCount].battingTeam.currBatters[1] = {
         //     ...(matchInfo.innings[inningCount].battingTeam.currBatters[1] ?? {}),
@@ -588,7 +592,9 @@ function PlayMatch() {
             setDisplayBowler(bowler);
             const matchInfo = currentGoingMatch;
             UPDATE_BOWLER_DATA(inningCount, matchInfo, bowler);
+            console.log(onStrikeValue);
             debugger;
+            matchInfo.onStrike = onStrikeValue.current;
             matchInfo.innings[inningCount].bowlingTeam.currOverBalls = [];
             if (matchInfo.innings[inningCount].bowlingTeam.totalOvers === undefined)
                 matchInfo.innings[inningCount].bowlingTeam.totalOvers = [{

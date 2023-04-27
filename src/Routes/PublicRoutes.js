@@ -2,6 +2,7 @@ import PageNotFound from "Views/404PageNotFound";
 import MatchInfo from "Views/MatchInfo";
 import PlayerInfo from "Views/PlayerInfo";
 import ShowAllMatches from "Views/ShowAllMatches";
+import ViewMatch from "Views/ViewMatch";
 import Home from "../Views/Home";
 import ShowPlayer from "../Views/ShowPlayer";
 import ShowTeam from "../Views/ShowTeam";
@@ -37,6 +38,11 @@ export const PUBLIC_ROUTES = [
     path: "/matchInfo/:matchName/:matchKey",
     component: MatchInfo,
     title: "MatchInfo"
+  },
+  {
+    path: "/viewMatch/:matchName/:matchUniqueKey",
+    component: ViewMatch,
+    title: "viewMatch"
   },
   {
     path: "/pageNotFound",
