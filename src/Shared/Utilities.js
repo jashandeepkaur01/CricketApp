@@ -12,18 +12,19 @@ export const UPDATE_BOWLER_DATA = (inningCount, matchInfo, bowler) => {
                 WB: matchInfo.innings[inningCount].bowlingTeam.currBowler.WB,
                 NB: matchInfo.innings[inningCount].bowlingTeam.currBowler.NB,
                 oversThrown: matchInfo.innings[inningCount].bowlingTeam.currBowler.oversThrown,
+                Econ: matchInfo.innings[inningCount].bowlingTeam.currBowler.Econ,
                 // oversThrown: matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex].oversThrown + 1,
             }
-            matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex] = {
-                ...matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex],
-                Econ: parseFloat((matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex].runsConceded / matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex].oversThrown).toFixed(2)),
-            }
+            // matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex] = {
+            //     ...matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex],
+            //     Econ: parseFloat((matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex].runsConceded / matchInfo.innings[inningCount].bowlingTeam.bowlers[bowlerIndex].oversThrown).toFixed(2)),
+            // }
         }
         else {
-            matchInfo.innings[inningCount].bowlingTeam.currBowler = {
-                ...matchInfo.innings[inningCount].bowlingTeam.currBowler,
-                Econ: parseFloat((matchInfo.innings[inningCount].bowlingTeam.currBowler.runsConceded / matchInfo.innings[inningCount].bowlingTeam.currBowler.oversThrown).toFixed(2)),
-            }
+            // matchInfo.innings[inningCount].bowlingTeam.currBowler = {
+            //     ...matchInfo.innings[inningCount].bowlingTeam.currBowler,
+            //     Econ: parseFloat((matchInfo.innings[inningCount].bowlingTeam.currBowler.runsConceded / matchInfo.innings[inningCount].bowlingTeam.currBowler.oversThrown).toFixed(2)),
+            // }
             matchInfo.innings[inningCount].bowlingTeam.bowlers.push(matchInfo.innings[inningCount].bowlingTeam.currBowler)
         }
 
@@ -58,10 +59,10 @@ export const UPDATE_BOWLER_DATA = (inningCount, matchInfo, bowler) => {
     }
     else {
         if (matchInfo.innings[inningCount].bowlingTeam.currBowler.label) {
-            matchInfo.innings[inningCount].bowlingTeam.currBowler = {
-                ...matchInfo.innings[inningCount].bowlingTeam.currBowler,
-                Econ: (parseFloat(matchInfo.innings[inningCount].bowlingTeam.currBowler.runsConceded / matchInfo.innings[inningCount].bowlingTeam.currBowler.oversThrown).toFixed(2))
-            }
+            // matchInfo.innings[inningCount].bowlingTeam.currBowler = {
+            //     ...matchInfo.innings[inningCount].bowlingTeam.currBowler,
+            //     Econ: (parseFloat(matchInfo.innings[inningCount].bowlingTeam.currBowler.runsConceded / matchInfo.innings[inningCount].bowlingTeam.currBowler.oversThrown).toFixed(2))
+            // }
             matchInfo.innings[inningCount].bowlingTeam = {
                 ...matchInfo.innings[inningCount].bowlingTeam,
                 bowlers: [matchInfo.innings[inningCount].bowlingTeam.currBowler]

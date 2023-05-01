@@ -34,7 +34,7 @@ export default function TypesOfRuns({ match }) {
         },
     ]
     return (
-        <div className="w-75 mx-auto">
+        <div className="w-75 mx-auto mt-4">
             <h5 className="ms-3">Types of Runs</h5>
             <BarChart
                 width={500}
@@ -47,6 +47,7 @@ export default function TypesOfRuns({ match }) {
                     left: 20,
                     bottom: 5
                 }}
+                className='mx-auto'
             >
                 <CartesianGrid strokeDasharray="1 3" />
                 <XAxis type="number" />

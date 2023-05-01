@@ -124,6 +124,8 @@ function PlayMatch() {
             console.log(batsman1Data);
             onStrikeValue.current = currentGoingMatch?.onStrike;
             setOnStrike(onStrikeValue.current);
+            setDisplayScore(currentGoingMatch.display);
+
             debugger;
             let bothBatsmanSelected = currentGoingMatch.innings[inningNum].battingTeam.currBatters[0].name && currentGoingMatch.innings[inningNum].battingTeam.currBatters[1].name;
             console.log(bothBatsmanSelected);
@@ -322,6 +324,8 @@ function PlayMatch() {
             }
             matchData.innings[inningCount].battingTeam.totalRuns = currentScore;
             matchData.innings[inningCount].bowlingTeam.currBowler.runsConceded = bowler.runsConceded + 1;
+            matchData.innings[inningCount].bowlingTeam.currBowler.Econ = (matchData.innings[inningCount].bowlingTeam.currBowler.runsConceded * 6) / (parseInt(matchData.innings[inningCount].bowlingTeam.currBowler.oversThrown) * 6 + parseFloat(((matchData.innings[inningCount].bowlingTeam.currBowler.oversThrown % 1).toFixed(1)) * 10))
+
         }
         else if (btnValue === 'WC' || btnValue === 'DB') {
             if (btnValue === 'WC') {
@@ -407,11 +411,12 @@ function PlayMatch() {
             btnValue = +btnValue;
             let currentScore = currScore + btnValue;
             matchData.innings[inningCount].battingTeam.totalRuns = currentScore;
-            if (bowler.runsConceded === undefined)
+            if (bowler.runsConceded === undefined) {
                 matchData.innings[inningCount].bowlingTeam.currBowler.runsConceded = btnValue;
-            else
+            }
+            else {
                 matchData.innings[inningCount].bowlingTeam.currBowler.runsConceded = bowler.runsConceded + btnValue;
-
+            }
             debugger;
             setCurrScore(currentScore)
             setDisplayScore(btnValue)
@@ -497,7 +502,7 @@ function PlayMatch() {
         matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)] = {
             ...matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)],
             runs: matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)].runs + runsScored,
-
+            totalRuns: matchData.innings[inningCount].battingTeam.totalRuns,
             balls: matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)].balls ?
                 matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)].balls = [
                     ...matchData.innings[inningCount].bowlingTeam.totalOvers[Math.floor(overs)].balls,
@@ -511,10 +516,11 @@ function PlayMatch() {
                     batsmanPlayed: matchData.innings[inningCount].battingTeam.currBatters[onStrike].name,
                 }]
         }
-
+        matchData.innings[inningCount].bowlingTeam.currBowler.Econ = ((matchData.innings[inningCount].bowlingTeam.currBowler.runsConceded * 6) / (parseInt(matchData.innings[inningCount].bowlingTeam.currBowler.oversThrown) * 6 + parseFloat(((matchData.innings[inningCount].bowlingTeam.currBowler.oversThrown % 1).toFixed(1)) * 10))).toFixed(2);
         matchData.onStrike = onStrikeValue.current;
         debugger;
         matchData.innings[inningCount].bowlingTeam.currOverBalls = currentOverBalls;
+        matchData.display = displayScore;
         dispatch(updateCurrMatchData(matchData));
     }
     const handleBatsman1 = (selectedBatsman) => {
@@ -601,6 +607,7 @@ function PlayMatch() {
                     overNum: overs + 1,
                     bowler: bowler,
                     runs: 0,
+                    totalRuns: 0,
                     sixes: 0,
                     fours: 0,
                     twos: 0,
@@ -614,6 +621,7 @@ function PlayMatch() {
                         overNum: overs + 1,
                         bowler: bowler,
                         runs: 0,
+                        totalRuns: matchInfo.innings[inningCount].battingTeam.totalRuns,
                         sixes: 0,
                         fours: 0,
                         twos: 0,
