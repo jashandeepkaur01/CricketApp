@@ -157,10 +157,10 @@ function Partnership() {
         var dataSet = anychart.data.set(getData());
 
         // map data for the first series, take x from the zero column and value from the first column of data set
-        var firstSeriesData = dataSet.mapAs({ x: 0, value: 1 });
+        var firstSeriesData = dataSet.mapAs({ x: [0, 'name'], value: [0, 'value'], balls: 2 });
 
         // map data for the second series, take x from the zero column and value from the second column of data set
-        var secondSeriesData = dataSet.mapAs({ x: 0, value: 2 });
+        var secondSeriesData = dataSet.mapAs({ x: [1, 'name'], value: [1, 'value'], balls: 2 });
 
         // create bar chart
         var chart = anychart.bar();
@@ -183,7 +183,7 @@ function Partnership() {
             });
 
         // set title for Y-axis
-        chart.yAxis(0).title('Revenue in Dollars');
+        chart.yAxis(0).title('Runs in partnership');
 
         // allow labels to overlap
         chart.xAxis(0).overlapMode('allow-overlap');
@@ -196,7 +196,7 @@ function Partnership() {
             .overlapMode('allow-overlap');
 
         // set chart title text
-        chart.title('Cosmetic Sales by Gender');
+        chart.title('Partnership of Players');
 
         chart.interactivity().hoverMode('by-x');
 
@@ -210,10 +210,12 @@ function Partnership() {
             .fontSize(12)
             .offsetX(5)
             .offsetY(0)
-            .format(function () {
+            .format(function (data) {
+
+                console.log(data);
                 return (
-                    '<span style="color: #D9D9D9">$</span>' +
-                    Math.abs(this.value).toLocaleString()
+                    '<span style="color: #D9D9D9">(</span>' +
+                    Math.abs(this.value).toLocaleString() + '<span>/</span>' + this.balls + '<span>)</span>'
                 );
             });
 
@@ -222,13 +224,13 @@ function Partnership() {
 
         // create first series with mapped data
         series = chart.bar(firstSeriesData);
-        series.name('Females').color('HotPink');
-        series.tooltip().position('right').anchor('left-center');
+        series.name('Player 2').color('darkOrange');
+        series.tooltip().position('right-center').anchor('left-center');
 
         // create second series with mapped data
         series = chart.bar(secondSeriesData);
-        series.name('Males');
-        series.tooltip().position('left').anchor('right-center');
+        series.name('Player 1');
+        series.tooltip().position('left-center').anchor('right-center');
 
         // turn on legend
         chart
@@ -247,14 +249,35 @@ function Partnership() {
 
     function getData() {
         return [
-            ['Nail polish', 5376, -229],
-            ['Eyebrow pencil', 10987, -932],
-            ['Rouge', 7624, -5221],
-            ['Lipstick', 8814, -256],
+            // ['Player 11', 53, 20, 'Player 21', -22],
+            // ['Player 12', 10, 8, 'Player 22', -93],
+            // ['Player 13', 76, 40, 'Player 23', -52],
+            // ['Player 14', 88, 30, 'Player 24', -25],
+            // ['Player 15', 82, 45, 'Player 25', -30],
+            [
+                {
+                    value: {
+                        value: 10,
+                        balls: 20,
+                        toString: function () {
+                            return this.value
+                        }
+                    }, name: 'Point 1'
+                },
+                {
+                    value: {
+                        value: 13,
+                        balls: 34,
+                        toString: function () {
+                            return this.value
+                        }
+                    }, name: 'Point 2'
+                },
+            ]
         ];
     }
     return (
-        <div id='containerr'>
+        <div id='containerr' style={{ height: '400px' }}>
 
         </div>
     )

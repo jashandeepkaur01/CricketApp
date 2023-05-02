@@ -5,7 +5,7 @@ function AllMatches() {
     const allMatches = useSelector((state) => state.match.currMatch);
     console.log(allMatches);
     return (
-        <div className='container bg-light d-flex'>
+        <div className='container d-flex'>
             {allMatches.map(match => <MatchCard matchData={match} />)}
             {/* <MatchCard /> */}
         </div>

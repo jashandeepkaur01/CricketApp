@@ -1,4 +1,5 @@
 import Manhattan from 'Views/Charts/Manhattan'
+import Partnership from 'Views/Charts/Partnership'
 import RunRate from 'Views/Charts/RunRate'
 import TypesOfRuns from 'Views/Charts/TypesOfRuns'
 import Worm from 'Views/Charts/Worm'
@@ -11,11 +12,11 @@ function Analysis({ match }) {
                 <RunRate match={match} />
 
             </div>
-            {/* <Partnership match={match} /> */}
             <div className='d-flex'>
                 <Manhattan match={match} />
                 <Worm match={match} />
             </div>
+            <Partnership match={match} />
         </div>
     )
 }
