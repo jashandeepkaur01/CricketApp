@@ -1,3 +1,4 @@
+import Carousel from "Components/Atoms/Carousel";
 import { getMatchData } from "Redux/Actions/matchActions";
 import { getData } from "Redux/Actions/playerActions";
 import AllMatches from "Views/AllMatches";
@@ -11,8 +12,12 @@ function Home() {
     dispatch(getData([]));
     dispatch(getMatchData());
   }, []);
-  // return <Carousel />;
-  return <AllMatches />;
+  return (
+    <>
+      <Carousel />
+      <AllMatches />
+    </>
+  )
 }
 
 export default Home;

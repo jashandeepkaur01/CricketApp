@@ -36,8 +36,10 @@ function InningModal({ title, currentMatchData, inningCount, setInningCount, set
                 </div>
                 <hr />
                 {inningCount ?
-                    <div>
-                        <h4>{winningData.winningTeam} wins by {winningData.winningDifference}</h4>
+                    <div>{
+                        (winningData.winningTeam === null) ?
+                            null : <h4>{winningData.winningTeam} wins by {winningData.winningDifference}</h4>
+                    }
                     </div> :
                     <div>
                         <div>

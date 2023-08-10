@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 function Carousel() {
   const images = [
     "https://techteek.com/wp-content/uploads/2020/10/Top-10-fantasy-cricket-apps-in-India.jpg",
-    "https://lh6.googleusercontent.com/4Rs882sNEJMfp-ESu37wuFjVgWsp1QOkrceP0Ty1xCpnh3bX8RzdiL1hofl02nbmpPZi2VKIVMrbuUotUcaah_zJz7WTtGK67qCIt1ADxtUIK8anjzyfq-HcGuc6zGkjgjI4Y7V8",
-    "https://media.istockphoto.com/id/991167330/vector/vector-abstract-illustration-of-batsman-playing-cricket-from-colored-liquid-splashes-and.jpg?s=612x612&w=0&k=20&c=gMsGMu-q5hcsgIrX_UkMnm5OmjPlwf4zWINF5T8BraM=",
+    // "https://media.istockphoto.com/id/991167330/vector/vector-abstract-illustration-of-batsman-playing-cricket-from-colored-liquid-splashes-and.jpg?s=612x612&w=0&k=20&c=gMsGMu-q5hcsgIrX_UkMnm5OmjPlwf4zWINF5T8BraM=",
   ];
   const [active, setActive] = useState(0);
   useEffect(() => {
@@ -27,7 +26,7 @@ function Carousel() {
     <div>
       <div className="main-carousel">
         <div className="d-flex justify-content-center m-5 ">
-          <div className="m-5 w-75">
+          <div className="m-5 w-100">
             <div
               id="carouselExampleControls"
               className="carousel slide"
@@ -48,7 +47,7 @@ function Carousel() {
                   data-slide-to="2"
                 ></li>
               </ol>
-              <div className="carousel-inner">
+              {/* <div className="carousel-inner">
                 {images?.map((item, index) => (
                   <div
                     className={`carousel-item ${active === index ? "active" : ""
@@ -56,11 +55,15 @@ function Carousel() {
                   >
                     <img
                       className="d-block w-100"
-                      src={item}
+                      src={images[0]}
                       alt="First slide"
                     />
                   </div>
                 ))}
+              </div> */}
+              <div className='ca'>
+                <img className="d-block w-100"
+                  src={images[0]} alt="Slide" />
               </div>
               {/* <a
                 className="carousel-control-prev"

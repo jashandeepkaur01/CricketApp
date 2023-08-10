@@ -41,12 +41,12 @@ function Navbar() {
                 </li>
                 <li className="nav-item">
                   <NavLink className="nav-NavLink" activeClassName="active" to="/showPlayer">
-                    Show Player
+                    Players
                   </NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink className="nav-NavLink " activeClassName="active" to="/showTeam">
-                    Show Team
+                    Teams
                   </NavLink>
                 </li>
                 {loggedInPlayer ? (
@@ -65,9 +65,9 @@ function Navbar() {
                     ) : null}
                   </>
                 ) : null}
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <NavLink className="nav-NavLink" activeClassName="active" to='/viewMatch'>View Match</NavLink>
-                </li>
+                </li> */}
 
 
               </ul>

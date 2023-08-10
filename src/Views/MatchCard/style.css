@@ -1,6 +1,33 @@
+.matchCard_Border_Wrap {
+    border-radius: 5px;
+    position: relative;
+    background: linear-gradient(45deg, red, aqua);
+    padding: 2px;
+}
+
+.matchCard_Border_Wrap:hover {
+    box-shadow: 2px 2px 15px 3px grey;
+    transition: 0.5s all;
+}
+
 .matchCard {
-    background-color: antiquewhite;
     width: 300px;
     height: 250px;
     border-radius: 5px;
+    background: #ADA996;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);
+}
+
+.matchCard:hover {
+    background: linear-gradient(to right, #EAEAEA, #F2F2F2, #DBDBDB, #ADA996);
+}
+
+.matchCardInfo {
+    background-image: url('../../Assets/Images/vs\ bg.jpg');
+    background-position: center;
+    background-size: cover;
+    height: 50%;
 }

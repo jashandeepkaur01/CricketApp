@@ -20,6 +20,7 @@ function Main() {
         btnText="View Team"
         component="Name"
       />
+      {/* <Temp /> */}
     </div>
   );
 }

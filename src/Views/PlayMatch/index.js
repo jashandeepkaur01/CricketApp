@@ -17,7 +17,7 @@ function PlayMatch() {
     const [isShowMatchControls, setIsShowMatchControls] = useState(false);
     const [inningCount, setInningCount] = useState(0);
     const [currScore, setCurrScore] = useState(0);
-    const [displayScore, setDisplayScore] = useState(0);
+    const [displayScore, setDisplayScore] = useState('');
     const [overs, setOvers] = useState(0);
     const [wickets, setWickets] = useState(0);
     const [isOverCompleted, setIsOverCompleted] = useState(false);
@@ -109,6 +109,12 @@ function PlayMatch() {
             })
         }
         else {
+            currentMatchData.status = 'The match is a draw between ' + currentMatchData.teams[0] + ' and ' + currentMatchData.teams[1]
+            currentMatchData.wonBy = currentMatchData.teams[1];
+            setWinningData({
+                winningTeam: currentMatchData.teams[1],
+                winningDifference: ((currentMatchData.innings[1].battingTeam.teamPlayers.length - currentMatchData.innings[1].battingTeam.wkts - 1) + ' wickets '),
+            })
             alert('It is a draw.')
         }
         setIsMatchCompleted(true);
@@ -124,6 +130,7 @@ function PlayMatch() {
             console.log(batsman1Data);
             onStrikeValue.current = currentGoingMatch?.onStrike;
             setOnStrike(onStrikeValue.current);
+            debugger;
             setDisplayScore(currentGoingMatch.display);
 
             debugger;
@@ -283,6 +290,7 @@ function PlayMatch() {
         const matchData = JSON.parse(JSON.stringify(currentGoingMatch));
         let currentOverBalls = (matchData.innings[inningCount].bowlingTeam.currOverBalls) ? matchData.innings[inningCount].bowlingTeam.currOverBalls : [];
         let btnValue = e.target.innerText;
+        let displayValue = displayScore;
         if (btnValue !== 'WB' && btnValue !== 'NB') {
             let currentOver = 0;
             if ((overs * 10) % 10 === 5) {
@@ -309,25 +317,28 @@ function PlayMatch() {
         }
         if (btnValue === 'WB' || btnValue === 'NB') {
             let currentScore = currScore + 1;
+            displayValue = (btnValue === 'WB') ? 'Wide Ball' : 'No Ball';
             setCurrScore(currentScore)
             if (btnValue === 'WB') {
-                setDisplayScore('Wide Ball')
+                // setDisplayScore('Wide Ball' )
                 currentOverBalls.push('WB');
                 setCurrOver(currentOverBalls)
                 matchData.innings[inningCount].bowlingTeam.currBowler.WB += 1;
             }
             else {
-                setDisplayScore('No Ball')
+                // setDisplayScore('No Ball')
                 currentOverBalls.push('NB');
                 setCurrOver(currentOverBalls)
                 matchData.innings[inningCount].bowlingTeam.currBowler.NB += 1;
             }
+            setDisplayScore(displayValue);
             matchData.innings[inningCount].battingTeam.totalRuns = currentScore;
             matchData.innings[inningCount].bowlingTeam.currBowler.runsConceded = bowler.runsConceded + 1;
             matchData.innings[inningCount].bowlingTeam.currBowler.Econ = (matchData.innings[inningCount].bowlingTeam.currBowler.runsConceded * 6) / (parseInt(matchData.innings[inningCount].bowlingTeam.currBowler.oversThrown) * 6 + parseFloat(((matchData.innings[inningCount].bowlingTeam.currBowler.oversThrown % 1).toFixed(1)) * 10))
 
         }
         else if (btnValue === 'WC' || btnValue === 'DB') {
+            displayValue = (btnValue === 'WC') ? 'OUT' : 'Dead Ball';
             if (btnValue === 'WC') {
                 if (onStrike) {
                     setPlayerOut(batsman2.label)
@@ -342,7 +353,7 @@ function PlayMatch() {
                 }
                 let totalWickets = wickets + 1;
                 setWickets(totalWickets)
-                setDisplayScore('OUT')
+                // setDisplayScore('OUT')
                 currentOverBalls.push('WC');
                 setCurrOver(currentOverBalls);
                 matchData.innings[inningCount].battingTeam.wkts += 1;
@@ -397,10 +408,11 @@ function PlayMatch() {
                 }
             }
             else {
-                setDisplayScore('Dead Ball')
+                // setDisplayScore('Dead Ball')
                 currentOverBalls.push('DB');
                 setCurrOver(currentOverBalls)
             }
+            setDisplayScore(displayValue);
             setMyTeamPlayers(myTeamPlayers.filter(player => player !== playerOut));
             setRemainingTeamPlayers(myTeamPlayers.filter(player => player !== playerOut));
         }
@@ -419,7 +431,8 @@ function PlayMatch() {
             }
             debugger;
             setCurrScore(currentScore)
-            setDisplayScore(btnValue)
+            displayValue = btnValue;
+            setDisplayScore(displayValue);
             currentOverBalls.push(btnValue);
             setCurrOver(currentOverBalls)
             if (btnValue === 1 || btnValue === 3) {
@@ -520,7 +533,7 @@ function PlayMatch() {
         matchData.onStrike = onStrikeValue.current;
         debugger;
         matchData.innings[inningCount].bowlingTeam.currOverBalls = currentOverBalls;
-        matchData.display = displayScore;
+        matchData.display = displayValue;
         dispatch(updateCurrMatchData(matchData));
     }
     const handleBatsman1 = (selectedBatsman) => {
@@ -600,6 +613,7 @@ function PlayMatch() {
             UPDATE_BOWLER_DATA(inningCount, matchInfo, bowler);
             console.log(onStrikeValue);
             debugger;
+            matchInfo.display = '';
             matchInfo.onStrike = onStrikeValue.current;
             matchInfo.innings[inningCount].bowlingTeam.currOverBalls = [];
             if (matchInfo.innings[inningCount].bowlingTeam.totalOvers === undefined)
@@ -628,11 +642,11 @@ function PlayMatch() {
                         threes: 0,
                     }
                 ]
+            setDisplayScore('');
             dispatch(updateCurrMatchData(matchInfo))
             setIsPlayersSelected(true);
             setCurrOver([]);
             setIsShowBowlerModal(false);
-            setDisplayScore('');
             setBowlerNotSelectedErr('')
             overCompleted.current = false;
         }
@@ -669,6 +683,7 @@ function PlayMatch() {
             const remainingBatters = remainingBatsmans.filter(player => player !== newBatsman);
             setRemainingBatsmans(remainingBatters);
             matchInfo.innings[inningCount].battingTeam.yetToBat = remainingBatters;
+            matchInfo.display = '';
             setNewBatsman('');
             setIsShowNewBatsmanModal(false);
             dispatch(updateCurrMatchData(matchInfo))

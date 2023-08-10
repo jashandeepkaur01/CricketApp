@@ -4,6 +4,7 @@ import { battingSummaryHeading, bowlingSummaryHeading, } from 'Shared/Constants'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import person from '../../Assets/Images/person.png'
 import './style.css'
 
 function PlayerInfo() {
@@ -19,6 +20,9 @@ function PlayerInfo() {
     return (
         <div>
             <div className="container playerContainer rounded shadow border border-2 border-secondary pb-4">
+                <div className="playerImgIcon">
+                    <img src={person} alt="player icon" />
+                </div>
                 <div className="nameHeading text-center py-3">
                     <h2>{player?.Name}</h2>
                 </div>
@@ -28,7 +32,7 @@ function PlayerInfo() {
                         <p><b>JerseyNo:</b> {player?.JerseyNo}</p>
                         <div className="playerTeams">
                             <p><b>Teams: </b>
-                                <ul class="list-group float-end ms-2 list-group-horizontal">
+                                <ul className="list-group float-end ms-2 list-group-horizontal">
                                     {player?.Team.map(team => <li class="list-group-item">{team.value}</li>)}
                                 </ul>
                             </p>

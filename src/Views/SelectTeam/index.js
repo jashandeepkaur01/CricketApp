@@ -188,6 +188,7 @@ function SelectTeam() {
         matchOrganiser: playerLoggedIn.key,
         wonBy: '',
         onStrike: 0,
+        display: 0,
         team1Players: selectedTeam1Players,
         team2Players: selectedTeam2Players,
         inningCount: 0,

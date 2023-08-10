@@ -1,0 +1,29 @@
+#customBtn {
+
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 40px;
+    transition-property: background-color, border-color, color, box-shadow, filter;
+    transition-duration: .3s;
+    border: 1px solid transparent;
+    letter-spacing: 1px;
+    min-width: 105px;
+    text-transform: uppercase;
+    white-space: normal;
+    font-weight: 700;
+    text-align: center;
+    padding: 7px 28px;
+    color: #fff;
+    background-color: #22b6ec;
+    height: 38px;
+    transition: 0.2s all ease-in-out;
+
+}
+
+#customBtn:hover {
+    transform: scale(1.04);
+    background-color: #226fec;
+}

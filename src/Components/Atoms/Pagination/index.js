@@ -25,7 +25,7 @@ const Pagination = ({ showperPage, onPaginationChanges, total }) => {
   }, [counter]);
   return (
     <>
-      <div className=" d-flex justify-content-center w-100">
+      <div className=" d-flex justify-content-center w-100 mb-4">
         {counter > 1 ? (
           <button
             className="btn btn-outline-primary px-5"

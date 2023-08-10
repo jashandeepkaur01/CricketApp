@@ -3,17 +3,18 @@ export const STRINGS = {
   OFFLINE_MESSAGE:
     "You appear to be offline. Please check your internet connection.",
 };
-
-export const BASE_URL = "https://customcricketmatch-default-rtdb.firebaseio.com/";
+export const Carousel_bg_img = '../Assets/Images/helmet.jpg';
+export const BASE_URL = "https://cricheroes-312bd-default-rtdb.firebaseio.com/";
+// export const BASE_URL = "https://customcricketmatch-default-rtdb.firebaseio.com/";
 export const API = {
-  PLAYER_DATA: "playerData.json",
-  TEAM_DATA: "teamData.json",
+  PLAYER_DATA: "players.json",
+  TEAM_DATA: "teams.json",
   MATCH_DATA: "match.json",
-  UPDATE_PLAYER_DATA: "playerData/<key>.json",
+  UPDATE_PLAYER_DATA: "players/<key>.json",
   UPDATE_MATCH_DATA: "match/<key>.json",
   MATCHES: "matches.json"
 }
-export const TOTAL_OVERS = 12;
+export const TOTAL_OVERS = 6;
 export const INNING_COMPLETED = "Inning 1 is Completed....!!!";
 export const MATCH_COMPLETED = "Match is Completed...!!!";
 

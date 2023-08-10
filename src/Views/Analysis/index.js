@@ -16,7 +16,7 @@ function Analysis({ match }) {
                 <Manhattan match={match} />
                 <Worm match={match} />
             </div>
-            <Partnership match={match} />
+            {/* <Partnership match={match} /> */}
         </div>
     )
 }
